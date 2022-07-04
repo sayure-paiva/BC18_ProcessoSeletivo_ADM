@@ -1,0 +1,339 @@
+<!-- Contact Information Section Start -->
+<div class="contact-information-section section py-5">
+    <div class="container">
+        <div class="row title mx-auto">
+            <h1 class="text-center">Inscreva-se para a turma de {{ curso }}</h1>
+            <p class="text-center fs-6">Confira abaixo nosso processo seletivo para participar da formação
+                <b>{{ curso }}</b> com início em <strong> {{ detalhesDoCurso.inicio | date: 'longDate' }}</strong><br>
+                <span style="background-color: beige;" class="fw-bold">ATENÇÃO:</span> Inscrições para esta
+                turma estarão disponíveis até dia <strong>{{ detalhesDoCurso.prazoInscricao | date: 'longDate'
+                    }}</strong>.
+            </p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-12 order-md-first order-lg-last py-5">
+                <div class="contact-form">
+                    <form [formGroup]="formInscricao" (ngSubmit)="onSubmit()" id="formInscricao"
+                        class="needs-validation" novalidate>
+                        <input formControlName="curso" type="hidden" id="inputIdCurso" [value]="detalhesDoCurso.id">
+                        <div class="row max-mb-n30">
+                            <div class="col-md-4 col-12 mb-15 form-floating">
+                                <input formControlName="nomeCompleto" class="form-control" type="text"
+                                placeholder="Nome completo" required>
+                                <label for="inputNomeCompleto" class="form-label">Nome completo*</label>
+                                <div class="text-danger" *ngIf="formInscricao.controls['nomeCompleto'].invalid && (formInscricao.controls['nomeCompleto'].touched )">
+                                    {{ getErrorMessage(formInscricao.controls['nomeCompleto'].errors) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-12 mb-15 form-floating">
+                                <input formControlName="email" class="form-control" type="email" placeholder="Email" required>
+                                <label for="inputEmail" class="form-label">Email*</label>
+                                <div class="text-danger" *ngIf="formInscricao.controls['email'].invalid && (formInscricao.controls['email'].touched )">
+                                    {{ getErrorMessage(formInscricao.controls['email'].errors) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-12 mb-15 form-floating">
+                                <input id="inputCpf" mask="000.000.000-00" formControlName="cpf" class="form-control" type="text" placeholder="CPF" required >
+                                <label for="inputCpf" class="form-label">CPF*</label>
+                                <div class="text-danger" *ngIf="formInscricao.controls['cpf'].invalid && (formInscricao.controls['cpf'].touched )">
+                                    {{ getErrorMessage(formInscricao.controls['cpf'].errors) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-12 mb-15 form-floating">
+                                <input id="inputTelefone" [mask]="phoneMask(formInscricao.get('telefone').value)" class="form-control" type="text" placeholder="Telefone" formControlName="telefone" required>
+                                <label for="inputTelefone" class="form-label">Telefone*</label>
+                                <div class="text-danger" *ngIf="formInscricao.controls['telefone'].invalid && (formInscricao.controls['telefone'].touched )">
+                                    {{ getErrorMessage(formInscricao.controls['telefone'].errors) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-12 mb-15 form-floating">
+                                <input id="inputNascimento" [dropSpecialCharacters]="false" mask="00/00/0000" formControlName="dataNascimento" class="form-control" type="text" placeholder="dd/mm/aaaa" required>
+                                <label for="inputNascimento" class="form-label">Nascimento*</label>
+                                <div class="text-danger" *ngIf="formInscricao.controls['dataNascimento'].invalid && (formInscricao.controls['dataNascimento'].touched )">
+                                {{ getErrorMessage(formInscricao.controls['dataNascimento'].errors) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-12 mb-15 form-floating">
+                                <select id="inputGenero" formControlName="genero" class="form-select" required>
+                                    <option value="" disabled selected hidden>Selecione...</option>
+                                    <option *ngFor="let genero of generos" [value]="genero">{{ genero }}</option>
+                                    
+                                </select>
+                                <label for="inputGenero" class="form-label">Gênero*</label>
+                                <div class="text-danger" *ngIf="formInscricao.controls['genero'].invalid && (formInscricao.controls['genero'].touched )">
+                                {{ getErrorMessage(formInscricao.controls['genero'].errors) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-12 mb-15 form-floating">
+                                <select id="inputRacaCor" formControlName="racaOuCor" class="form-select"  required>
+                                    <option value="" disabled selected hidden>Selecione...</option>
+                                    <option *ngFor="let racaOuCor of racasOuCores" [value]="racaOuCor.value">{{ racaOuCor.viewValue }}</option>
+                                </select>
+                                <label for="inputRacaCor"  class="form-label">Raça/Cor*</label>
+                                <div class="text-danger" *ngIf="formInscricao.controls['racaOuCor'].invalid && (formInscricao.controls['racaOuCor'].touched )">
+                                {{ getErrorMessage(formInscricao.controls['racaOuCor'].errors) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-12 mb-15 form-floating">
+                                <select id="inputUf" formControlName="uf" class="form-select"  required>
+                                    <option value="" disabled selected hidden>Selecione...</option>
+                                    <option *ngFor="let uf of estadosDoBrasil" [value]="uf">{{uf}}</option>                                   
+                                </select>
+                                <label for="inputUf" class="form-label">Estado*</label>
+                                <div class="text-danger" *ngIf="formInscricao.controls['uf'].invalid && (formInscricao.controls['uf'].touched )">
+                                {{ getErrorMessage(formInscricao.controls['uf'].errors) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-12 mb-15 form-floating">
+                                <input id="inputCidade" formControlName="cidade" class="form-control" type="text" placeholder="Cidade" required>
+                                <label for="inputCidade" class="form-label">Cidade*</label>
+                                <div class="text-danger" *ngIf="formInscricao.controls['cidade'].invalid && (formInscricao.controls['cidade'].touched )">
+                                {{ getErrorMessage(formInscricao.controls['cidade'].errors) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-12 mb-15 form-floating">
+                                <select id="inputEscolaridade" formControlName="escolaridade" class="form-select"  required>
+                                    <option value="" disabled selected hidden>Selecione...</option>
+                                    <option *ngFor="let escolaridade of niveisDeEscolaridade" [value]="escolaridade">{{ escolaridade }}</option>
+                                </select>
+                                <label for="inputEscolaridade" class="form-label">Escolaridade*</label>
+                                <div class="text-danger" *ngIf="formInscricao.controls['escolaridade'].invalid && (formInscricao.controls['escolaridade'].touched )">
+                                {{ getErrorMessage(formInscricao.controls['escolaridade'].errors) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-12 mb-15 form-floating">
+                                <select id="inputAreaDeFormacao" formControlName="areaDeFormacao" class="form-select" >
+                                    <option value="" disabled selected hidden>Selecione...</option>
+                                    <option *ngFor="let area of areasDeFormacao" [value]="area">{{ area }}</option>
+                                </select>
+                                <label for="inputAreaDeFormacao" class="form-label">Área de formação</label>
+                                <div class="text-danger" *ngIf="formInscricao.controls['areaDeFormacao'].invalid && (formInscricao.controls['areaDeFormacao'].touched )">
+                                {{ getErrorMessage(formInscricao.controls['areaDeFormacao'].errors) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-12 mb-15 form-floating">
+                                <input id="inputCursoDeFormacao" formControlName="cursoDeFormacao" class="form-control" placeholder="Curso de Formação" type="text">
+                                <label for="inputCursoDeFormacao" class="form-label">Curso de Formação</label>
+                                <div class="text-danger" *ngIf="formInscricao.controls['cursoDeFormacao'].invalid && (formInscricao.controls['cursoDeFormacao'].touched )">
+                                {{ getErrorMessage(formInscricao.controls['cursoDeFormacao'].errors) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-12 mb-15 form-floating">
+                                <select id="inputComoNosConheceu" formControlName="comoNosConheceu" class="form-select" required>
+                                    <option value="" disabled selected hidden>Selecione...</option>
+                                    <option *ngFor="let meio of meiosDeContato" [value]="meio">{{ meio }}</option>
+                                </select>
+                                <label for="inputComoNosConheceu" class="form-label">Como conheceu a SoulCode?*</label>
+                                <div class="text-danger" *ngIf="formInscricao.controls['comoNosConheceu'].invalid && (formInscricao.controls['comoNosConheceu'].touched )">
+                                {{ getErrorMessage(formInscricao.controls['comoNosConheceu'].errors) }}
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="form-check">>
+                                    <input class="form-check-input" type="checkbox" id="inputTermosUso" formControlName="termos" required>
+                                    <label class="form-check-label" for="inputTermosUso" id="labelForInputTermosUso">
+                                        Declaro que li e estou de acordo com os <a
+                                            href="assets/docs/bootcamp/termos-e-condicoes-de-uso.pdf" class="link-primary"
+                                            target="_blank">Termos e
+                                            Condições De Uso</a> e
+                                        <a href="assets/docs/bootcamp/politica-de-privacidade.pdf" class="link-primary"
+                                            target="_blank">Política de
+                                            Privacidade</a> do portal da SoulCode Academy
+                                    </label>
+
+                                    <div class="text-danger" *ngIf="formInscricao.controls['termos'].invalid && (formInscricao.controls['termos'].touched )">
+                                    {{ getErrorMessage(formInscricao.controls['termos'].errors) }}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-12 my-2 text-center">
+                                <button id="buttonConfirmarInscricao" class="btn w-100 realizar-inscricao" type="submit"
+                                [disabled]="!formInscricao.valid">
+                                Realizar Inscrição</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Contact Information Section End -->
+
+<!-- Gradation Process Section End -->
+<div class="gradation-process-section section py-5 bg-lighter">
+    <div class="container">
+        <div class="section-title text-center aos-init aos-animate" data-aos="fade-up">
+            <h2 class="title">Como funciona o processo seletivo</h2>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ht-gradation style-01">
+                    <!-- Single item gradation Start -->
+                    <div class="item item-1" data-aos="fade-up">
+                        <div class="line"></div>
+                        <div class="circle-wrap">
+                            <div class="mask">
+                                <div class="wave-pulse wave-pulse-1"></div>
+                                <div class="wave-pulse wave-pulse-2"></div>
+                                <div class="wave-pulse wave-pulse-3"></div>
+                            </div>
+
+                            <h6 class="circle">1</h6>
+                        </div>
+
+                        <div class="content-wrap">
+
+                            <h5 class="heading">Inscrição</h5>
+
+                            <div class="text">Escolha um bootcamp em nosso site e preencha o formulário de
+                                inscrição para iniciar o processo seletivo.</div>
+                        </div>
+                    </div>
+                    <!-- Single item gradation End -->
+
+                    <!-- Single item gradation Start -->
+                    <div class="item item-1" data-aos="fade-up">
+                        <div class="line"></div>
+                        <div class="circle-wrap">
+                            <div class="mask">
+                                <div class="wave-pulse wave-pulse-1"></div>
+                                <div class="wave-pulse wave-pulse-2"></div>
+                                <div class="wave-pulse wave-pulse-3"></div>
+                            </div>
+
+                            <h6 class="circle">2</h6>
+                        </div>
+
+                        <div class="content-wrap">
+
+                            <h5 class="heading">Testes Online</h5>
+
+                            <div class="text">Após a incrição, você terá acesso aos testes necessários para
+                                avançar para a próxima etapa.</div>
+                        </div>
+                    </div>
+                    <!-- Single item gradation End -->
+
+                    <!-- Single item gradation Start -->
+                    <div class="item item-1" data-aos="fade-up">
+                        <div class="line"></div>
+                        <div class="circle-wrap">
+                            <div class="mask">
+                                <div class="wave-pulse wave-pulse-1"></div>
+                                <div class="wave-pulse wave-pulse-2"></div>
+                                <div class="wave-pulse wave-pulse-3"></div>
+                            </div>
+
+                            <h6 class="circle">3</h6>
+                        </div>
+
+                        <div class="content-wrap">
+
+                            <h5 class="heading">Vídeo</h5>
+
+                            <div class="text">Após ser aprovado nos testes, você enviará um vídeo curto
+                                (2min30s) com um Pitch seguindo um roteiro sugerido.
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Single item gradation End -->
+
+                    <!-- Single item gradation Start -->
+                    <div class="item item-1" data-aos="fade-up">
+                        <div class="line"></div>
+                        <div class="circle-wrap">
+                            <div class="mask">
+                                <div class="wave-pulse wave-pulse-1"></div>
+                                <div class="wave-pulse wave-pulse-2"></div>
+                                <div class="wave-pulse wave-pulse-3"></div>
+                            </div>
+
+                            <h6 class="circle">4</h6>
+                        </div>
+
+                        <div class="content-wrap">
+
+                            <h5 class="heading">Dinâmica em Grupo</h5>
+
+                            <div class="text">Nesta etapa, você participará de uma dinâmica em grupo para
+                                solucionar um desafio junto com outros candidatos.</div>
+
+                        </div>
+                    </div>
+                    <!-- Single item gradation End -->
+
+                    <!-- Single item gradation Start -->
+                    <div class="item item-1" data-aos="fade-up">
+                        <div class="line"></div>
+                        <div class="circle-wrap">
+                            <div class="mask">
+                                <div class="wave-pulse wave-pulse-1"></div>
+                                <div class="wave-pulse wave-pulse-2"></div>
+                                <div class="wave-pulse wave-pulse-3"></div>
+                            </div>
+
+                            <h6 class="circle">5</h6>
+                        </div>
+
+                        <div class="content-wrap">
+
+                            <h5 class="heading">Resultado</h5>
+
+                            <div class="text">Em até 2 dias antes do início do bootcamp, você receberá o
+                                resultado do seu processo seletivo.</div>
+
+                        </div>
+                    </div>
+                    <!-- Single item gradation End -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Gradation Process Section End -->
+
+<div class="row row-cols-lg-1 row-cols-1 max-mb-n30 w-75 mx-auto">
+
+    <!-- Course Start -->
+    <div class="col max-mb-30 aos-init aos-animate" data-aos="fade-up">
+        <div class="single-service mt-5 py-2">
+            <div class="service-content py-4 px-2">
+                <h3 class="title text-center pb-2">Para participação no curso exige-se que o(a) candidato(a):
+                </h3>
+                <ul>
+                    <li>Tenha 18 anos ou mais;</li>
+                    <li>Possua disponibilidade integral para acompanhamento do curso;</li>
+                    <li>Esteja sem emprego;</li>
+                    <li>E seja aprovado(a) no processo seletivo.</li>
+                </ul>
+                <p class="text-justify">
+                    O curso estará isento de custos, mediante cumprimento das condições de conservação da bolsa
+                    de estudos concedida, no valor de R$25.000,00, estabelecidas em contrato. Para maiores
+                    informações, contate nosso time.
+
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Course End -->
+
+</div>

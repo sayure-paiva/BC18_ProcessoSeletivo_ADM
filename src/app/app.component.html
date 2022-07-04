@@ -1,0 +1,27 @@
+<div id="page" class="section" >
+
+    <app-header *ngIf="componentName !== 'MartechAcademyComponent'"></app-header>
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+    <app-footer *ngIf="componentName !== 'MartechAcademyComponent'"></app-footer>
+
+
+</div>
+<!-- <div id="page" class="section" *ngIf="(auth.user$ | obsWithStatus | async) as status;">
+
+  <div class="m-auto d-flex align-items-center justify-content-center" style="height: 100vh;" *ngIf="status.loading">
+
+    <div style="color: #edb948" class="la-ball-scale-ripple-multiple la-3x">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <div *ngIf="!status.loading">
+    <app-header *ngIf="componentName !== 'MartechAcademyComponent'"></app-header>
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+    <app-footer *ngIf="componentName !== 'MartechAcademyComponent'"></app-footer>
+  </div>
+
+
+</div> -->

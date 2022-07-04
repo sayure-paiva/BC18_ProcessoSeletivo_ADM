@@ -1,0 +1,175 @@
+<!-- Header Section Start -->
+<div class="header-section header-sticky-bg-dark header-light sticky-header section">
+    <div class="header-inner">
+        <div class="container position-relative">
+            <div class="row justify-content-between align-items-center">
+
+                <!-- Header Logo Start -->
+                <div class="col-auto">
+                    <div class="header-logo">
+                        <a [routerLink]="['/index']">
+                            <img class="dark-logo" src="assets/images/logo/dark-logo.png" alt="SoulCode Logo">
+                            <img class="light-logo" src="assets/images/logo/light-logo.png" alt="SoulCode Logo">
+                        </a>
+                    </div>
+                </div>
+                <!-- Header Logo End -->
+
+                <!-- Header Main Menu Start -->
+                <div class="col d-none d-xl-block position-static">
+                    <nav class="site-main-menu menu-hover-1">
+                        <ul>
+                            <li class="has-children position-static">
+                                <a [routerLink]="['/bootcamp']"><span class="menu-text">Bootcamps</span></a>
+                                <span class="menu-toggle"><i class="far fa-angle-down"></i></span>
+
+                                <ul class="mega-menu">
+                                    <li class="d-flex align-items-center justify-content-center">
+                                        <ul>
+                                            <li><a [routerLink]="['/martech-academy']"><span class="menu-text">Analista
+                                                        de
+                                                        Mídia Digital e
+                                                        Performance<span class="badge">Vagas
+                                                            Abertas</span></span></a></li>
+                                            <li><a [routerLink]="['/curso-engenharia-de-dados']"><span
+                                                        class="menu-text">Engenharia de
+                                                        Dados<span class="badge">Vagas Abertas</span></span></a></li>
+                                            <li><a [routerLink]="['/curso-java-full-stack']"><span
+                                                        class="menu-text">Java
+                                                        Full Stack
+                                                        <span class="badge">Vagas Abertas</span></span></a></li>
+                                            <li><a [routerLink]="['/curso-desenvolvedor-salesforce']"><span
+                                                        class="menu-text">Desenvolvedor Salesforce<span
+                                                            class="badge">Vagas
+                                                            Abertas</span></span></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-50">
+                                        <ul>
+                                            <li>
+                                                <a [routerLink]="['/martech-academy']"><img
+                                                        src="assets/images/menu/mega-menu.jpg" width="600" height="257"
+                                                        alt="menu-image"></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/online']"><span class="menu-text">Online</span></a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/empresas']"><span class="menu-text">Para Empresas</span></a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/imprensa']"><span class="menu-text">Imprensa</span></a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/sobre-nos']"><span class="menu-text">Sobre Nós</span></a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/martech-academy']"><span class="menu-text">Martech</span></a>
+                            </li>
+                            <li class="ms-5 has-children position-absolute ja-sou-aluno">
+                                <a><span class="menu-text text-primary ">Já Sou Aluno
+                                        <i class="far fa-md fa-sign-in ms-2"></i></span></a>
+                                <ul class="sub-menu start-0">
+                                    <li><a [routerLink]="['https://soulcodeacademy.teachable.com']"><span
+                                                class="menu-text">Bootcamp</span></a>
+                                    </li>
+                                    <li><a [routerLink]="['https://soulon-soulcode.teachable.com']"><span
+                                                class="menu-text">Online</span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Header Main Menu End -->
+
+                <!-- Header Right Start -->
+                <div class="col-auto">
+                    <div class="header-right">
+                        <div class="inner">
+                            <div class="header-mobile-menu-toggle d-xl-none ml-sm-2">
+                                <button class="toggle">
+                                    <i class="icon-top"></i>
+                                    <i class="icon-middle"></i>
+                                    <i class="icon-bottom"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Header Right End -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Header Section End -->
+
+<!-- Mobile menu -->
+<div id="site-main-mobile-menu" class="site-main-mobile-menu">
+    <div class="site-main-mobile-menu-inner">
+      <div class="mobile-menu-header">
+        <div class="mobile-menu-logo">
+          <a href="index.html"><img src="assets/images/logo/dark-logo.png" alt=""></a>
+        </div>
+        <div class="mobile-menu-close">
+          <button class="toggle">
+            <i class="icon-top"></i>
+            <i class="icon-bottom"></i>
+          </button>
+        </div>
+      </div>
+      <div class="mobile-menu-content">
+        <nav class="site-mobile-menu">
+          <ul>
+            <li class="has-children position-static">
+              <a href="bootcamp"><span class="menu-text">Bootcamps</span></a>
+              <span class="menu-toggle"><i class="far fa-angle-down"></i></span>
+
+              <ul class="mega-menu">
+                <li>
+                  <ul>
+                    <li><a href="martech-academy"><span class="menu-text">Analista de Mídia Digital
+                          e Performance
+                          <span class="badge">Vagas Abertas</span></span></a></li>
+                    <li><a href="curso-engenharia-de-dados"><span class="menu-text">Engenharia de
+                          Dados</span></a></li>
+                    <li><a href="curso-java-full-stack"><span class="menu-text">Java Full Stack
+                          <span class="badge">Vagas Abertas</span></span></a></li>
+                    <li><a href="curso-desenvolvedor-salesforce"><span class="menu-text">Desenvolvedor Salesforce<span
+                            class="badge">Vagas
+                            Abertas</span></span></a></li>
+                  </ul>
+                </li>
+                <li class="menu-item-50">
+                  <ul>
+                    <li><a href="martech-academy"><img src="assets/images/menu/mega-menu.jpg" alt="menu-image"></a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="online"><span class="menu-text">Online</span></a>
+            </li>
+            <li>
+              <a href="empresas"><span class="menu-text">Para Empresas</span></a>
+            </li>
+            <li>
+              <a href="imprensa"><span class="menu-text">Imprensa</span></a>
+            </li>
+            <li class="has-children">
+              <a href="sobre-nos"><span class="menu-text">Sobre Nós</span></a>
+            </li>
+            <li class="has-children">
+              <a href="/martech-academy"><span class="menu-text">Martech Academy</span></a>
+
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+    <!-- Mobile menu end -->

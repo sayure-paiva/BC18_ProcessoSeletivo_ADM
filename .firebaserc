@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "devsoulcode": {
+      "hosting": {
+        "processo-seletivo-soulcode": [
+          "devsoulcode"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "devsoulcode"
+  }
+}

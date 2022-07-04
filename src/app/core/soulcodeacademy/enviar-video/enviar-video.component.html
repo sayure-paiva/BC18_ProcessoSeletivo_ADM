@@ -1,0 +1,138 @@
+<!-- Page Title Section Start -->
+<div class="section section-padding bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="single-service"
+                    style="padding-bottom: 30px;box-shadow: 0px 10px 15px 0px rgb(51 51 51 / 10%);">
+                    <div class="col-lg-12 px-4 py-4">
+                        <div class="about-content" style="max-width: 100%;">
+                            <span class="sub-title" style="margin-bottom: 0px;">PROCESSO SELETIVO</span>
+                            <h2 class="title fs-1">{{ curso }}<br><span></span></h2>
+                            <p>
+                                Nesta fase do processo seletivo,
+                                queremos saber mais sobre você e o que espera dessa nova etapa
+                                de
+                                vida e carreira. Para isso, solicitamos que grave um vídeo de
+                                apresentação pessoal, com <span
+                                    style="background-color: antiquewhite; font-weight:bold">
+                                    tempo máximo de 2 minutos e meio</span>, contando porque
+                                você
+                                está
+                                participando da
+                                seleção para o bootcamp {{ curso }}.
+
+
+                                No seu vídeo, gostaríamos de ouvir sobre:
+                            </p>
+                            <ul class="review-list">
+                                <li>Seu nome, idade e cidade/estado onde reside;</li>
+                                <li>O que você já estudou ligado a tecnologia nos últimos 6 meses (curso técnico, faculdade, youtube, cursos online);</li>
+                                <li>Se você tem formação universitária, concluída ou em andamento, em qual área e qual curso. Se não tiver, o que gostaria de fazer?</li>
+                                <li>Seu nível de inglês</li>
+                                <li>Considerando o curso que você se inscreveu, o que faz um desenvolvedor que trabalha na área? Descreva uma das atividades;</li>
+                                <li>Você já fez trabalhos voluntários? Cite-os;</li>
+                                <li>Quais são as comunidades de tecnologia que você participa?</li>
+                            </ul>
+                            <div
+                                style="background-color: #fef5d4; width: 100%; text-align: justify; padding: 15px 15px 15px 15px; border-left: solid thick #f1bf0a; ">
+                                <i class="fa fa-exclamation-triangle" aria-hidden="true" style="color: #f1bf0a;    font-size: 1.33333333em;
+                                            line-height: .75em;
+                                            vertical-align: -15%;"></i>
+                                <span style="font-weight: 600;">FIQUE ATENTO: </span>O tempo
+                                máximo
+                                de gravação do seu vídeo é de 2 minutos e 30 segundos.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="single-service service-bg-center"
+                    style="padding-bottom: 30px; margin: 0;background-size: cover !important;background-color: #0f637a;">
+                    <div class="col-lg-12">
+                        <div class="text-white">
+                            <h2 class="text-white mt-3">Enviar Vídeo</h2>
+                            <p>Para enviar seu vídeo, preencha o email e selecione o arquivo de vídeo.</p>
+                            <form id="formEnvio" [formGroup]="formEnvio" (ngSubmit)="onSubmit()">
+                                <input formControlName="curso" type="hidden" id="hiddenCurso" [value]="detalhesDoCurso.id">
+                                <div class="row" id="formContainer">
+                                    <div class="col-lg-12">
+                                        <div class="form-field">
+                                            <input formControlName="email" type="email" placeholder="Email" id="inputEmail"
+                                                maxlength="48" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-control my-3">
+                                            <input formControlName="file" type="file" placeholder="Arquivo*" id="inputArquivo"
+                                                hidden="" (change)="changeFile($event)" required>
+                                            <label for="inputArquivo" id="labelArquivo" class="form-control cursor-pointer"
+                                                style="width: 100%; border-radius: 3px; border: 1px solid #ffffff; color: #767676; background: #ffffff;">
+                                                <i class="fa fa-folder-open-o" aria-hidden="true"></i>
+                                                <div id="labelArquivoMessage" class="pl-5"
+                                                    style="display: inline;">
+                                                    {{ labelArquivoMessage }}</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="error-list" *ngIf="formEnvio.controls['email'].invalid">
+                                    <div *ngIf="formEnvio.controls['email'].errors.required 
+                                            && formEnvio.controls['email'].touched">
+                                        <span class="error-message">Email é obrigatório.</span>
+                                    </div>
+                                    <div *ngIf="formEnvio.controls['email'].errors.email && formEnvio.controls['email'].touched">
+                                        <span class="error-message">Email inválido.</span>
+                                    </div>
+
+                                </div>
+
+                                <button type="submit" id="buttonEnviar" class="btn btn mt-lg-4 mb-5 w-100"
+                                    style="background-color: #f8c100 ;color: #444;"[disabled]="!videoFile || !formEnvio.valid || sendButton.disabled">
+                                    <i class="fa fa-{{sendButton.icon}} fa-lg me-2" ></i>{{ sendButton.text }}</button>
+                                
+                                <p><ngb-progressbar *ngIf="progress$ | async as progress" type="warning" [value]="progress" [striped]="true" [animated]="true"><i>{{progress | number:'0.0-0'}}%</i></ngb-progressbar></p>
+                               
+                            </form>
+                            
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template
+    #idNotFound let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Erro ao enviar vídeo <span class="material-icons" style="color: red; vertical-align: middle">error</span></h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <p>O e-mail informado não está cadastrado neste processo seletivo. Caso tenha alguma dúvida, por favor, entre em contato com a SoulCode Academy para obter mais informações.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
+    </div>
+</ng-template>
+
+<ng-template
+    #videoSent let-modal>
+        <div class="modal-header">
+        <h4 class="modal-title">Confirmação de envio <span class="material-icons" style="color: green; vertical-align: middle">check</span></h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+        <p>Seu arquivo foi enviado com sucesso!</p>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
+        </div>
+</ng-template>
+
+ 
