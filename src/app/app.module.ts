@@ -18,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { StatusPipe } from './shared/pipes/status.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminModule } from './admin/admin.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AuthModule,
     CoreModule,
     BrowserAnimationsModule,
+    AdminModule
   ],
   providers: [
     ScreenTrackingService,

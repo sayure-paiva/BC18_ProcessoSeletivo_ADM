@@ -4,9 +4,9 @@
         <div class="row title mx-auto">
             <h1 class="text-center">Inscreva-se para a turma de {{ curso }}</h1>
             <p class="text-center fs-6">Confira abaixo nosso processo seletivo para participar da formação
-                <b>{{ curso }}</b> com início em <strong> {{ detalhesDoCurso.inicio | date: 'longDate' }}</strong><br>
+                <b>{{ curso }}</b> com início em <strong> {{ detalhesDoCurso.inicioInscricoes | date: 'longDate' }}</strong><br>
                 <span style="background-color: beige;" class="fw-bold">ATENÇÃO:</span> Inscrições para esta
-                turma estarão disponíveis até dia <strong>{{ detalhesDoCurso.prazoInscricao | date: 'longDate'
+                turma estarão disponíveis até dia <strong>{{ detalhesDoCurso.terminoInscricoes | date: 'longDate'
                     }}</strong>.
             </p>
         </div>
@@ -15,7 +15,7 @@
                 <div class="contact-form">
                     <form [formGroup]="formInscricao" (ngSubmit)="onSubmit()" id="formInscricao"
                         class="needs-validation" novalidate>
-                        <input formControlName="curso" type="hidden" id="inputIdCurso" [value]="detalhesDoCurso.id">
+                        <input formControlName="curso" type="hidden" id="inputIdCurso" [value]="detalhesDoCurso.idTeachable">
                         <div class="row max-mb-n30">
                             <div class="col-md-4 col-12 mb-15 form-floating">
                                 <input formControlName="nomeCompleto" class="form-control" type="text"
