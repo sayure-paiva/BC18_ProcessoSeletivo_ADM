@@ -1,0 +1,24 @@
+.formWrapper {
+    padding: 5rem;
+    width: 60%;
+    margin: 4vh auto;
+}
+
+form {
+    border: 2px solid #0f637a;
+    padding: 5vh 10vh;
+    border-radius: 3%;
+}
+
+form>input {
+    margin: 1.5vh 0;
+}
+
+.submit {
+    width: 100%;
+}
+
+.tituloForm{
+    text-align: center;
+    margin-top: 2vh;
+}

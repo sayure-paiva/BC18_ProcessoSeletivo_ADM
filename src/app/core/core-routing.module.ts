@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CreateProcessComponent } from '../admin/components/processes/create-process/create-process.component';
+import { DetailProcessComponent } from '../admin/components/processes/detail-process/detail-process.component';
+import { ListProcessesComponent } from '../admin/components/processes/list-processes/list-processes.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { IsAdminGuard } from '../shared/guards/is-admin.guard';
@@ -109,6 +112,18 @@ export const coreRoutes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'admin/processos',
+    component: ListProcessesComponent
+  },
+  {
+    path: 'admin/processos/new',
+    component: CreateProcessComponent
+  },
+  {
+    path: 'admin/processos/:id',
+    component: DetailProcessComponent
   },
   {
     path: '**',

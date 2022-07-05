@@ -1,49 +1,56 @@
+import { Processo } from "./models/processo";
+
 /**
  * @detalhesDosCursos
  * No momento, o projeto não busca as informações de processos seletivos abertos do servidor. 
  * Futuramente o administrador irá cadastrar os processos.
  * Estamos provisoriamente utilizando essa constante para obter as informações.
  */
-export const detalhesDosCursos = [
+export const detalhesDosCursos: Processo[] = [
     {
-        id: 1785292, // id do teachable
-        nome: 'Martech Academy',
         turma: 'BC31',
-        inicio: '2022-08-15',
-        prazoInscricao: '2022-08-08',
+        idTeachable: 1785292, // id do teachable
+        tipo: 'Martech Academy',
+        inicioBootcamp: '2022-08-15',
+        inicioInscricoes: '2022-07-15',
+        terminoInscricoes: '2022-08-08',
         status: 'Aberto',
         
     },
     {
-        id: 1785292,
-        nome: 'Analista Midia Digital Performance', // nome da url diferente em 'enviar video'
         turma: 'BC31',
-        inicio: '2022-08-15',
-        prazoInscricao: '2022-08-08',
+        idTeachable: 1785292,
+        tipo: 'Analista Midia Digital Performance', // tipo da url diferente em 'enviar video'
+        inicioBootcamp: '2022-08-15',
+        inicioInscricoes: '2022-07-15',
+        terminoInscricoes: '2022-08-08',
         status: 'Aberto',
     },
     {
-        id: 1788757,
-        nome: 'Desenvolvedor Salesforce',
         turma: 'BC26',
-        inicio: '2022-07-04',
-        prazoInscricao: '2022-06-22',
+        idTeachable: 1788757,
+        tipo: 'Desenvolvedor Salesforce',
+        inicioBootcamp: '2022-07-04',
+        inicioInscricoes: '2022-07-15',
+        terminoInscricoes: '2022-06-22',
         status: 'Aberto',
     },
     {
-        id: 1774608,
-        nome: 'Engenharia De Dados',
         turma: 'BC23',
-        inicio: '2022-06-23',
-        prazoInscricao: '2022-06-13',
+        idTeachable: 1774608,
+        tipo: 'Engenharia De Dados',
+        inicioBootcamp: '2022-06-23',
+        inicioInscricoes: '2022-07-15',
+        terminoInscricoes: '2022-06-13',
         status: 'Aberto',
     },
     {
-        id: 1788844,
-        nome: 'Java Full Stack',
         turma: 'BC27',
-        inicio: '2022-07-18',
-        prazoInscricao: '2022-07-08',
+        idTeachable: 1788844,
+        tipo: 'Java Full Stack',
+        inicioBootcamp: '2022-07-18',
+        inicioInscricoes: '2022-07-15',
+        terminoInscricoes: '2022-07-08',
         status: 'Aberto',
         
     }

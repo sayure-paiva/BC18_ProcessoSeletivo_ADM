@@ -10,7 +10,7 @@ import {
 } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Curso } from "src/app/shared/models/curso";
+import { Processo } from "src/app/shared/models/processo";
 import { CoursesService } from "src/app/shared/services/courses.service";
 import {
   estadosDoBrasil,
@@ -32,7 +32,7 @@ export class InscricaoComponent implements OnInit {
   curso: string = this.coursesService.formatarNomeDoCurso(
     this.route.snapshot.url.join("")
   );
-  detalhesDoCurso: Curso = this.coursesService.detalhesDoCurso(this.curso);
+  detalhesDoCurso: Processo = this.coursesService.detalhesDoCurso(this.curso);
 
   title = `Inscrição para ${this.curso} - SoulCode Academy`;
   formInscricao: UntypedFormGroup;
@@ -68,7 +68,7 @@ export class InscricaoComponent implements OnInit {
       ],
       comoNosConheceu: ["", [Validators.required]],
       cpf: ["", [Validators.required, this.validaCpf]],
-      curso: [this.detalhesDoCurso.id],
+      curso: [this.detalhesDoCurso.idTeachable],
       cursoDeFormacao: [""],
       dataInscricao: new Date(),
       email: ["", [Validators.required, Validators.email]],

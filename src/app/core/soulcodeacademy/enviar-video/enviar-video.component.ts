@@ -8,7 +8,7 @@ import { ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Observable } from "rxjs";
 import { finalize } from "rxjs/operators";
-import { Curso } from "src/app/shared/models/curso";
+import { Processo } from "src/app/shared/models/processo";
 import { CoursesService } from "src/app/shared/services/courses.service";
 
 @Component({
@@ -24,7 +24,7 @@ export class EnviarVideoComponent implements OnInit {
   curso: string = this.coursesService.formatarNomeDoCurso(
     this.route.snapshot.url.join("")
   );
-  detalhesDoCurso: Curso = this.coursesService.detalhesDoCurso(this.curso);
+  detalhesDoCurso: Processo = this.coursesService.detalhesDoCurso(this.curso);
   formEnvio: FormGroup;
 
   videoFile: File | null = null;
@@ -35,7 +35,7 @@ export class EnviarVideoComponent implements OnInit {
     text: "ENVIAR VÍDEO",
     disabled: false,
   };
-  title: string = `Enviar Vídeo ${this.detalhesDoCurso.nome} - SoulCode Academy`;
+  title: string = `Enviar Vídeo ${this.detalhesDoCurso.tipo} - SoulCode Academy`;
   constructor(
     private coursesService: CoursesService,
     private route: ActivatedRoute,
@@ -52,7 +52,7 @@ export class EnviarVideoComponent implements OnInit {
     this.titleService.setTitle(this.title);
     
     this.formEnvio = this.fb.group({
-      curso: [this.detalhesDoCurso.id, Validators.required],
+      curso: [this.detalhesDoCurso.idTeachable, Validators.required],
       email: ["", [Validators.required, Validators.email]],
       file: [""],
     });
@@ -84,7 +84,7 @@ export class EnviarVideoComponent implements OnInit {
       this.fn
         .httpsCallable("getEnrollmentId")({
           email: this.formEnvio.value.email,
-          course: this.detalhesDoCurso.id,
+          course: this.detalhesDoCurso.idTeachable,
         })
         .subscribe((enrollmentId) => {
           if (enrollmentId) {
@@ -111,7 +111,7 @@ export class EnviarVideoComponent implements OnInit {
                       this.modalService.open(this.videoSent, { centered: true });
 
                       
-                      this.createUploadAttemptSuccess(enrollmentId, this.formEnvio.value.email, this.detalhesDoCurso.id, "Arquivo enviado com sucesso pelo usuário")
+                      this.createUploadAttemptSuccess(enrollmentId, this.formEnvio.value.email, this.detalhesDoCurso.idTeachable, "Arquivo enviado com sucesso pelo usuário")
                     } else {
                       this.db.collection("Inscricao").doc(enrollmentId).update({
                         videoUrl: "",
@@ -122,7 +122,7 @@ export class EnviarVideoComponent implements OnInit {
                       this.sendButton.disabled = false;
                       this.sendButton.text = "ENVIAR VÍDEO";
                       this.sendButton.icon = "cloud-upload";
-                      this.createUploadAttemptError(enrollmentId, this.formEnvio.value.email, this.detalhesDoCurso.id, "Erro ao enviar arquivo")
+                      this.createUploadAttemptError(enrollmentId, this.formEnvio.value.email, this.detalhesDoCurso.idTeachable, "Erro ao enviar arquivo")
                     }
                   });
 

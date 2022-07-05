@@ -55,7 +55,7 @@
                             <h2 class="text-white mt-3">Enviar Vídeo</h2>
                             <p>Para enviar seu vídeo, preencha o email e selecione o arquivo de vídeo.</p>
                             <form id="formEnvio" [formGroup]="formEnvio" (ngSubmit)="onSubmit()">
-                                <input formControlName="curso" type="hidden" id="hiddenCurso" [value]="detalhesDoCurso.id">
+                                <input formControlName="curso" type="hidden" id="hiddenCurso" [value]="detalhesDoCurso.idTeachable">
                                 <div class="row" id="formContainer">
                                     <div class="col-lg-12">
                                         <div class="form-field">

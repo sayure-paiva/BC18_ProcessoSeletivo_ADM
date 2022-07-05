@@ -1,0 +1,23 @@
+<div class="formWrapper">
+    
+    <form [formGroup]="this.createProcessForm">
+        <h2 class="tituloForm">Novo Processo</h2>
+        <input [(ngModel)]="processo.turma" placeholder="Turma" formControlName="turma" type="text"
+            class="input-field col s12" />
+        <input [(ngModel)]="processo.idTeachable" placeholder="Id do Teachable" formControlName="idTeachable"
+            type="text" class="input-field col s12" />
+        <input [(ngModel)]="processo.tipo" placeholder="Tipo" formControlName="tipo" type="text"
+            class="input-field col s12" />
+        <input [(ngModel)]="processo.inicioBootcamp" placeholder="Inicio do Bootcamp" formControlName="inicioBootcamp"
+            type="text" class="input-field col s12" />
+        <input [(ngModel)]="processo.inicioInscricoes" placeholder="Início das Inscrições"
+            formControlName="inicioInscricoes" type="text" class="input-field col s12" />
+        <input [(ngModel)]="processo.terminoInscricoes" placeholder="Término das Inscrições"
+            formControlName="terminoInscricoes" type="text" class="input-field col s12" />
+        <input [(ngModel)]="processo.status" placeholder="Status" formControlName="status" type="text"
+            class="input-field col s12" />
+        <button class="btn btn-primary submit" (click)="onSubmit()">
+            Criar Processo
+        </button>
+    </form>
+</div>
