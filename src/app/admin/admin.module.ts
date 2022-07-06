@@ -7,13 +7,15 @@ import { DetailProcessComponent } from './components/processes/detail-process/de
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateProcessComponent } from './components/processes/create-process/create-process.component';
+import { ListCandidatesComponent } from './components/processes/list-candidates/list-candidates.component';
 
 
 @NgModule({
   declarations: [
     ListProcessesComponent,
     DetailProcessComponent,
-    CreateProcessComponent
+    CreateProcessComponent,
+    ListCandidatesComponent
   ],
   imports: [
     CommonModule,
