@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateProcessComponent } from '../admin/components/processes/create-process/create-process.component';
 import { DetailProcessComponent } from '../admin/components/processes/detail-process/detail-process.component';
+import { ListCandidatesComponent } from '../admin/components/processes/list-candidates/list-candidates.component';
 import { ListProcessesComponent } from '../admin/components/processes/list-processes/list-processes.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
@@ -120,6 +121,10 @@ export const coreRoutes: Routes = [
   {
     path: 'admin/processos/new',
     component: CreateProcessComponent
+  },
+  {
+    path: 'admin/processos/list-candidates',
+    component: ListCandidatesComponent
   },
   {
     path: 'admin/processos/:id',

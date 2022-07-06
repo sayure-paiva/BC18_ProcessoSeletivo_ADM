@@ -1,0 +1,133 @@
+<div id="busca">
+    <input type="text" id="txtBusca" placeholder="Buscar..">
+</div>
+<div class="container-fluid">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th scope="col"> N° </th>
+                <th scope="col">Nome</th>
+                <th scope="col">Email</th>
+                <th scope="col">Curso</th>
+                <th scope="col">Pitch</th>
+                <th scope="col">Status</th>
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-center">
+                <th scope="row"> 1 </th>
+                <td>nome</td>
+                <td>email</td>
+                <td>ID-Curso</td>
+                <td> <button class=".button" type="button" (click)="onDownload()"
+                        class="btn btn-primary-disable">Download</button>
+                </td>
+                <td>
+                   NO STATUS
+                </td>
+                <td>
+                    <button class=".button" class="btn btn-outline-primary"
+                        (click)="openObservacoes(obs)">Ações</button>
+                </td>
+
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>nome</td>
+                <td>email</td>
+                <td>ID-Curso</td>
+                <td> <button class=".button" type="button" (click)="onDownload()"
+                        class="btn btn-primary-disable">Download</button>
+                </td>
+                <td>
+                    NO STATUS
+                </td>
+                <td>
+                    <button class=".button" class="btn btn-outline-primary"
+                        (click)="openObservacoes(obs)">Ações</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>nome</td>
+                <td>email</td>
+                <td>ID-Curso</td>
+                <td> <button class=".button" type="button" (click)="onDownload()"
+                        class="btn btn-primary-disable">Download</button>
+                </td>
+                <td>
+                    NO STATUS
+                </td>
+                <td>
+                    <button class=".button" class="btn btn-outline-primary"
+                        (click)="openObservacoes(obs)">Ações</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>nome</td>
+                <td>email</td>
+                <td>ID-Curso</td>
+                <td> <button class=".button" type="button" (click)="onDownload()"
+                        class="btn btn-primary-disable">Download</button>
+                </td>
+                <td>
+                    NO STATUS
+                </td>
+                <td>
+                    <button class=".button" class="btn btn-outline-primary"
+                        (click)="openObservacoes(obs)">Ações</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">5</th>
+                <td>nome</td>
+                <td>email</td>
+                <td>ID-Curso</td>
+                <td> <button class=".button" type="button" (click)="onDownload()"
+                        class="btn btn-primary-disable">Download</button>
+                </td>
+                <td>
+                    NO STATUS
+                </td>
+                <td>
+                    <button class=".button" class="btn btn-outline-primary"
+                        (click)="openObservacoes(obs)">Ações</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">6</th>
+                <td>Gabriel Moraes Santos</td>
+                <td>biel.moraes2701@gmail.com</td>
+                <td>1798835</td>
+                <td> <button class=".button" type="button" (click)="onDownload()"
+                        class="btn btn-primary-disable">Download</button>
+                </td>
+                <td>
+                    NO STATUS
+                </td>
+                <td>
+                    <button class=".button" class="btn btn-outline-primary"
+                        (click)="openObservacoes(obs)">Ações</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!--modal-observações-->
+    <ng-template #obs let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Adicionar observação do Candidato</h4>
+            <button class=".button" type="button" class="btn-close" aria-label="Close"
+                (click)="d('Cross click')"></button>
+        </div>
+        <div class="modal-body" class="text-center">
+            <textarea name="comentario" id="" cols="30" rows="10">Adicione um comentário</textarea>
+            <input type="button" (click)="openAlertAp()" value="Aprovado">
+            {{ '' }}
+            <input type="button" (click)="openAlertRe()" value="Reprovado">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+        </div>
+    </ng-template>

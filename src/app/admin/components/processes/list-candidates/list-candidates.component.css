@@ -1,0 +1,12 @@
+.container-fluid {
+    width: 100%;
+    text-align: center;
+  }
+  .button {
+    width: 90px;
+    height: 10px;
+  }
+  .modal {
+    width: 100%;
+    text-align: center;
+  }
