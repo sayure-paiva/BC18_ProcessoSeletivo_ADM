@@ -2533,6 +2533,7 @@ input[type=url],
 input[type=password],
 input[type=search],
 input[type=number],
+input[type=date],
 input[type=tel] {
   width: 100%;
   min-height: 56px;

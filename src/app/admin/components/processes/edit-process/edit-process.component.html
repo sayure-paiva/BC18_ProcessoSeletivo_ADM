@@ -1,9 +1,9 @@
 <div class="modal-header">
-    <h2 class="modal-title tituloForm text-primary">Novo Processo</h2>
+    <h2 class="modal-title tituloForm text-primary">Editar Processo</h2>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body">
-    <form class="formCreate" [formGroup]="this.createProcessForm">
+    <form class="formCreate" [formGroup]="this.editProcessForm">
         <div class="inputWrapper">
             <label class="text-white" for="turma">Turma</label>
             <input id="turma" [(ngModel)]="processo.turma" placeholder="Digite o nome da Turma" formControlName="turma"
@@ -59,7 +59,7 @@
             <label class="text-white d-block" for="status">Status</label>
             <div class="d-flex justify-content-between">
                 <label class="labelRadio">
-                    <input type="radio" value="A Iniciar" formControlName="status">
+                    <input type="radio" value="A Iniciar" formControlName="status" >
                     <span> A Iniciar</span>
                 </label>
                 <label class="labelRadio">
@@ -74,8 +74,8 @@
         </div>
 
         <div class="submitWrapper">
-            <button class="btn btn-primary submit" (click)="onSubmit()" [disabled]="createProcessForm.invalid">
-                Criar Processo
+            <button class="btn btn-primary submit" (click)="onSubmit(processo)" [disabled]="editProcessForm.invalid">
+                Editar Processo
             </button>
         </div>
     </form>
