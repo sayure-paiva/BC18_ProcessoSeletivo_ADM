@@ -1,1 +1,132 @@
-<p>list-processes works!</p>
+<div class="superWrapper">
+    <div class="container-fluid">
+        <h2 class="titulo">Processos Seletivos</h2>
+        <div *ngIf="filterStatus('Aberto').length > 0" class="row processosAbertos">
+            <h4 class="subtitulo">Processos Abertos</h4>
+            <div class="col d-flex justify-content-center px-1" *ngFor="let processo of filterStatus('Aberto')">
+                <div class="card mb-3 mt-3" style="width: 18rem;">
+                    <div class="card-body d-flex flex-column flex-wrap justify-content-between text-white">
+                        <div class="text-center">
+                            <h5 class="card-title text-primary">{{processo.tipo}}</h5>
+                            <h6 class="card-subtitle mb-2">{{processo.turma}}</h6>
+                        </div>
+                        <div>
+                            <span style="font-size: 14px; display: block;">
+                                <i class="far fa-rocket"></i>
+                                Início do Bootcamp: {{processo.inicioBootcamp | date: 'dd/MM/yyyy'}}
+                            </span>
+                            <span style="font-size: 14px; display: block;">
+                                <i class="far fa-calendar-alt"></i>
+                                Início das Inscrições: {{processo.inicioInscricoes | date: 'dd/MM/yyyy'}}
+                            </span>
+                            <span style="font-size: 14px; display: block;">
+                                <i class="far fa-calendar-exclamation"></i>
+                                Término das Inscrições: {{processo.terminoInscricoes | date: 'dd/MM/yyyy'}}
+                            </span>
+                            <p href="#" class="card-link status">Status: <strong>{{processo.status}}</strong></p>
+                        </div>
+                        <div class="acoesWrapper">
+                            <div>
+                                <a routerLink="/admin/processos/{{processo.id}}"
+                                    class="btn btn-info btn-sm botao-detalhes-process">Detalhes</a>
+                                <div class="d-flex justify-content-between">
+                                    <a (click)="openEdit(processo)"
+                                        class="btn btn-primary btn-sm botao-editar-process">Editar</a>
+                                    <a (click)="openDelete(processo.id)"
+                                        class="btn btn-danger btn-sm botao-apagar-process">Apagar</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="filterStatus('A Iniciar').length > 0" class="row processosAIniciar">
+            <h4 class="subtitulo">Processos A Iniciar</h4>
+            <div class="col d-flex justify-content-center px-1" *ngFor="let processo of filterStatus('A Iniciar')">
+                <div class="card mb-3 mt-3" style="width: 18rem;">
+                    <div class="card-body d-flex flex-column flex-wrap justify-content-between text-white">
+                        <div class="text-center">
+                            <h5 class="card-title text-primary">{{processo.tipo}}</h5>
+                            <h6 class="card-subtitle mb-2">{{processo.turma}}</h6>
+                        </div>
+                        <div>
+                            <span style="font-size: 14px;">
+                                <i class="far fa-rocket"></i>
+                                Início do Bootcamp: {{processo.inicioBootcamp | date: 'dd/MM/yyyy'}}<p></p>
+                            </span>
+                            <span style="font-size: 14px;">
+                                <i class="far fa-calendar-alt me-2"></i>
+                                Início das Inscrições: {{processo.inicioInscricoes | date: 'dd/MM/yyyy'}}<p></p>
+                            </span>
+                            <span style="font-size: 14px;">
+                                <i class="far fa-calendar-exclamation me-2"></i>
+                                Término das Inscrições: {{processo.terminoInscricoes | date: 'dd/MM/yyyy'}}<p></p>
+                            </span>
+                            <p href="#" class="card-link status">Status: <strong>{{processo.status}}</strong></p>
+                        </div>
+                        <div class="acoesWrapper">
+                            <div>
+                                <a routerLink="/admin/processos/{{processo.id}}"
+                                    class="btn btn-info btn-sm botao-detalhes-process">Detalhes</a>
+                                <div class="d-flex justify-content-between">
+                                    <a (click)="openEdit(processo)"
+                                        class="btn btn-primary btn-sm botao-editar-process">Editar</a>
+                                    <a (click)="openDelete(processo.id)"
+                                        class="btn btn-danger btn-sm botao-apagar-process">Apagar</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="filterStatus('Fechado').length > 0" class="row processosFechados">
+            <h4 class="subtitulo">Processos Fechados</h4>
+            <div class="col d-flex justify-content-center px-1" *ngFor="let processo of filterStatus('Fechado')">
+                <div class="card mb-3 mt-3" style="width: 18rem;">
+                    <div class="card-body d-flex flex-column flex-wrap justify-content-between text-white">
+                        <div class="text-center">
+                            <h5 class="card-title text-primary">{{processo.tipo}}</h5>
+                            <h6 class="card-subtitle mb-2">{{processo.turma}}</h6>
+                        </div>
+                        <div>
+                            <span style="font-size: 14px;">
+                                <i class="far fa-rocket"></i>
+                                Início do Bootcamp: {{processo.inicioBootcamp | date: 'dd/MM/yyyy'}}<p></p>
+                            </span>
+                            <span style="font-size: 14px;">
+                                <i class="far fa-calendar-alt me-2"></i>
+                                Início das Inscrições: {{processo.inicioInscricoes | date: 'dd/MM/yyyy'}}<p></p>
+                            </span>
+                            <span style="font-size: 14px;">
+                                <i class="far fa-calendar-exclamation me-2"></i>
+                                Término das Inscrições: {{processo.terminoInscricoes | date: 'dd/MM/yyyy'}}<p></p>
+                            </span>
+                            <p href="#" class="card-link status">Status: <strong>{{processo.status}}</strong></p>
+                        </div>
+                        <div class="acoesWrapper">
+                            <div>
+                                <a routerLink="/admin/processos/{{processo.id}}"
+                                    class="btn btn-info btn-sm botao-detalhes-process">Detalhes</a>
+                                <div class="d-flex justify-content-between">
+                                    <a (click)="openEdit(processo)"
+                                        class="btn btn-primary btn-sm botao-editar-process">Editar</a>
+                                    <a (click)="openDelete(processo.id)"
+                                        class="btn btn-danger btn-sm botao-apagar-process">Apagar</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fab-wrapper">
+        <button (click)="openCreate()" class="scroll-top show botaoAdd" style="font-size: 14pt;">Add</button>
+    </div>
+</div>

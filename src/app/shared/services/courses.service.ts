@@ -13,28 +13,66 @@ export class CoursesService {
     private db: AngularFirestore
   ) { }
 
-  getProcessById(process: Processo){
+  tiposAndIdsTeachable: {tipo: string, idTeachable: number}[] = [
+    {
+      tipo: 'Java Full Stack',
+      idTeachable: 1788844
+    },
+    {
+      tipo: 'Engenharia De Dados',
+      idTeachable: 1774608
+    },
+    {
+      tipo: 'Desenvolvedor Salesforce',
+      idTeachable: 1788757
+    },
+    {
+      tipo: 'Analista Midia Digital Performance',
+      idTeachable: 1785292
+    }
+  ];
+  
 
+  getProcessById(id: string): Observable<Processo> {
+    return this.db.collection('Processos').doc(id).valueChanges() as Observable<Processo>;
   }
 
-  getAllProcesses(){
-
+  getAllProcesses(): Observable<Processo[]> {
+    return this.db.collection('Processos')
+      .valueChanges() as Observable<Processo[]>
   }
 
-  createProcess(process: Processo) {
+  getProcessesFilteredByStatus(processos: Processo[], status: string): Processo[] {
+    return processos.filter((processo) => processo.status == status);
+  }
+
+  setIdTeachable(processo: Processo): void {
+    for(let objeto of this.tiposAndIdsTeachable){
+      if(processo.tipo == objeto.tipo){
+        processo.idTeachable = objeto.idTeachable;
+      }
+    }
+  }
+
+  createProcess(process: Processo): Observable<void> {
     return from(this.db.collection('Processos').add(process)
-    .then((docRef) => {
-      docRef.update({id: docRef.id});
-    }));
+      .then((docRef) => {
+        docRef.update({ id: docRef.id });
+      }))
   }
 
-  updateProcess(id: string){
-
+  updateProcess(process: Processo): Observable<void> {
+    return from(this.db.collection('Processos').doc(process.id).update(process));
   }
 
-  deleteProcess(){
-
+  deleteProcess(id: string): Observable<void> {
+    return from(this.db.collection('Processos').doc(id).delete());
   }
+
+
+
+
+
 
   formatarNomeDoCurso(curso: string): string { // transforma a url do curso "inscricao-nome-do-curso" em "Nome Do Curso"
     return curso.replace(/-/g, ' ').replace(/\w\S*/g, (txt) => { // substitui todos os caracteres que não sejam letras ou espaços por espaços

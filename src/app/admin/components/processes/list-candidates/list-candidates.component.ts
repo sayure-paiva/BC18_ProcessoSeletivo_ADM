@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { CoursesService } from 'src/app/shared/services/courses.service';
 
 
 @Component({
@@ -12,8 +14,11 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 export class ListCandidatesComponent implements OnInit {
 
   status: boolean
+  idProcesso!: string;
 
   constructor(
+    private route: ActivatedRoute,
+    private coursesService: CoursesService,
     config: NgbModalConfig,
     private modalService: NgbModal,
     private db: AngularFirestore) {
@@ -23,9 +28,9 @@ export class ListCandidatesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.db.collection("Processos")
-      .valueChanges()
-      .subscribe(val => console.log(val));
+    const id = this.route.snapshot.params['id'];
+    this.coursesService.getProcessById(id)
+    .subscribe((processo) => this.idProcesso = processo.id);
   }
 
   onDownload() {
