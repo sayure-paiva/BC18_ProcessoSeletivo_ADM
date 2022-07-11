@@ -27,161 +27,268 @@ export const getEnrollmentId = functions.https.onCall(async (data) => {
 });
 
 exports.createUserWithEmailAndPassword = functions.https.onCall(async (data, context) => {
-    const { email, password, name, type } = data;
-    const dataInfo = { email, password, name, type };
 
-    await verfication(data, context);
-    const user = await auth.createUser({
-      email,
-      password,
-      displayName: name,
-    })
-    await setInColletion(user, dataInfo);
+  const { email, password, name, type } = data;
+  const dataInfo = { email, password, name, type };
+
+  await validateAuthorization(context)
+
+  await validateFields(data);
+
+  await createAccountInAuthentication(dataInfo);
+
 });
 
 exports.editUser = functions.https.onCall(async (data, context) => {
-  const user = await auth.getUser(data.uid);
-  const customClaims = {
-    type: [data.type],
+
+  await validateAuthorization(context);
+
+  await validateFields(data);
+
+  try {
+
+    await auth.getUser(data.uid);
+
+  } catch (err) {
+
+    throw new functions.https.HttpsError(
+      "not-found",
+      "Não foi possível encontrar o usuário pelo uid.",
+      err
+    );
+
+  }
+
+  const customClaims = { type: [data.type] };
+
+  const updatedUser = {
+    uid: data.uid,
+    email: data.email,
+    name: data.name,
+    type: data.type,
   };
 
-  await admin.auth().updateUser(user.uid, {
-    email: data.email,
-    displayName: data.name,
-  });
+  await updadeUserInAuthentication(data);
 
-  await auth.setCustomUserClaims(user.uid, customClaims);
-  const userToken =context.auth!.token.type;
-  if (userToken.toLowerCase().includes("admin")) {
-    await db
-      .collection("Super-users")
-      .doc(user.uid)
-      .set(
-        {
-          uid: data.uid,
-          email: data.email,
-          name: data.name,
-          type: data.type,
-          registeredAt: Date.now(),
-        },
-        { merge: true }
-      )
-      .then(() => {
-        console.log(
-          `User "${user.displayName}" atualizado. Custom claim adicionado: "${customClaims.type}"`
-        );
-        return {
-          uid: user.uid,
-          email: user.email,
-          name: user.displayName,
-          type: data.type,
-          registeredAt: Date.now(),
-        };
-      })
-      .catch((error) => {
-        throw new functions.https.HttpsError(
-          "internal",
-          "Erro ao editar usuário",
-          error
-        );
-      });
-  } else {
-    throw new functions.https.HttpsError(
-      "unauthenticated",
-      "Somente admins podem editar usuarios."
-    );
-  }
+  await auth.setCustomUserClaims(data.uid, customClaims);
+
+  await updateDoc(updatedUser);
+
 });
 
 exports.deleteUser = functions.https.onCall(async (data, context) => {
-  const userToken = context.auth!.token.type;
-  if (userToken.toLowerCase().includes("admin")) {
-    const user = await admin.auth().getUser(data.uid);
-    await admin.auth().deleteUser(user.uid);
-    await db
-      .collection("Super-users")
-      .doc(user.uid)
-      .delete()
-      .then(async () => {
-        console.log(`User "${user.displayName}" deleted.`);
-        const querySnapshot = await db.collection("Super-users").get();
-        const users: any[] = [];
-        querySnapshot.forEach((doc) => {
-          users.push({
-            uid: doc.id,
-            email: doc.data().email,
-            name: doc.data().name,
-            type: doc.data().type,
-          });
-        });
-        return {
-          "message": "Usuário criado"
-        }
-      })
-      .catch((error) => {
-        throw new functions.https.HttpsError(
-          "internal",
-          "Erro ao deletar usuário",
-          error
-        );
-      });
-  } else {
-    throw new functions.https.HttpsError(
-      "unauthenticated",
-      "Somente admins podem deletar users."
-    );
-  }
+
+  await validateAuthorization(context);
+
+  await deleteDoc(data);
+
 });
 
-async function verfication(data: any, context: any) {
-  const { email, password, name, type } = data;
-  const userToken = context.auth!.token.type;
 
-  if (!userToken.toLowerCase().includes("admin")) {
+// Valida se o token tem o type "Admin"
+async function validateAuthorization(context: any) {
+
+  try {
+
+    const token = context.auth!.token.type;
+
+    if (!token.includes("Admin")) {
+      throw new functions.https.HttpsError(
+        "permission-denied",
+        "Usuário não é adimistrador, somente administrador podem fazer essa solicitação!"
+      );
+
+    } 
+  }
+  catch (err) {
+
     throw new functions.https.HttpsError(
-      "unauthenticated",
-      "Somente admins podem criar users."
-    );
-  } 
-  if (email == '' || password == '') {
-    throw new functions.https.HttpsError(
-      "invalid-argument",
-      "Email e Password não podem ser nulos!"
+      "permission-denied",
+      "Token inválido!",
+      err
     );
   }
-  if (name == '' || type == '') {
+
+}
+
+// Valida se existe dados nulos
+async function validateFields(data: any) {
+
+  const { email, password, name, type } = data;
+
+  if (email == "" || password == "") {
+
     throw new functions.https.HttpsError(
       "invalid-argument",
-      "Username ou Type não podem ser nulos!"
+      "Email/password indefinidos!",
+    );
+
+  }
+
+  if (name == "" || type == "") {
+
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      "Name/type indefinidos!",
+    );
+
+  }
+
+}
+
+// Cria nova login apartir do email e senha do recebidos
+async function createAccountInAuthentication(user: any) {
+
+  try {
+
+    const userRecord = await auth.createUser({
+      email: user.email,
+      password: user.password,
+      displayName: user.name,
+  })
+
+  await setInColletion(userRecord, user);
+
+  } catch (err) {
+
+    throw new functions.https.HttpsError(
+      "internal",
+      "Email já cadastrado",
+      err
+    )
+
+  }
+
+}
+
+// Cria um novo doc no firestore database com info do user dentro da colletion
+async function setInColletion(userRecord: any, data: any) {
+
+  const user = {
+    uid: userRecord.uid,
+    email: data.email,
+    name: data.name,
+    type: data.type,
+    registeredAt: data.createdAt
+  };
+
+  const customClaims = {
+    type: [userRecord.type],
+  };
+
+  await auth.setCustomUserClaims(user.uid!, customClaims);
+
+  try {
+
+    await db
+    .collection("Super-users")
+    .doc(user.uid!)
+    .set(
+      {
+        uid: user.uid,
+        email: user.email,
+        name: user.name,
+        type: user.type,
+        registeredAt: Date.now()
+      },
+      { merge: true });
+
+      return {
+        message: "Novo usuário criado com sucesso"
+      };
+
+
+  } catch(err) {
+    await auth.deleteUser(user.uid);
+    throw new functions.https.HttpsError(
+      "unimplemented",
+      "Não possível criar documento para o usuário, uid já cadastrado.",
+      err
+    );
+
+  }
+
+}
+
+// Atualiza as informações de login no Authentication do Firebase
+async function updadeUserInAuthentication(data: any) {
+
+  try {
+
+    await auth.updateUser(data.uid, {
+        email: data.email,
+        displayName: data.name,
+    })
+
+  } catch(err) {
+
+    throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Erro ao tentar atualizar o usuário pelo uid.",
+        err
+    );
+
+  }
+}
+
+// Atualiza o doc do user com novas dados
+async function updateDoc(user: any) {
+
+  try {
+
+    await db.collection("Super-users").doc(user.uid).set(
+      {
+        uid: user.uid,
+        email: user.email,
+        name: user.name,
+        type: user.type,
+        registeredAt: Date.now(),
+      },
+      { merge: true }
+      );
+
+      console.log(`Usuario atualizado com sucesso,
+      Nome: ${user.name},
+      Type: ${user.type}`
+      );
+
+      return "Usuário atualizado com sucesso."
+
+  } catch (err) {
+
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      "Um erro aconteceu ao tentar atualizar os dados do usuário!",
+      err
     );
   }
 }
 
-async function setInColletion(userInfo: any, dataInfo: any) {
-  const user = { uid: userInfo.uid, email: dataInfo.email, name: dataInfo.name, type: dataInfo.type};
-  const customClaims = {
-    type: [userInfo.type],
-  };
-  await auth.setCustomUserClaims(user.uid, customClaims).then(() => {
-    db.collection("Super-users")
-    .doc(user.uid)
-    .set(
-      { uid: user.uid, email: user.email, name: user.name, 
-        type: user.type, registeredAt: Date.now() }, 
-      { merge: true })
-    .then(() => {
-      console.log(`User "${user.name}" criado."`);
-      return {
-        "message": "Usuário criado"
-      }
-    })
-    .catch((error) => {
-      throw new functions.https.HttpsError(
-        "internal",
-        "Erro ao criar usuário",
-        error
-      );
-    });
-  });
+// Deleta o user do Authentication e o doc do firestore database
+async function deleteDoc(data: any) {
+
+  try {
+
+    const user = await auth.getUser(data.uid);
+
+    await auth.deleteUser(user.uid);
+
+    await db.collection("Super-users").doc(user.uid).delete();
+
+    return {
+      status: 200,
+      success: true,
+      message: "Usuário deletado com sucesso."
+    }
+
+  } catch (err) {
+
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      "Não foi possível encontrar o usuário. O uid não corresponde a nenhum usuário cadastrado!",
+      err
+    );
+
+  }
 
 }
