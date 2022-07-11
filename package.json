@@ -30,6 +30,7 @@
     "firebase": "^9.8.3",
     "jquery": "^3.6.0",
     "ngx-mask": "^14.0.2",
+    "ngx-pagination": "^6.0.2",
     "ngx-slick-carousel": "^0.6.0",
     "rxjs": "~6.6.0",
     "slick-carousel": "^1.8.1",

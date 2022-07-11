@@ -19,6 +19,9 @@ import { CoreModule } from './core/core.module';
 import { StatusPipe } from './shared/pipes/status.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminModule } from './admin/admin.module';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideFirebaseApp } from '@angular/fire/app';
+import { initializeApp } from 'firebase/app';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +39,9 @@ import { AdminModule } from './admin/admin.module';
     AuthModule,
     CoreModule,
     BrowserAnimationsModule,
-    AdminModule
+    AdminModule,
+    provideFirestore(() => getFirestore()),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
   ],
   providers: [
     ScreenTrackingService,

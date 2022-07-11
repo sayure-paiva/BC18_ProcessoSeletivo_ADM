@@ -1,0 +1,57 @@
+<div class="container">
+  <div *ngIf="allBlocks$ | async as blockList">
+    <div>
+
+      <div class="table-responsive-container-fluid">
+        <h1 style="text-align: center; font-size: 24px; margin-top: 10%">LISTA DE CPFs BLOQUEADOS</h1>
+
+        <label for="typeahead-basic">Pesquisar:</label>
+        <input id="typeahead-basic" type="text" placeholder="Pesquise por: cpf, email, nome ou motivo "
+          class="form-control" [(ngModel)]="textSearch" (ngModelChange)="filtrarLista()" />
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">CPF</th>
+                <th scope="col">Email</th>
+                <th scope="col">Nome completo</th>
+                <th scope="col">Motivo</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let item of listaBlock | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                <td>{{ this.formatCpf(item.cpf) }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.nomeCompleto }}</td>
+                <td>{{ item.motivo }}</td>
+                <td><i (click)="onClickDetail(item)" class="far fa-solid fa-eye" aria-hidden="true"></i></td>
+                <td><i (click)="onClickEdit(item)" class="far fa-edit text-info" aria-hidden="true"></i></td>
+                <td><i (click)="onClickDelete(item)" class="far fa-trash-alt text-danger" aria-hidden="true"></i></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-between p-2">
+          <ngb-pagination [collectionSize]="listaBlock.length" [(page)]="page" [pageSize]="pageSize"
+            (pageChange)="refreshBlock()">
+          </ngb-pagination>
+
+          <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshBlock()">
+            <option *ngFor="let item of listPage" [ngValue]="item">
+              {{ item }} - itens por página
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fab-wrapper">
+    <button (click)="onClickAdd()" class="scroll-top show botaoAdd" style="font-size: 14pt;">Add</button>
+  </div>
+</div>

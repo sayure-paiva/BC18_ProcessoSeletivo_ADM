@@ -1,0 +1,11 @@
+.botaoAdd {
+    background-color: #ffd900;
+    color: black;
+    border: none;
+    position: fixed;
+    bottom: 130px;
+}
+
+.botaoAdd:hover {
+    background-color: #dcbb00;
+}

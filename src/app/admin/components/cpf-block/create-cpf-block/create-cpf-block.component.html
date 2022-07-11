@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <h2 class="modal-title tituloForm text-primary">Novo Cadastro</h2>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body">
+    <form class="formCreate" [formGroup]="createBlockForm">
+        <div class="inputWrapper">
+            <label class="text-white" for="cpf">CPF</label>
+            <input id="cpf" placeholder="Digite o CPF" formControlName="cpf" type="text" class="input-field col s12"
+                mask="000.000.000-99" />
+            <small class="text-danger" *ngIf="cpf?.touched && cpf?.invalid">
+                <span *ngIf="cpf?.hasError('required')">O CPF é obrigatório</span>
+            </small>
+        </div>
+
+        <div class="inputWrapper">
+            <label class="text-white" for="email">Email</label>
+            <input id="email" placeholder="Digite o email" formControlName="email" type="text"
+                class="input-field col s12" />
+            <small class="text-danger" *ngIf="email?.touched && email?.invalid">
+                <span *ngIf="email?.hasError('required')">O email é obrigatório</span>
+            </small>
+        </div>
+
+        <div class="inputWrapper">
+            <label class="text-white" for="nomeCompleto">Nome completo</label>
+            <input id="nomeCompleto" placeholder="Digite o nome completo" formControlName="nomeCompleto" type="text"
+                class="input-field col s12" />
+            <small class="text-danger" *ngIf="nomeCompleto?.touched && nomeCompleto?.invalid">
+                <span *ngIf="nomeCompleto?.hasError('required')">O nome é obrigatório</span>
+            </small>
+        </div>
+
+        <div class="inputWrapper">
+            <label class="text-white" for="motivo">Motivo</label>
+            <select id="motivo" class="form-select" formControlName="motivo">
+                <option value="" selected="true" disabled>Selecione um motivo</option>
+                <option *ngFor="let item of motivos" [ngValue]="item">
+                    {{ item }}
+                </option>
+            </select>
+            <small class="text-danger" *ngIf="motivo?.touched && motivo?.invalid">
+                <span *ngIf="motivo?.hasError('required')">O motivo é obrigatório</span>
+            </small>
+        </div>
+
+        <div class="mb-3">
+            <label class="text-white" for="comentario">Comentário</label>
+            <textarea formControlName="comentario" class="form-control" id="comentario" rows="3"
+                placeholder="Digite um comentário"></textarea>
+            <small class="text-danger" *ngIf="comentario?.touched && comentario?.invalid">
+                <span *ngIf="comentario?.hasError('required')">O comentário é obrigatório</span>
+                <span *ngIf="comentario?.hasError('minlength')">O mínimo são 5 caracteres</span>
+            </small>
+        </div>
+
+        <div class="submitWrapper">
+            <button type="button" class="btn btn-primary submit" (click)="onSubmit()"
+                [disabled]="createBlockForm.invalid">Adicionar</button>
+        </div>
+    </form>
+</div>
