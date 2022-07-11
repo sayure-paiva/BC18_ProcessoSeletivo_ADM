@@ -1,10 +1,5 @@
 <div id="page" class="section" >
-
-    <app-header *ngIf="componentName !== 'MartechAcademyComponent'"></app-header>
-    <router-outlet (activate)="onActivate($event)"></router-outlet>
-    <app-footer *ngIf="componentName !== 'MartechAcademyComponent'"></app-footer>
-
-
+    <router-outlet></router-outlet>
 </div>
 <!-- <div id="page" class="section" *ngIf="(auth.user$ | obsWithStatus | async) as status;">
 
