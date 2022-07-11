@@ -140,11 +140,11 @@ export const coreRoutes: Routes = [
         path: 'processos/:id',
         component: ListCandidatesComponent
       },
+      {
+        path: 'cpf-block',
+        component: ListCpfBlockComponent
+      },
     ]
-  },
-  {
-    path: 'admin/cpf-block',
-    component: ListCpfBlockComponent
   },
   {
     path: '**',
