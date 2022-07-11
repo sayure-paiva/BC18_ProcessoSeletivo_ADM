@@ -23658,3 +23658,10 @@ only screen and (max-width: 767px) {
 .ja-sou-aluno {
   right: 4rem;
 }
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #0f637a;
+  border-color: #0f637a;
+}

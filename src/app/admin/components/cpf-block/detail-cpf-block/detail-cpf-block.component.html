@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h2 class="modal-title tituloForm text-primary">Detalhes</h2>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body text-white m-0 text-left">
+    <b>CPF:</b> {{ this.formatCpf(dados.cpf) }} <br>
+    <b>Email:</b> {{ dados.email }} <br>
+    <b>Nome completo:</b> {{ dados.nomeCompleto }} <br>
+    <b>Motivo:</b> {{ dados.motivo }} <br>
+    <b>Comentário:</b> {{ dados.comentario }}
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary botao-cancelar"
+        (click)="activeModal.dismiss('Close click')">Fechar</button>
+</div>

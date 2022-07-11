@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CreateCpfBlockComponent } from '../admin/components/cpf-block/create-cpf-block/create-cpf-block.component';
+import { ListCpfBlockComponent } from '../admin/components/cpf-block/list-cpf-block/list-cpf-block.component';
 import { CreateProcessComponent } from '../admin/components/processes/create-process/create-process.component';
 import { ListCandidatesComponent } from '../admin/components/processes/list-candidates/list-candidates.component';
 import { ListProcessesComponent } from '../admin/components/processes/list-processes/list-processes.component';
@@ -124,6 +126,10 @@ export const coreRoutes: Routes = [
   {
     path: 'admin/processos/:id',
     component: ListCandidatesComponent
+  },
+  {
+    path: 'admin/cpf-block',
+    component: ListCpfBlockComponent
   },
   {
     path: '**',

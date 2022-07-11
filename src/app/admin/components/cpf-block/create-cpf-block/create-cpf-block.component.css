@@ -1,0 +1,44 @@
+.formCreate{
+    padding: 3vh 5rem;
+}
+
+.modal-header, .modal-body {
+    background-color: #0f637a;
+}
+
+.modal-header {
+    border: none;
+}
+
+.modal-body{
+    padding: 0;
+}
+
+.submitWrapper {
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.submit {
+    width: 100%;
+}
+
+.tituloForm{
+    text-shadow: 2px 2px 5px black;
+} */
+
+.inputWrapper {
+    margin-bottom: 1.2rem;
+}
+
+.labelRadio {
+    color: white;
+    text-shadow: 1px 1px 3px #696969;
+}
+
+.form-select {
+    color: #696969;
+}
+
