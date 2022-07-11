@@ -27,15 +27,6 @@
         </div>
 
         <div class="inputWrapper">
-            <label class="text-white" for="inicioBootcamp">Início do Bootcamp</label>
-            <input id="inicioBootcamp" [(ngModel)]="processo.inicioBootcamp" placeholder="Data de início do Bootcamp"
-                formControlName="inicioBootcamp" type="date" class="input-field col s12" />
-            <small class="text-danger" *ngIf="inicioBootcamp?.touched && inicioBootcamp?.invalid">
-                <span *ngIf="inicioBootcamp?.hasError('required')">A data de início é obrigatória</span>
-            </small>
-        </div>
-
-        <div class="inputWrapper">
             <label class="text-white" for="inicioInscricoes">Início das Inscrições</label>
             <input id="inicioInscricoes" [(ngModel)]="processo.inicioInscricoes"
                 placeholder="Data de início das Inscrições" formControlName="inicioInscricoes" type="date"
@@ -52,6 +43,15 @@
                 class="input-field col s12" />
             <small class="text-danger" *ngIf="terminoInscricoes?.touched && terminoInscricoes?.invalid">
                 <span *ngIf="terminoInscricoes?.hasError('required')">A data de término das inscrições é obrigatória</span>
+            </small>
+        </div>
+
+        <div class="inputWrapper">
+            <label class="text-white" for="inicioBootcamp">Início do Bootcamp</label>
+            <input id="inicioBootcamp" [(ngModel)]="processo.inicioBootcamp" placeholder="Data de início do Bootcamp"
+                formControlName="inicioBootcamp" type="date" class="input-field col s12" />
+            <small class="text-danger" *ngIf="inicioBootcamp?.touched && inicioBootcamp?.invalid">
+                <span *ngIf="inicioBootcamp?.hasError('required')">A data de início é obrigatória</span>
             </small>
         </div>
 

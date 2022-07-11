@@ -28,6 +28,9 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SwiperModule } from 'swiper/angular';
 import { EnviarVideoComponent } from './soulcodeacademy/enviar-video/enviar-video.component';
+import { HeaderAdminComponent } from '../shared/templates/header-admin/header-admin.component';
+import { PaginaDefaultComponent } from './soulcodeacademy/pagina-default/pagina-default.component';
+import { PaginaAdminComponent } from '../admin/components/pagina-admin/pagina-admin.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -36,6 +39,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
   declarations: [
     FooterComponent,
     HeaderComponent,
+    HeaderAdminComponent,
+    PaginaDefaultComponent,
+    PaginaAdminComponent,
     ErrorComponent,
     IndexComponent,
     BootcampComponent,
@@ -68,6 +74,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     FooterComponent,
     HeaderComponent,
     IndexComponent,
+    HeaderAdminComponent,
+    PaginaDefaultComponent,
+    PaginaAdminComponent,
     BootcampComponent,
     ConfirmacaoInscricaoComponent,
     CursoDesenvolvedorSalesforceComponent,
