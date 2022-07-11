@@ -1,0 +1,102 @@
+<div class="header-section header-sticky-bg-dark header-light sticky-header section">
+  <div class="header-inner" style="z-index: 1;">
+    <div class="container position-relative">
+      <div class="row justify-content-between align-items-center">
+
+        <!-- Header Logo Start -->
+        <div class="col-auto">
+          <div class="header-logo">
+            <!-- Quando utilizado o [routerLink]="['/index']" igual na página inicial, o menu mobile buga -->
+            <a href="/index">
+              <img class="dark-logo" src="assets/images/logo/dark-logo.png" alt="SoulCode Logo">
+              <img class="light-logo" src="assets/images/logo/light-logo.png" alt="SoulCode Logo">
+            </a>
+          </div>
+        </div>
+        <!-- Header Logo End -->
+
+        <!-- Header Main Menu Start -->
+        <div class="col d-none d-xl-block position-static">
+          <nav class="site-main-menu menu-hover-1">
+            <ul>
+              <li>
+                <a [routerLink]="'/admin/processos'"><span class="menu-text">Processos</span></a>
+              </li>
+              <li>
+                <a [routerLink]="['#']"><span class="menu-text">Testes Lógicos</span></a>
+              </li>
+              <li>
+                <a [routerLink]="['#']"><span class="menu-text">Testes Técnicos</span></a>
+              </li>
+              <li>
+                <a [routerLink]="['#']"><span class="menu-text">Lista de Bloqueio</span></a>
+              </li>
+              <li class="ms-5 position-absolute sair">
+                <a [routerLink]="['/index']"><span class="menu-text text-white ">Sair
+                    <i class="far fa-md fa-sign-in ms-2"></i></span></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <!-- Header Main Menu End -->
+
+        <!-- Header Right Start -->
+        <div class="col-auto">
+          <div class="header-right">
+            <div class="inner">
+              <div class="header-mobile-menu-toggle d-xl-none ml-sm-2">
+                <button class="toggle">
+                  <i class="icon-top"></i>
+                  <i class="icon-middle"></i>
+                  <i class="icon-bottom"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Header Right End -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Header Section End -->
+
+<!-- Mobile menu -->
+<div id="site-main-mobile-menu" class="site-main-mobile-menu">
+  <div class="site-main-mobile-menu-inner">
+    <div class="mobile-menu-header">
+      <div class="mobile-menu-logo">
+        <a href="index.html"><img src="assets/images/logo/dark-logo.png" alt=""></a>
+      </div>
+      <div class="mobile-menu-close">
+        <button class="toggle">
+          <i class="icon-top"></i>
+          <i class="icon-bottom"></i>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu-content">
+      <nav class="site-mobile-menu">
+        <ul>
+          <li>
+            <a href="/admin/processos"><span class="menu-text">Processos</span></a>
+          </li>
+          <li>
+            <a href="#"><span class="menu-text">Testes Lógicos</span></a>
+          </li>
+          <li>
+            <a href="#"><span class="menu-text">Testes Técnicos</span></a>
+          </li>
+          <li>
+            <a href="#"><span class="menu-text">Lista de Bloqueio</span></a>
+          </li>
+          <li>
+            <a href="/index"><span class="menu-text">Sair
+                <i class="far fa-md fa-sign-in ms-2"></i></span></a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
