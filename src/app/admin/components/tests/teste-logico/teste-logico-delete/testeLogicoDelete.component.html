@@ -1,0 +1,12 @@
+<div class="modal-header">
+  <h4 class="modal-title tituloForm text-primary">Deseja apagar a questão?</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body mb-0">
+  <h6 class="text-white m-0 text-center">ATENÇÃO: EXCLUSÃO PERMANENTE</h6>
+
+  <div class="d-flex justify-content-between pt-5">
+    <button type="button" class="btn btn-primary botao-cancelar" (click)="onCancel()">Não</button>
+    <button type="button" class="btn btn-outline-danger botao-apagar" (click)="modalDelete()">Sim</button>
+  </div>
+</div>

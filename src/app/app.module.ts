@@ -3,7 +3,6 @@ import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 registerLocaleData(localePt);
 import { BrowserModule, Title } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -18,10 +17,10 @@ import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { StatusPipe } from './shared/pipes/status.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AdminModule } from './admin/admin.module';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideFirebaseApp } from '@angular/fire/app';
 import { initializeApp } from 'firebase/app';
+import { AdminModule } from './admin/admin.module';
 @NgModule({
   declarations: [
     AppComponent,
