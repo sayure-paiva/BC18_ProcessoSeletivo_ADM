@@ -1,3 +1,4 @@
+import { TesteLogicoEditComponent } from '../admin/components/tests/teste-logico/teste-logico-edit/teste-logico-edit.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateCpfBlockComponent } from '../admin/components/cpf-block/create-cpf-block/create-cpf-block.component';
@@ -26,6 +27,7 @@ import { MartechAcademyComponent } from './soulcodeacademy/martech-academy/marte
 import { PoliticaPrivacidadeComponent } from './soulcodeacademy/politica-privacidade/politica-privacidade.component';
 import { SobreNosComponent } from './soulcodeacademy/sobre-nos/sobre-nos.component';
 import { TermosDeUsoComponent } from './soulcodeacademy/termos-de-uso/termos-de-uso.component';
+import { TesteLogicoListComponent } from '../admin/components/tests/teste-logico/teste-logico-list/teste-logico-list.component';
 
 export const coreRoutes: Routes = [
   {
@@ -143,6 +145,14 @@ export const coreRoutes: Routes = [
       {
         path: 'cpf-block',
         component: ListCpfBlockComponent
+      },
+      {
+        path: 'teste-logico',
+        component: TesteLogicoListComponent,
+      },
+      {
+        path: 'teste-logico/edit/:id',
+        component: TesteLogicoEditComponent,
       },
     ]
   },

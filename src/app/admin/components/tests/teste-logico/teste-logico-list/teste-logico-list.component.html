@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="table-responsive-container-fluid">
+    <h1 style="text-align: center; font-size: 24px; margin-top: 10%">LISTA DE TESTE LÓGICO</h1>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Questões</th>
+            <th scope="col">Alternativas</th>
+            <th scope="col">Respostas Corretas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let quest of allTeste  | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ">
+            <td>{{ellipsis(quest.question)}}</td>
+            <td>{{ellipsis(quest.alternatives.toString())}}</td>
+            <td>{{ellipsis(quest.answers.toString())}}</td>
+            <td><i (click)="onClickDetail(quest)" class="far fa-solid fa-eye" aria-hidden="true"></i></td>
+            <td><i (click)="openEdit(quest)" class="far fa-edit text-info"></i></td>
+            <td><i (click)="deleteTeste(quest.id)" class="far fa-trash-alt text-danger"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-between p-2">
+      <ngb-pagination [collectionSize]="allTeste.length" [(page)]="page" [pageSize]="pageSize"
+        (pageChange)="refreshBlock()">
+      </ngb-pagination>
+      <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshBlock()">
+        <option *ngFor="let item of listPage" [ngValue]="item">
+          {{ item }} - itens por página
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="fab-wrapper">
+  <button (click)="openCreate()" class="scroll-top show botaoAdd" style="font-size: 28pt; padding-top: 3px;">+</button>
+</div>

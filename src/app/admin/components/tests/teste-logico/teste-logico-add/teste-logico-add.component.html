@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h2 class="modal-title tituloForm text-primary">Questionário de Lógica</h2>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="addTesteForm" class="formCreate">
+        <div class="inputWrapper">
+            <label class="text-white" for="question">Questão</label>
+            <textarea type="text" class="form-control" [(ngModel)]="teste.question"
+                placeholder="Digite a pergunta para seu candidato" formControlName="question" required id="question">
+            </textarea>
+            </div>
+        <div class="inputWrapper">
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" [value]="teste.alternatives[0]"
+                        (change)="onCheckChange($event)" aria-label="Checkbox for following text input">
+                </div>
+                <textarea type="text" class="form-control" aria-label="Text input with checkbox"
+                    formControlName="alternatives1" [(ngModel)]="teste.alternatives[0]" placeholder="Alternativa A">
+                </textarea>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" [value]="teste.alternatives[1]"
+                        (change)="onCheckChange($event)" aria-label="Checkbox for following text input">
+                </div>
+                <textarea type="text" class="form-control" aria-label="Text input with checkbox"
+                    formControlName="alternatives2" [(ngModel)]="teste.alternatives[1]" placeholder="Alternativa B">
+                </textarea>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" [value]="teste.alternatives[2]"
+                        (change)="onCheckChange($event)" aria-label="Checkbox for following text input">
+                </div>
+                <textarea type="text" class="form-control" aria-label="Text input with checkbox"
+                    formControlName="alternatives3" [(ngModel)]="teste.alternatives[2]" placeholder="Alternativa C">
+                </textarea>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" [value]="teste.alternatives[3]"
+                        (change)="onCheckChange($event)" aria-label="Checkbox for following text input">
+                </div>
+                <textarea type="text" class="form-control" aria-label="Text input with checkbox"
+                    formControlName="alternatives4" [(ngModel)]="teste.alternatives[3]" placeholder="Alternativa D">
+                </textarea>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" [value]="teste.alternatives[4]"
+                        (change)="onCheckChange($event)" aria-label="Checkbox for following text input">
+                </div>
+                <textarea type="text" class="form-control" aria-label="Text input with checkbox"
+                    formControlName="alternatives5" [(ngModel)]="teste.alternatives[4]" placeholder="Alternativa E">
+                </textarea>
+            </div>
+        </div>
+        <div class="submitWrapper">
+            <button type="submit" class="btn btn-primary submit" (click)="agregar()" value="Agregar"
+                [disabled]="addTesteForm.invalid">Agregar</button>
+        </div>
+    </form>
+</div>

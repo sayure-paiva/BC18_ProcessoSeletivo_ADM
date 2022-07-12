@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AdminRoutingModule } from './admin-routing.module';
 import { ListProcessesComponent } from './components/processes/list-processes/list-processes.component';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
@@ -17,6 +16,9 @@ import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DetailCpfBlockComponent } from './components/cpf-block/detail-cpf-block/detail-cpf-block.component';
+import { TesteLogicoAddComponent } from './components/tests/teste-logico/teste-logico-add/teste-logico-add.component';
+import { TesteLogicoEditComponent } from './components/tests/teste-logico/teste-logico-edit/teste-logico-edit.component';
+import { TesteLogicoListComponent } from './components/tests/teste-logico/teste-logico-list/teste-logico-list.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -34,7 +36,10 @@ const maskConfig: Partial<IConfig> = {
     UpdateCpfBlockComponent,
     ListCpfBlockComponent,
     DeleteCpfBlockComponent,
-    DetailCpfBlockComponent
+    DetailCpfBlockComponent,
+    TesteLogicoAddComponent,
+    TesteLogicoEditComponent,
+    TesteLogicoListComponent
   ],
   imports: [
     HotToastModule.forRoot({
@@ -43,11 +48,11 @@ const maskConfig: Partial<IConfig> = {
     CommonModule,
     AdminRoutingModule,
     AngularFirestoreModule,
-    ReactiveFormsModule,
     NgxMaskModule.forRoot(maskConfig),
     NgbModule,
     NgxPaginationModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

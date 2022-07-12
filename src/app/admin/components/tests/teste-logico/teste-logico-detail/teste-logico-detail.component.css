@@ -1,0 +1,14 @@
+.modal-header, .modal-body, .modal-footer {
+    background-color: #0f637a;
+}
+.modal-header {
+    border: none;
+}
+
+.btn {
+    height: 3rem;
+}
+
+.botao-cancelar {
+    width: 47%;
+}
