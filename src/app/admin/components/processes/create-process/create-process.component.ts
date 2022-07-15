@@ -19,19 +19,25 @@ export class CreateProcessComponent implements OnInit {
     private toast: HotToastService
   ) { }
 
+  processosAtivos: Processo[] = [];
   processo: Processo = {} as Processo;
   tipos: string[] = [];
+  currentDate: Date = new Date();
+
+  formatDate(stringDate: string) {
+    var parts = stringDate.split('-');
+    return new Date(+parts[0], +parts[1] - 1, +parts[2]);
+  }
 
   createProcessForm = this.fb.group({
     turma: ['', [Validators.required]],
     tipo: ['', [Validators.required]],
     inicioBootcamp: ['', [Validators.required]],
     inicioInscricoes: ['', [Validators.required]],
-    terminoInscricoes: ['', [Validators.required]],
-    status: ['', [Validators.required]],
+    terminoInscricoes: ['', [Validators.required]]
   });
 
-  //#region Getters e Setters Form
+  //#region Getters
   get turma() {
     return this.createProcessForm.get('turma');
   }
@@ -47,15 +53,31 @@ export class CreateProcessComponent implements OnInit {
   get terminoInscricoes() {
     return this.createProcessForm.get('terminoInscricoes');
   }
-  get status() {
-    return this.createProcessForm.get('status');
-  }
   //#endregion
 
+
+
+  returnIfAnotherProcessIsActive() {
+        return (this.coursesService.verififyIfAnotherProcessHasSameType(this.processosAtivos, this.tipo.value)) &&
+        (this.formatDate(this.inicioInscricoes.value).setHours(0, 0, 0, 0) <= this.currentDate.setHours(0, 0, 0, 0)) &&
+        (this.formatDate(this.terminoInscricoes.value).setHours(0, 0, 0, 0) > this.currentDate.setHours(0, 0, 0, 0))
+  }
+
   onSubmit() {
-    this.processo.tipo = this.tipo.value;
-    this.processo.status = this.status.value;
-    this.coursesService.setIdTeachable(this.processo);
+    const inicioBootcamp = this.formatDate(this.inicioBootcamp.value);
+    const inicioInscricoes = this.formatDate(this.inicioInscricoes.value);
+    const terminoInscricoes = this.formatDate(this.terminoInscricoes.value);
+
+    this.processo = {
+      turma: this.processo.turma,
+      idTeachable: this.coursesService.returnIdTeachable(this.tipo.value),
+      tipo: this.tipo.value,
+      inicioBootcamp: inicioBootcamp,
+      inicioInscricoes: inicioInscricoes,
+      terminoInscricoes: terminoInscricoes,
+      status: this.coursesService.returnProcessStatusBasedOnDate(inicioInscricoes, terminoInscricoes),
+    }
+
     this.coursesService.createProcess(this.processo)
       .pipe(
         this.toast.observe({
@@ -70,10 +92,12 @@ export class CreateProcessComponent implements OnInit {
           this.activeModal.dismiss('Cross click');
         }
       })
+
   }
 
   ngOnInit(): void {
     this.coursesService.tiposAndIdsTeachable.forEach((objeto) => this.tipos.push(objeto.tipo));
+    this.coursesService.getProcessesFilteredByStatus('Ativo')
+      .subscribe((processosAtivosFirestore) => this.processosAtivos = processosAtivosFirestore);
   }
-
 }

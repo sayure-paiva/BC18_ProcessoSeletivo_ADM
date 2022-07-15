@@ -60,10 +60,6 @@
         width: 1200px;
         margin: 0 auto;
     }
-
-    .btn {
-        height: 4vh;
-    }
 }
 
 @media (min-width: 2000px) {

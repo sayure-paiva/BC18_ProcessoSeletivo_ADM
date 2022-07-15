@@ -3,8 +3,8 @@ export interface Processo {
     turma: string;
     idTeachable: number;
     tipo: string;
-    inicioBootcamp: string;
-    inicioInscricoes: string;
-    terminoInscricoes: string;
+    inicioBootcamp: Date;
+    inicioInscricoes: Date;
+    terminoInscricoes: Date;
     status: string;
 }

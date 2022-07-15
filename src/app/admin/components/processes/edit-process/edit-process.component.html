@@ -5,8 +5,8 @@
 <div class="modal-body">
     <form class="formCreate" [formGroup]="this.editProcessForm">
         <div class="inputWrapper">
-            <label class="text-white" for="turma">Turma</label>
-            <input id="turma" [(ngModel)]="processo.turma" placeholder="Digite o nome da Turma" formControlName="turma"
+            <label class="text-white" for="turma">Número do Bootcamp</label>
+            <input id="turma" [(ngModel)]="processo.turma" placeholder="Digite o número do BC" formControlName="turma"
                 type="text" class="input-field col s12" />
             <small class="text-danger" *ngIf="turma?.touched && turma?.invalid">
                 <span *ngIf="turma?.hasError('required')">A turma é obrigatória</span>
@@ -27,18 +27,19 @@
         </div>
 
         <div class="inputWrapper">
-            <label class="text-white" for="inicioInscricoes">Início das Inscrições</label>
-            <input id="inicioInscricoes" [(ngModel)]="processo.inicioInscricoes"
+            <label class="text-white" for="inicioInscricoes">Abertura das Inscrições</label>
+            <input id="inicioInscricoes"
                 placeholder="Data de início das Inscrições" formControlName="inicioInscricoes" type="date"
                 class="input-field col s12" />
-            <small class="text-danger" *ngIf="inicioInscricoes?.touched && inicioInscricoes?.invalid">
-                <span *ngIf="inicioInscricoes?.hasError('required')">A data de término é obrigatória</span>
-            </small>
+                <small class="text-danger" *ngIf="inicioInscricoes?.touched && inicioInscricoes?.invalid || returnIfAnotherProcessIsActive()">
+                    <span *ngIf="inicioInscricoes?.hasError('required')">A data de término é obrigatória</span>
+                    <span *ngIf="returnIfAnotherProcessIsActive()">Já existe outro processo ativo do tipo {{this.tipo.value}}</span>
+                </small>
         </div>
 
         <div class="inputWrapper">
             <label class="text-white" for="terminoInscricoes">Término das Inscrições</label>
-            <input id="terminoInscricoes" [(ngModel)]="processo.terminoInscricoes"
+            <input id="terminoInscricoes"
                 placeholder="Data de término das Inscrições" formControlName="terminoInscricoes" type="date"
                 class="input-field col s12" />
             <small class="text-danger" *ngIf="terminoInscricoes?.touched && terminoInscricoes?.invalid">
@@ -48,33 +49,15 @@
 
         <div class="inputWrapper">
             <label class="text-white" for="inicioBootcamp">Início do Bootcamp</label>
-            <input id="inicioBootcamp" [(ngModel)]="processo.inicioBootcamp" placeholder="Data de início do Bootcamp"
+            <input id="inicioBootcamp" placeholder="Data de início do Bootcamp"
                 formControlName="inicioBootcamp" type="date" class="input-field col s12" />
             <small class="text-danger" *ngIf="inicioBootcamp?.touched && inicioBootcamp?.invalid">
                 <span *ngIf="inicioBootcamp?.hasError('required')">A data de início é obrigatória</span>
             </small>
         </div>
 
-        <div class="inputWrapper">
-            <label class="text-white d-block" for="status">Status</label>
-            <div class="d-flex justify-content-between">
-                <label class="labelRadio">
-                    <input type="radio" value="A Iniciar" formControlName="status" >
-                    <span> A Iniciar</span>
-                </label>
-                <label class="labelRadio">
-                    <input type="radio" value="Aberto" formControlName="status">
-                    <span> Aberto</span>
-                </label>
-                <label class="labelRadio">
-                    <input type="radio" value="Fechado" formControlName="status">
-                    <span> Fechado</span>
-                </label>
-            </div>
-        </div>
-
         <div class="submitWrapper">
-            <button class="btn btn-primary submit" (click)="onSubmit(processo)" [disabled]="editProcessForm.invalid">
+            <button class="btn btn-primary submit" (click)="onSubmit()" [disabled]="editProcessForm.invalid || returnIfAnotherProcessIsActive()">
                 Editar Processo
             </button>
         </div>

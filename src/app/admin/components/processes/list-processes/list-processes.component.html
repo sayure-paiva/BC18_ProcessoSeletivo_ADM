@@ -1,9 +1,9 @@
 <div class="superWrapper">
     <div class="container-fluid">
         <h2 class="titulo">Processos Seletivos</h2>
-        <div *ngIf="filterStatus('Aberto').length > 0" class="row processosAbertos">
-            <h4 class="subtitulo">Processos Abertos</h4>
-            <div class="col d-flex justify-content-center px-1" *ngFor="let processo of filterStatus('Aberto')">
+        <div *ngIf="processosAtivos.length > 0" class="row processosAbertos">
+            <h4 class="subtitulo">Processos Ativos</h4>
+            <div class="col d-flex justify-content-center px-1" *ngFor="let processo of processosAtivos">
                 <div class="card mb-3 mt-3" style="width: 18rem;">
                     <div class="card-body d-flex flex-column flex-wrap justify-content-between text-white">
                         <div class="text-center">
@@ -13,7 +13,7 @@
                         <div>
                             <span style="font-size: 14px; display: block;">
                                 <i class="far fa-calendar-alt"></i>
-                                Início das Inscrições: {{processo.inicioInscricoes | date: 'dd/MM/yyyy'}}
+                                Abertura das Inscrições: {{processo.inicioInscricoes | date: 'dd/MM/yyyy'}}
                             </span>
                             <span style="font-size: 14px; display: block;">
                                 <i class="far fa-calendar-exclamation"></i>
@@ -28,7 +28,7 @@
                         <div class="acoesWrapper">
                             <div>
                                 <a routerLink="/admin/processos/{{processo.id}}"
-                                    class="btn btn-info btn-sm botao-detalhes-process">Detalhes</a>
+                                    class="btn btn-info btn-sm botao-detalhes-process">Inscritos</a>
                                 <div class="d-flex justify-content-between">
                                     <a (click)="openEdit(processo)"
                                         class="btn btn-primary btn-sm botao-editar-process">Editar</a>
@@ -42,9 +42,9 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="filterStatus('A Iniciar').length > 0" class="row processosAIniciar">
-            <h4 class="subtitulo">Processos A Iniciar</h4>
-            <div class="col d-flex justify-content-center px-1" *ngFor="let processo of filterStatus('A Iniciar')">
+        <div *ngIf="processosAguardandoInicio.length > 0" class="row processosAIniciar">
+            <h4 class="subtitulo">Processos Aguardando Início</h4>
+            <div class="col d-flex justify-content-center px-1" *ngFor="let processo of processosAguardandoInicio">
                 <div class="card mb-3 mt-3" style="width: 18rem;">
                     <div class="card-body d-flex flex-column flex-wrap justify-content-between text-white">
                         <div class="text-center">
@@ -54,7 +54,7 @@
                         <div>
                             <span style="font-size: 14px;">
                                 <i class="far fa-calendar-alt me-2"></i>
-                                Início das Inscrições: {{processo.inicioInscricoes | date: 'dd/MM/yyyy'}}<p></p>
+                                Abertura das Inscrições: {{processo.inicioInscricoes | date: 'dd/MM/yyyy'}}<p></p>
                             </span>
                             <span style="font-size: 14px;">
                                 <i class="far fa-calendar-exclamation me-2"></i>
@@ -69,7 +69,7 @@
                         <div class="acoesWrapper">
                             <div>
                                 <a routerLink="/admin/processos/{{processo.id}}"
-                                    class="btn btn-info btn-sm botao-detalhes-process">Detalhes</a>
+                                    class="btn btn-info btn-sm botao-detalhes-process">Inscritos</a>
                                 <div class="d-flex justify-content-between">
                                     <a (click)="openEdit(processo)"
                                         class="btn btn-primary btn-sm botao-editar-process">Editar</a>
@@ -85,7 +85,12 @@
         </div>
     </div>
 
+    <div class="text-center">
+        <div class="spinner-border" role="status" *ngIf="loading">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <div class="fab-wrapper">
-        <button (click)="openCreate()" class="scroll-top show botaoAdd" style="font-size: 14pt;">Add</button>
+        <button (click)="openCreateOptions()" class="scroll-top show botaoAdd" style="font-size: 28pt; padding-top: 3px;">+</button>
     </div>
 </div>

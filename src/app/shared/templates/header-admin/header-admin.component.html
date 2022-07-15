@@ -19,9 +19,20 @@
         <div class="col d-none d-xl-block position-static">
           <nav class="site-main-menu menu-hover-1">
             <ul>
-              <li>
-                <a [routerLink]="'/admin/processos'"><span class="menu-text">Processos</span></a>
+              <li class="has-children position-static">
+                <a [routerLink]="'/admin/processos'"><span class="menu-text">Processos Seletivos</span></a>
+                <span class="menu-toggle"><i class="far fa-angle-down"></i></span>
+
+                <ul class="mega-menu" style="width: 465px;">
+                  <li>
+                    <ul >
+                      <li style="width: 400px; text-align: center;"><a  [routerLink]="'/admin/processos'">Processos Aguardando Início e Ativos</a></li>
+                      <li style="width: 400px; text-align: center;"><a  [routerLink]="['#']">Histórico de Processos</a></li>
+                    </ul>
+                  </li>
+                </ul>
               </li>
+          
               <li>
                 <a [routerLink]="'/admin/teste-logico'"><span class="menu-text">Testes Lógicos</span></a>
               </li>
@@ -79,8 +90,18 @@
     <div class="mobile-menu-content">
       <nav class="site-mobile-menu">
         <ul>
-          <li>
-            <a href="/admin/processos"><span class="menu-text">Processos</span></a>
+          <li class="has-children position-static">
+            <a href="/admin/processos"><span class="menu-text">Processos Seletivos</span></a>
+            <span class="menu-toggle"><i class="far fa-angle-down"></i></span>
+
+            <ul class="mega-menu">
+              <li>
+                <ul>
+                  <li><a href="/admin/processos"><span class="menu-text">Processos Aguardando Início e Ativos</span></a></li>
+                  <li><a href="#"><span class="menu-text">Histórico de Processos</span></a></li>
+                </ul>
+              </li>
+            </ul>
           </li>
           <li>
             <a href="/admin/teste-logico"><span class="menu-text">Testes Lógicos</span></a>
