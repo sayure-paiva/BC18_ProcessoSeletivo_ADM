@@ -19,6 +19,7 @@ import { DetailCpfBlockComponent } from './components/cpf-block/detail-cpf-block
 import { TesteLogicoAddComponent } from './components/tests/teste-logico/teste-logico-add/teste-logico-add.component';
 import { TesteLogicoEditComponent } from './components/tests/teste-logico/teste-logico-edit/teste-logico-edit.component';
 import { TesteLogicoListComponent } from './components/tests/teste-logico/teste-logico-list/teste-logico-list.component';
+import { OrderModule } from 'ngx-order-pipe';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -52,7 +53,8 @@ const maskConfig: Partial<IConfig> = {
     NgbModule,
     NgxPaginationModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OrderModule
   ]
 })
 export class AdminModule { }

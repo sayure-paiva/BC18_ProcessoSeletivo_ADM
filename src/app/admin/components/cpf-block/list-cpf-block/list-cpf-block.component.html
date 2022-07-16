@@ -3,7 +3,7 @@
     <div>
 
       <div class="table-responsive-container-fluid">
-        <h1 style="text-align: center; font-size: 24px; margin-top: 10%">LISTA DE CPFs BLOQUEADOS</h1>
+        <h1 style="text-align: center; font-size: 24px; margin-top: 10%">Candidatos Bloqueados</h1>
 
         <label for="typeahead-basic">Pesquisar:</label>
         <input id="typeahead-basic" type="text" placeholder="Pesquise por: cpf, email, nome ou motivo "
@@ -12,18 +12,25 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">CPF</th>
-                <th scope="col">Email</th>
-                <th scope="col">Nome completo</th>
-                <th scope="col">Motivo</th>
+                <th [class.active]="order === 'cpf'" (click)="setOrder('cpf')">CPF
+                  <span style="cursor: pointer" [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+                </th>
+                <th [class.active]="order === 'email'" (click)="setOrder('email')">Email
+                  <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+                </th>
+                <th [class.active]="order === 'nomeCompleto'" (click)="setOrder('nomeCompleto')">Nome completo
+                  <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+                </th>
+                <th [class.active]="order === 'motivo'" (click)="setOrder('motivo')">Motivo
+                  <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+                </th>
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
-
-              <tr *ngFor="let item of listaBlock | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+              <tr *ngFor="let item of listaBlock | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | orderBy: order:reverse:caseInsensitive">
                 <td>{{ this.formatCpf(item.cpf) }}</td>
                 <td>{{ item.email }}</td>
                 <td>{{ item.nomeCompleto }}</td>
@@ -32,7 +39,6 @@
                 <td><i (click)="onClickEdit(item)" class="far fa-edit text-info" aria-hidden="true"></i></td>
                 <td><i (click)="onClickDelete(item)" class="far fa-trash-alt text-danger" aria-hidden="true"></i></td>
               </tr>
-
             </tbody>
           </table>
         </div>
@@ -51,7 +57,14 @@
     </div>
   </div>
 
-  <div class="fab-wrapper">
-    <button (click)="onClickAdd()" class="scroll-top show botaoAdd" style="font-size: 14pt;">Add</button>
+  <div class="text-center">
+    <div class="spinner-border" role="status" *ngIf="loading">
+      <span class="sr-only">Loading...</span>
+    </div>
   </div>
+
+  <div class="fab-wrapper">
+    <button (click)="onClickAdd()" class="scroll-top show botaoAdd" style="font-size: 28pt; padding-top: 3px;">+</button>
+  </div>
+
 </div>

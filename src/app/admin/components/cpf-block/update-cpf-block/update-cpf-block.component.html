@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h2 class="modal-title tituloForm text-primary">Alterar Dados</h2>
+  <h2 class="modal-title tituloForm text-primary">Alterar dados</h2>
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 
@@ -7,7 +7,7 @@
   <form class="formCreate" [formGroup]="updateBlockForm">
     <div class="inputWrapper">
       <label class="text-white" for="cpf">CPF</label>
-      <input id="cpf" [(ngModel)]="block.cpf" placeholder="Digite o CPF" formControlName="cpf" type="text"
+      <input id="cpf"  placeholder="Digite o CPF" formControlName="cpf" type="text"
         class="input-field col s12" mask="000.000.000-99" />
       <small class="text-danger" *ngIf="cpf?.touched && cpf?.invalid">
         <span *ngIf="cpf?.hasError('required')">O CPF é obrigatório</span>
@@ -27,6 +27,7 @@
         formControlName="nomeCompleto" type="text" class="input-field col s12" />
       <small class="text-danger" *ngIf="nomeCompleto?.touched && nomeCompleto?.invalid">
         <span *ngIf="nomeCompleto?.hasError('required')">O nome é obrigatório</span>
+        <span *ngIf="nomeCompleto?.hasError('minlength')">O mínimo são 5 caracteres</span>
       </small>
     </div>
 

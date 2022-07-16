@@ -9,3 +9,11 @@
 .botaoAdd:hover {
     background-color: #dcbb00;
 }
+
+/* .thead {
+  cursor: pointer;
+} */
+
+.spinner-border {
+  margin-top: 10%;
+}

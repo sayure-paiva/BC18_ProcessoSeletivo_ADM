@@ -15,8 +15,7 @@ export class DetailCpfBlockComponent implements OnInit {
 
   block: Block = {} as Block
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   formatCpf(value:string){
     if (value.length === 11) {

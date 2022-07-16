@@ -1,13 +1,14 @@
+import { Block } from './../../../../shared/models/cpf-block/block';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
-import { Block } from 'src/app/shared/models/cpf-block/block';
 import { CpfBlockService } from 'src/app/shared/services/cpf-block.service';
 import { CreateCpfBlockComponent } from '../create-cpf-block/create-cpf-block.component';
 import { DeleteCpfBlockComponent } from '../delete-cpf-block/delete-cpf-block.component';
 import { UpdateCpfBlockComponent } from '../update-cpf-block/update-cpf-block.component';
 import { HotToastService } from '@ngneat/hot-toast';
 import { DetailCpfBlockComponent } from '../detail-cpf-block/detail-cpf-block.component';
+import { OrderPipe } from 'ngx-order-pipe';
 
 @Component({
   selector: 'app-list-cpf-block',
@@ -23,25 +24,26 @@ export class ListCpfBlockComponent implements OnInit {
   public listaBlock: Block[] = [];
   public listaBlockResponse: Block[] = [];
   public textSearch: any;
+  order: string = 'nomeCompleto';
+  reverse: boolean = false;
+  caseInsensitive: boolean = false;
+  loading: boolean = true
 
-  constructor(public cpfBlockService: CpfBlockService, private modalService: NgbModal, private toast: HotToastService,) { }
+  constructor(
+    public cpfBlockService: CpfBlockService,
+    private modalService: NgbModal,
+    private toast: HotToastService,
+    private orderPipe: OrderPipe,
+    ) {}
 
   ngOnInit(): void {
-    this.allBlocks$ = this.cpfBlockService.getBlockFindAll();
-    this.allBlocks$
-      .pipe(
-        this.toast.observe({
-          loading: 'Carregando...',
-          error: 'Ocorreu um erro!',
-          success: 'Listado com sucesso!',
-        })
-      )
+    this.allBlocks$ = this.cpfBlockService.getBlockFindAll()
+    this.cpfBlockService.getBlockFindAll()
       .subscribe(val => {
-        this.listaBlock = val;
-        this.listaBlockResponse = val;
-
+        this.listaBlockResponse =this.orderPipe.transform(val, 'nomeCompleto');
+        this.listaBlock = this.orderPipe.transform(val, 'nomeCompleto');
+        this.loading = false
       })
-    console.log(this.allBlocks$)
   }
 
   onClickAdd() {
@@ -54,7 +56,7 @@ export class ListCpfBlockComponent implements OnInit {
                 this.toast.observe({
                   loading: 'Adicionando...',
                   error: 'Ocorreu um erro!',
-                  success: 'Dado adicionado com sucesso!',
+                  success: 'Adicionado com sucesso!',
                 })
               )
               .subscribe();
@@ -62,7 +64,7 @@ export class ListCpfBlockComponent implements OnInit {
         }
       })
     }
-  };
+  }
 
   onClickDetail(block: Block) {
     const ref = this.modalService.open(DetailCpfBlockComponent, { centered: true });
@@ -71,7 +73,7 @@ export class ListCpfBlockComponent implements OnInit {
 
   onClickEdit(block: Block) {
     const ref = this.modalService.open(UpdateCpfBlockComponent, { centered: true });
-    ref.componentInstance.block = block;
+    ref.componentInstance.dados = block;
     {
       ref.closed.subscribe({
         next: (result) => {
@@ -81,7 +83,7 @@ export class ListCpfBlockComponent implements OnInit {
                 this.toast.observe({
                   loading: 'Adicionando...',
                   error: 'Ocorreu um erro!',
-                  success: 'Dado alterado com sucesso!',
+                  success: 'Alterado com sucesso!',
                 })
               )
               .subscribe();
@@ -103,7 +105,7 @@ export class ListCpfBlockComponent implements OnInit {
                 this.toast.observe({
                   loading: 'Deletando...',
                   error: 'Ocorreu um erro',
-                  success: 'Dado deletado com sucesso!',
+                  success: 'Deletado com sucesso!',
                 })
               )
               .subscribe();
@@ -120,8 +122,7 @@ export class ListCpfBlockComponent implements OnInit {
         item.cpf.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1 ||
         item.nomeCompleto.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1 ||
         item.email.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1 ||
-        item.motivo.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1 
-
+        item.motivo.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1
       );
     }else{
       this.listaBlock = this.listaBlockResponse;
@@ -141,4 +142,10 @@ export class ListCpfBlockComponent implements OnInit {
     return 'erro';
   }
 
+  setOrder(value: string) {
+    if (this.order === value) {
+      this.reverse = !this.reverse;
+    }
+    this.order = value;
+  }
 }

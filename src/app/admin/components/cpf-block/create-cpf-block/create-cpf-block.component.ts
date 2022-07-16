@@ -11,7 +11,7 @@ import { Block } from 'src/app/shared/models/cpf-block/block';
 })
 export class CreateCpfBlockComponent implements OnInit {
 
-  motivos: string[] = ['Abandono', 'Comportamento inadequado', 'Em regime CLT', 'Faz outro bootcamp'];
+  motivos: string[] = ['Abandono', 'Comportamento inadequado', 'Em regime CLT', 'Outros'];
 
   constructor(private fb: FormBuilder, public activeModal: NgbActiveModal) { }
 
@@ -24,7 +24,7 @@ export class CreateCpfBlockComponent implements OnInit {
     cpf: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     nomeCompleto: ['', [Validators.required, Validators.minLength(5)]],
-    status: ['Bloqueado'],
+    status: ['Candidato (a) bloqueado (a)'],
     motivo: ['', [Validators.required]],
     comentario: ['', [Validators.required, Validators.minLength(5)]]
   });
@@ -54,7 +54,7 @@ export class CreateCpfBlockComponent implements OnInit {
   }
 
   onSubmit() {
-    this.activeModal.close({ block: this.createBlockForm.value })   
+    this.activeModal.close({ block: this.createBlockForm.value })
   }
 
 }

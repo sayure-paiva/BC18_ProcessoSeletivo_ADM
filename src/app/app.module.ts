@@ -21,6 +21,8 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideFirebaseApp } from '@angular/fire/app';
 import { initializeApp } from 'firebase/app';
 import { AdminModule } from './admin/admin.module';
+import { OrderModule } from 'ngx-order-pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,7 @@ import { AdminModule } from './admin/admin.module';
     AdminModule,
     provideFirestore(() => getFirestore()),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
+    OrderModule
   ],
   providers: [
     ScreenTrackingService,
