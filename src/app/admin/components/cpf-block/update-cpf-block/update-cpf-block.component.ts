@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Block } from 'src/app/shared/models/cpf-block/block';
 
@@ -11,49 +11,62 @@ import { Block } from 'src/app/shared/models/cpf-block/block';
 export class UpdateCpfBlockComponent implements OnInit {
 
   motivos: string[] = ['Abandono', 'Comportamento inadequado', 'Em regime CLT', 'Outros'];
-  public updateBlockForm = FormGroup;
+
   @Input() public block: Block;
   constructor(private fb: FormBuilder, public activeModal: NgbActiveModal) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.editForm(this.block);
+  }
 
- setFormEdit(){
   updateBlockForm = this.fb.group({
-    cpf: [this.block.cpf, [Validators.required]],
+    cpf: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     nomeCompleto: ['', [Validators.required, Validators.minLength(5)]],
     status: ['Candidato (a) bloqueado (a)'],
     motivo: ['', [Validators.required]],
-    comentario: ['', [Validators.required, Validators.minLength(5)]]
+    comentario: ['', [Validators.required, Validators.minLength(5)]],
+    id:[]
   });
- }
 
-  // get cpf() {
-  //   return this.updateBlockForm.get('cpf');
-  // }
+  editForm(block:Block){
+    this.updateBlockForm.patchValue({
+      cpf: block.cpf,
+      email: block.email,
+      nomeCompleto: block.nomeCompleto,
+      status: block.status,
+      motivo: block.motivo,
+      comentario:block.comentario,
+      id:block.id
+    })
+  }
 
-  // get email() {
-  //   return this.updateBlockForm.get('email');
-  // }
+  get cpf() {
+    return this.updateBlockForm.get('cpf');
+  }
 
-  // get nomeCompleto() {
-  //   return this.updateBlockForm.get('nomeCompleto');
-  // }
+  get email() {
+    return this.updateBlockForm.get('email');
+  }
 
-  // get status() {
-  //   return this.updateBlockForm.get('status');
-  // }
+  get nomeCompleto() {
+    return this.updateBlockForm.get('nomeCompleto');
+  }
 
-  // get motivo() {
-  //   return this.updateBlockForm.get('motivo');
-  // }
+  get status() {
+    return this.updateBlockForm.get('status');
+  }
 
-  // get comentario() {
-  //   return this.updateBlockForm.get('comentario');
-  // }
+  get motivo() {
+    return this.updateBlockForm.get('motivo');
+  }
+
+  get comentario() {
+    return this.updateBlockForm.get('comentario');
+  }
 
   onSubmit() {
-    this.activeModal.close({ block: this.block })
+    this.activeModal.close({ block: this.updateBlockForm.value })
   }
 
 }

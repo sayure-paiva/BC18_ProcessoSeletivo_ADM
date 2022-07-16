@@ -1,7 +1,6 @@
 import { Block } from './../../../../shared/models/cpf-block/block';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
 import { CpfBlockService } from 'src/app/shared/services/cpf-block.service';
 import { CreateCpfBlockComponent } from '../create-cpf-block/create-cpf-block.component';
 import { DeleteCpfBlockComponent } from '../delete-cpf-block/delete-cpf-block.component';
@@ -17,7 +16,6 @@ import { OrderPipe } from 'ngx-order-pipe';
 })
 export class ListCpfBlockComponent implements OnInit {
 
-  allBlocks$?: Observable<Block[]>;
   public page = 1;
   public pageSize = 5;
   public listPage = [5, 10, 15, 20];
@@ -34,13 +32,12 @@ export class ListCpfBlockComponent implements OnInit {
     private modalService: NgbModal,
     private toast: HotToastService,
     private orderPipe: OrderPipe,
-    ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.allBlocks$ = this.cpfBlockService.getBlockFindAll()
     this.cpfBlockService.getBlockFindAll()
       .subscribe(val => {
-        this.listaBlockResponse =this.orderPipe.transform(val, 'nomeCompleto');
+        this.listaBlockResponse = this.orderPipe.transform(val, 'nomeCompleto');
         this.listaBlock = this.orderPipe.transform(val, 'nomeCompleto');
         this.loading = false
       })
@@ -73,7 +70,7 @@ export class ListCpfBlockComponent implements OnInit {
 
   onClickEdit(block: Block) {
     const ref = this.modalService.open(UpdateCpfBlockComponent, { centered: true });
-    ref.componentInstance.dados = block;
+    ref.componentInstance.block = block;
     {
       ref.closed.subscribe({
         next: (result) => {
@@ -115,7 +112,7 @@ export class ListCpfBlockComponent implements OnInit {
     }
   }
 
-  filtrarLista() {
+  filterList() {
     if (this.textSearch.length > 2) {
 
       this.listaBlock = this.listaBlockResponse.filter((item) =>
@@ -124,18 +121,18 @@ export class ListCpfBlockComponent implements OnInit {
         item.email.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1 ||
         item.motivo.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1
       );
-    }else{
+    } else {
       this.listaBlock = this.listaBlockResponse;
     }
   }
 
   refreshBlock() {
-   this.listaBlock
-      .map((block, i) => ({id: i + 1, ...block}))
+    this.listaBlock
+      .map((block, i) => ({ id: i + 1, ...block }))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
-  formatCpf(value:string){
+  formatCpf(value: string) {
     if (value.length === 11) {
       return value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, '\$1.\$2.\$3\-\$4');
     }

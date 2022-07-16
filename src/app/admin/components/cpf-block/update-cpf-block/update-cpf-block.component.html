@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h2 class="modal-title tituloForm text-primary">Alterar dados</h2>
+  <h2 class="modal-title tituloForm text-primary">Alterar dados do bloqueio</h2>
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 
@@ -7,24 +7,23 @@
   <form class="formCreate" [formGroup]="updateBlockForm">
     <div class="inputWrapper">
       <label class="text-white" for="cpf">CPF</label>
-      <input id="cpf"  placeholder="Digite o CPF" formControlName="cpf" type="text"
-        class="input-field col s12" mask="000.000.000-99" />
+      <input id="cpf" placeholder="Digite o CPF" formControlName="cpf" type="text" class="input-field col s12"
+        mask="000.000.000-99" />
       <small class="text-danger" *ngIf="cpf?.touched && cpf?.invalid">
         <span *ngIf="cpf?.hasError('required')">O CPF é obrigatório</span>
       </small>
     </div>
     <div class="inputWrapper">
       <label class="text-white" for="email">Email</label>
-      <input id="email" [(ngModel)]="block.email" placeholder="Digite o email" formControlName="email" type="text"
-        class="input-field col s12" />
+      <input id="email" placeholder="Digite o email" formControlName="email" type="text" class="input-field col s12" />
       <small class="text-danger" *ngIf="email?.touched && email?.invalid">
         <span *ngIf="email?.hasError('required')">O email é obrigatório</span>
       </small>
     </div>
     <div class="inputWrapper">
       <label class="text-white" for="nomeCompleto">Nome completo</label>
-      <input id="nomeCompleto" [(ngModel)]="block.nomeCompleto" placeholder="Digite o nome completo"
-        formControlName="nomeCompleto" type="text" class="input-field col s12" />
+      <input id="nomeCompleto" placeholder="Digite o nome completo" formControlName="nomeCompleto" type="text"
+        class="input-field col s12" />
       <small class="text-danger" *ngIf="nomeCompleto?.touched && nomeCompleto?.invalid">
         <span *ngIf="nomeCompleto?.hasError('required')">O nome é obrigatório</span>
         <span *ngIf="nomeCompleto?.hasError('minlength')">O mínimo são 5 caracteres</span>
@@ -33,8 +32,7 @@
 
     <div class="inputWrapper">
       <label class="text-white" for="motivo">Motivo</label>
-      <select id="motivo" [(ngModel)]="block.motivo" class="form-select" formControlName="motivo"
-        placeholder="Selecione um motivo">
+      <select id="motivo" class="form-select" formControlName="motivo" placeholder="Selecione um motivo">
         <option *ngFor="let item of motivos" [ngValue]="item">
           {{ item }}
         </option>
@@ -46,8 +44,8 @@
 
     <div class="mb-3">
       <label class="text-white" for="comentario">Comentário</label>
-      <textarea formControlName="comentario" class="form-control" id="comentario" [(ngModel)]="block.comentario"
-        rows="3" placeholder="Digite um comentário"></textarea>
+      <textarea formControlName="comentario" class="form-control" id="comentario" rows="3"
+        placeholder="Digite um comentário"></textarea>
       <small class="text-danger" *ngIf="comentario?.touched && comentario?.invalid">
         <span *ngIf="comentario?.hasError('required')">O comentário é obrigatório</span>
         <span *ngIf="comentario?.hasError('minlength')">O mínimo são 5 caracteres</span>
