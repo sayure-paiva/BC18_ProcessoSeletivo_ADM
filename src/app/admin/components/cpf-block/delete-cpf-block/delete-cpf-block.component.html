@@ -1,15 +1,15 @@
 <div class="modal-header">
-    <h2 class="modal-title tituloForm text-primary">Apagar CPF?</h2>
+    <h2 class="modal-title tituloForm text-primary">Deletar candidato (a)</h2>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 
 <h6 class="modal-body text-white m-0 text-center">
-    Desejar realmente apagar o dado abaixo da lista de bloqueio? <br> CPF: {{ this.formatCpf(dados.cpf) }} - Nome:
+    Desejar realmente excluir o (a) candidato (a) abaixo da lista de bloqueados? <br> CPF: {{ this.formatCpf(dados.cpf) }} - Nome:
     {{dados.nomeCompleto }}
 </h6>
 
 <div class="modal-footer">
     <button type="button" class="btn btn-primary botao-cancelar"
         (click)="activeModal.dismiss('Close click')">Cancelar</button>
-    <button type="button" class="btn btn-outline-danger botao-apagar" (click)="onSubmit()">Apagar</button>
+    <button type="button" class="btn btn-outline-danger botao-apagar" (click)="onSubmit()">Deletar</button>
 </div>

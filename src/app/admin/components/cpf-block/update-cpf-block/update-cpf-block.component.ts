@@ -10,22 +10,36 @@ import { Block } from 'src/app/shared/models/cpf-block/block';
 })
 export class UpdateCpfBlockComponent implements OnInit {
 
-  motivos: string[] = ['Abandono', 'Comportamento inadequado', 'Em regime CLT', 'Faz outro bootcamp'];
+  motivos: string[] = ['Abandono', 'Comportamento inadequado', 'Em regime CLT', 'Outros'];
 
   @Input() public block: Block;
   constructor(private fb: FormBuilder, public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
+    this.editForm(this.block);
   }
 
   updateBlockForm = this.fb.group({
     cpf: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     nomeCompleto: ['', [Validators.required, Validators.minLength(5)]],
-    status: ['Bloqueado'],
+    status: ['Candidato (a) bloqueado (a)'],
     motivo: ['', [Validators.required]],
-    comentario: ['', [Validators.required, Validators.minLength(5)]]
+    comentario: ['', [Validators.required, Validators.minLength(5)]],
+    id:[]
   });
+
+  editForm(block:Block){
+    this.updateBlockForm.patchValue({
+      cpf: block.cpf,
+      email: block.email,
+      nomeCompleto: block.nomeCompleto,
+      status: block.status,
+      motivo: block.motivo,
+      comentario:block.comentario,
+      id:block.id
+    })
+  }
 
   get cpf() {
     return this.updateBlockForm.get('cpf');
@@ -38,7 +52,7 @@ export class UpdateCpfBlockComponent implements OnInit {
   get nomeCompleto() {
     return this.updateBlockForm.get('nomeCompleto');
   }
-  
+
   get status() {
     return this.updateBlockForm.get('status');
   }
@@ -52,7 +66,7 @@ export class UpdateCpfBlockComponent implements OnInit {
   }
 
   onSubmit() {
-    this.activeModal.close({ block: this.block })
+    this.activeModal.close({ block: this.updateBlockForm.value })
   }
 
 }

@@ -1,23 +1,28 @@
 import { Injectable } from '@angular/core';
 import { collectionData, docData, Firestore } from '@angular/fire/firestore';
-import { addDoc, collection, deleteDoc, doc, updateDoc } from '@firebase/firestore';
+import { collection, deleteDoc, doc, updateDoc } from '@firebase/firestore';
 import { from, Observable } from 'rxjs';
 import { Block, BlockConverter } from '../models/cpf-block/block';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CpfBlockService {
 
-  constructor(private db: Firestore) { }
+  constructor(private db: Firestore, private db2: AngularFirestore) { }
 
   public bk = collection(this.db, 'CPFBlock').withConverter(BlockConverter);
 
-  createBlockList(block: Block) {
-    return from(addDoc(this.bk, block))
+  createBlockList(block: Block): Observable<void> {
+    return from(this.db2.collection('CPFBlock').add(block)
+      .then((docRef) => {
+        docRef.update({ id: docRef.id });
+      }))
   }
 
-  getBlockFindAll():Observable<Block[]> { 
+  getBlockFindAll():Observable<Block[]> {
     return collectionData(this.bk, { idField: 'id' });
   }
 
