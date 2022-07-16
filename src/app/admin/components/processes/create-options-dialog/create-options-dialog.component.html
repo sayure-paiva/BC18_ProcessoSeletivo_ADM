@@ -1,0 +1,10 @@
+<div class="modal-header">
+  <h4 class="modal-title tituloForm text-primary">O que deseja criar?</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body mb-0">
+  <div class="d-flex justify-content-between flex-column pt-5">
+    <button type="button" class="btn btn-primary botao-criar-processo mx-3 mb-2" (click)="openCreateProcess()">Novo Processo</button>
+    <button type="button" class="btn btn-danger botao-criar-tipo mx-3 mb-3" (click)="openCreateType()">Novo Tipo de Bootcamp</button>
+  </div>
+</div>

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { HotToastService } from '@ngneat/hot-toast';
 import { Processo } from 'src/app/shared/models/processo';
 import { CoursesService } from 'src/app/shared/services/courses.service';
-import { CreateProcessComponent } from '../create-process/create-process.component';
+import { CreateOptionsDialogComponent } from '../create-options-dialog/create-options-dialog.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { EditProcessComponent } from '../edit-process/edit-process.component';
 
@@ -16,18 +15,15 @@ export class ListProcessesComponent implements OnInit {
 
   constructor(
     private coursesService: CoursesService,
-    private modalService: NgbModal,
-    private toast: HotToastService
+    private modalService: NgbModal
   ) { }
 
-  processos: Processo[] = [];
+  processosAguardandoInicio: Processo[] = [];
+  processosAtivos: Processo[] = [];
+  loading: boolean = true;
 
-  filterStatus(status: string): Processo[] {
-    return this.coursesService.getProcessesFilteredByStatus(this.processos, status);
-  }
-
-  openCreate() {
-    this.modalService.open(CreateProcessComponent, { centered: true });
+  openCreateOptions() {
+    this.modalService.open(CreateOptionsDialogComponent, { size: 'sm', centered: true });
   }
 
   openEdit(processo: Processo) {
@@ -41,16 +37,25 @@ export class ListProcessesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.coursesService.getAllProcesses()
-      .pipe(
-        this.toast.observe({
-          success: 'Processos listados com sucesso',
-          error: 'Um erro ocorreu',
-          loading: 'Listando processos...',
-        })
-      )
       .subscribe(processosFirestore => {
-        this.processos = processosFirestore;
+        const processosFiltradosAguardandoInicio: Processo[] = [];
+        const processosFiltradosAtivos: Processo[] = [];
+
+        processosFirestore.forEach((processo) => {
+          if (processo.status == 'Aguardando Início') {
+            processosFiltradosAguardandoInicio.push(processo);
+          } else if (processo.status == 'Ativo') {
+            processosFiltradosAtivos.push(processo)
+          }
+        })
+
+        this.processosAguardandoInicio = processosFiltradosAguardandoInicio;
+        this.processosAtivos = processosFiltradosAtivos;
+        this.loading = false
+        
       });
+
   }
 }
