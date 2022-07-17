@@ -104,20 +104,19 @@ export class TesteLogicoEditComponent implements OnInit {
 
   update() {
     this.updateTesteFields()
-    console.log(this.teste)
-    // this.testeService.updateTeste(teste)
-    //   .pipe(
-    //     this.toast.observe({
-    //       success: 'Questão editada com sucesso',
-    //       error: 'Um erro ocorreu',
-    //       loading: 'Editando questão...',
-    //     })
-    //   )
-    //   .subscribe({
-    //     complete: () => {
-    //       this.activeModal.dismiss('Cross click');
-    //     }
-    //   })
+    this.testeService.updateTeste(this.teste)
+      .pipe(
+        this.toast.observe({
+          success: 'Questão editada com sucesso',
+          error: 'Um erro ocorreu',
+          loading: 'Editando questão...',
+        })
+      )
+      .subscribe({
+        complete: () => {
+          this.activeModal.dismiss('Cross click');
+        }
+      })
   }
 
 }
