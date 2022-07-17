@@ -20,6 +20,11 @@ import { TesteLogicoAddComponent } from './components/tests/teste-logico/teste-l
 import { TesteLogicoEditComponent } from './components/tests/teste-logico/teste-logico-edit/teste-logico-edit.component';
 import { TesteLogicoListComponent } from './components/tests/teste-logico/teste-logico-list/teste-logico-list.component';
 import { OrderModule } from 'ngx-order-pipe';
+import { UserCreateComponent } from './components/users/user-create/user-create.component';
+import { UserDeleteComponent } from './components/users/user-delete/user-delete.component';
+import { UserDetailComponent } from './components/users/user-detail/user-detail.component';
+import { UserListComponent } from './components/users/user-list/user-list.component';
+import { UserUpdateComponent } from './components/users/user-update/user-update.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -40,12 +45,15 @@ const maskConfig: Partial<IConfig> = {
     DetailCpfBlockComponent,
     TesteLogicoAddComponent,
     TesteLogicoEditComponent,
-    TesteLogicoListComponent
+    TesteLogicoListComponent,
+    UserDetailComponent,
+    UserListComponent,
+    UserUpdateComponent,
+    UserDeleteComponent,
+    UserCreateComponent
   ],
   imports: [
-    HotToastModule.forRoot({
-      position: 'bottom-center',
-    }),
+    OrderModule,
     CommonModule,
     AdminRoutingModule,
     AngularFirestoreModule,
@@ -54,7 +62,9 @@ const maskConfig: Partial<IConfig> = {
     NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
-    OrderModule
+    HotToastModule.forRoot({
+      position: 'bottom-center',
+    }),
   ]
 })
 export class AdminModule { }
