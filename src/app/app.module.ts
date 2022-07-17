@@ -1,3 +1,4 @@
+import { AdminModule } from './admin/admin.module';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
@@ -20,7 +21,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideFirebaseApp } from '@angular/fire/app';
 import { initializeApp } from 'firebase/app';
-import { AdminModule } from './admin/admin.module';
 import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({

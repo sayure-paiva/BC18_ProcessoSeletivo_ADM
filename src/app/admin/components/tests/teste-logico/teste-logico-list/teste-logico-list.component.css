@@ -1,49 +1,59 @@
+.table-responsive-container-fluid {
+    display: flex;
+    margin-right: 20px;
+    width: 67%;
 
-.botaoAdd {
-    background-color: #ffd900;
-    color: black;
-    border: none;
-    position: fixed;
-    bottom: 130px;
 }
 
-.botaoAdd:hover {
-    background-color: #dcbb00;
+.text-table {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 5%;
 }
 
-@media (min-width: 1200px) {
-    .superWrapper {
-        width: 1200px;
-        margin: 0 auto;
+.table {
+    margin-right: 10px;
+}
+
+.spinner-border {
+    margin-top: 10%;
+}
+
+.spinner-border {
+  margin-top: 10%;
+}
+
+th {
+  cursor: pointer;
+}
+
+.iconeList {
+  cursor: pointer;
+}
+
+@media (max-width: 400px) {
+    app-teste-logico-add {
+        width: 100%;
     }
 
-    .btn {
-        height: 4vh;
+
+}
+
+@media (max-width: 720px) {
+    app-teste-logico-add {
+        width: 100%;
     }
 }
 
 @media (min-width: 2000px) {
-    .botaoAdd {
-        right: 400px;
+    .grupo {
+        width: 2000px;
+        margin: auto;
     }
 }
 
-@media (min-width: 2400px) {
-    .botaoAdd {
-        right: 600px;
+@media (max-width: 1500px) {
+    .col-xl-8 {
+        width: 100%;
     }
 }
-
-@media (min-width: 2800px) {
-    .botaoAdd {
-        right: 800px;
-    }
-}
-
-@media (min-width: 3100px) {
-    .botaoAdd {
-        right: 1000px;
-    }
-}
-
-

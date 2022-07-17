@@ -3,7 +3,6 @@ import { TesteLogicoService } from '../../../../../shared/services/teste-logico.
 import { Component, OnInit } from '@angular/core';
 import { Teste } from 'src/app/shared/models/teste';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-teste-logico-add',
@@ -11,13 +10,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./teste-logico-add.component.css']
 })
 export class TesteLogicoAddComponent implements OnInit {
-  teste: Teste = {
-    alternatives: ["", "", "", "", ""]
-  } as Teste;
-
+  teste: Teste = {alternatives: ["", "", "", "", ""]} as Teste;
+  answersChecked: boolean[] = [false, false, false, false, false];
   constructor(private testeService: TesteLogicoService,
     private fb: FormBuilder,
-    public activeModal: NgbActiveModal,
     private toast: HotToastService
   ) { }
 
@@ -31,22 +27,25 @@ export class TesteLogicoAddComponent implements OnInit {
     answers: new FormArray([])
   });
 
-  onCheckChange(event) {
-    const formArray: FormArray = this.addTesteForm.get('answers') as FormArray;
+  formArray: FormArray = this.addTesteForm.get('answers') as FormArray;
+  onCheckChange(event, index: number) {
+    this.formArray = this.addTesteForm.get('answers') as FormArray;
     if (event.target.checked) {
-      formArray.push(new FormControl(event.target.value));
+      this.formArray.push(new FormControl(event.target.value));
+      this.answersChecked[index] = true;
     }
     else {
       let i: number = 0;
-      formArray.controls.forEach((ctrl: FormControl) => {
+      this.formArray.controls.forEach((ctrl: FormControl) => {
         if (ctrl.value == event.target.value) {
-          formArray.removeAt(i);
+          this.formArray.removeAt(i);
           return;
         }
+        this.answersChecked[index] = false;
         i++;
       });
     }
-    this.teste.answers = formArray.value;
+    this.teste.answers = this.formArray.value;
   }
 
   ngOnInit(): void {
@@ -58,6 +57,7 @@ export class TesteLogicoAddComponent implements OnInit {
     } else {
       this.teste.type = "checkbox"
     }
+    this.teste.category = "teste-logico";
     this.testeService.insert(this.teste)
       .pipe(
         this.toast.observe({
@@ -68,9 +68,12 @@ export class TesteLogicoAddComponent implements OnInit {
       )
       .subscribe({
         complete: () => {
+          (<FormArray>this.addTesteForm.get('answers')).clear()
+          this.answersChecked = [false, false, false, false, false]
           this.addTesteForm.reset();
-          this.activeModal.dismiss('Cross click');
+         
         }
-      });
+      })
+
   }
 }
