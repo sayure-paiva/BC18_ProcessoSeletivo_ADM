@@ -1,0 +1,10 @@
+<div class="modal-header m-0">
+  <h2 class="m-0" style="font-size: 16px">Deseja deletar Funcionário(a): {{ usuario.displayName }} ?</h2>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-footer d-flex justify-content-between">
+  <button type="button" class="btn btn-danger" (click)="onSubmit()" style="max-height: 35px">Apagar</button>
+  <button type="button" class="btn btn-primary botao-cancelar"
+      (click)="activeModal.dismiss('Close click')" style="max-height: 35px">Cancelar</button>
+</div>

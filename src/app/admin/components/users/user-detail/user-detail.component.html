@@ -1,0 +1,46 @@
+<main>
+  <div class="modal-header m-0">
+    <h2 class="m-0" style="font-size: 16px">Informações do Funcionário</h2>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+  </div>
+
+  <div class="d-flex justify-content-center m-1">
+    <div *ngIf="usuario.photoURL !== ''; else mudaImagem">
+      <img [src]="usuario.photoURL" style="max-width: 100px; max-height: 80px; border-radius: 50%;" alt="">
+    </div>
+    <ng-template #mudaImagem>
+      <img src="https://jsl-online.com/wp-content/uploads/2017/01/placeholder-user.png" id="example-header-image">
+    </ng-template>
+  </div>
+  <div class="modal-body m-0 d-flex flex-lg-row justify-content-center flex-wrap gap-1">
+
+  <label>Id:
+    <input class="form-control" type="text" placeholder="{{ usuario.uid }}" disabled>
+  </label>
+
+  <label>Nome:
+    <input class="form-control" type="text" placeholder="{{ usuario.displayName }}" disabled>
+  </label>
+
+  <label>E-mail:
+    <input class="form-control" type="text" placeholder="{{ usuario.email }}" disabled>
+  </label>
+
+  <label>Entrou em:
+    <input class="form-control" type="text" placeholder="{{ usuario.registeredAt | date : 'd MMMM, y, h:mm a' }}" disabled>
+  </label>
+
+  <label>Tipo do Usuário:
+    <input class="form-control" type="text" placeholder="{{ usuario.type }}" disabled>
+  </label>
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" style="max-height: 35px;"
+        (click)="activeModal.dismiss('Close click')">Fechar</button>
+  </div>
+</main>
+
+
+

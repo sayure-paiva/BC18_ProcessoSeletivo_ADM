@@ -1,0 +1,112 @@
+<main>
+  <div class="modal-header m-0">
+    <h2 class="m-0" style="font-size: 16px">Criar novo funcionário</h2>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="activeModal.dismiss('Cross click')"></button>
+  </div>
+
+  <form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
+    <div class="d-flex justify-content-center align-items-end m-1" style="width: 100%" >
+      <img (click)="changeImage.click()" id="imgChange"
+        src="https://jsl-online.com/wp-content/uploads/2017/01/placeholder-user.png"
+        style="max-width: 100px; height: 80px; border-radius: 50%; cursor: pointer;"
+        alt=""/>
+          <input #changeImage type="file" (change)="setImage($event)" hidden>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" (click)="changeImage.click()" style="max-width: 20px; height: 20px; cursor: pointer;">
+            <path d="M194.6 32H317.4C338.1 32 356.4 45.22 362.9 64.82L373.3 96H448C483.3 96 512 124.7 512 160V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V160C0 124.7 28.65 96 64 96H138.7L149.1 64.82C155.6 45.22 173.9 32 194.6 32H194.6zM256 384C309 384 352 341 352 288C352 234.1 309 192 256 192C202.1 192 160 234.1 160 288C160 341 202.1 384 256 384z"/>
+          </svg>
+          <p *ngIf="fileSelect" style="font-size: 10px; padding-left: 10px;">{{fileSelect | slice: 0 : 8}}...</p>
+    </div>
+
+    <div
+      class="modal-body m-0 d-flex flex-lg-row justify-content-center flex-wrap gap-1">
+      <div class="form-group">
+        <label>Nome:</label>
+        <input
+          formControlName="displayName"
+          class="form-control"
+          type="text"
+          placeholder="Nome do usuário"/>
+        <small
+          *ngIf="createUserForm.get('displayName')?.errors?.['required'] && createUserForm.get('displayName')?.touched"
+          class="form-text text-danger"
+          >Nome do usuário é obrigatório</small>
+      </div>
+
+      <div class="form-group">
+        <label>E-mail:</label>
+        <input
+          formControlName="email"
+          class="form-control"
+          type="text"
+          placeholder="Email do usuário"/>
+        <small
+          *ngIf="createUserForm.get('email')?.errors?.['required'] && createUserForm.get('email')?.touched"
+          class="form-text text-danger"
+          >Email do usuário é obrigatório</small>
+        <small
+          *ngIf="createUserForm.get('email')?.errors?.['email'] && createUserForm.get('email')?.touched"
+          class="form-text text-danger"
+          >Email inválido</small>
+      </div>
+
+      <div class="form-group">
+        <label>Senha:</label>
+        <input
+          formControlName="password"
+          class="form-control"
+          type="password"
+          placeholder="Senha do usuário"/>
+        <small
+          *ngIf="createUserForm.get('password')?.errors?.['required'] && createUserForm.get('password')?.touched"
+          class="form-text text-danger"
+          >Senha do usuário é obrigatório</small>
+        <small
+          *ngIf="createUserForm.get('password')?.errors?.['minlength'] && createUserForm.get('password')?.touched"
+          class="form-text text-danger"
+          >O minímo de caracters é 8</small>
+      </div>
+
+      <div class="form-group">
+        <label>Tipo do Usuário:</label>
+        <select
+          name="selected"
+          class="form-control"
+          style="background-color: #f5f5f5"
+          formControlName="type">
+          <option value="" selected>Selecione o tipo do usuário.</option>
+          <option value="Admin">Admin</option>
+          <option value="Recruiter">Recruiter</option>
+          <option value="Placement">Placement</option>
+          <option value="Pedagogic">Pedagogic</option>
+        </select>
+        <small
+          *ngIf="
+            !createUserForm.get('type')?.valid &&
+            createUserForm.get('type')?.touched"
+          class="form-text text-danger"
+          >Selecione o tipo do Usuário</small>
+      </div>
+    </div>
+
+    <div class="modal-footer d-flex justify-content-between">
+      <button
+        type="submit"
+        class="btn btn-primary-two"
+        style="max-height: 35px;"
+        [disabled]="createUserForm.invalid">
+        Criar
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        style="max-height: 35px;"
+        (click)="activeModal.dismiss('Close click')">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</main>

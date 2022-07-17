@@ -32,7 +32,7 @@
                   </li>
                 </ul>
               </li>
-          
+
               <li>
                 <a [routerLink]="'/admin/teste-logico'"><span class="menu-text">Testes Lógicos</span></a>
               </li>
@@ -41,6 +41,9 @@
               </li>
               <li>
                 <a [routerLink]="'/admin/cpf-block'"><span class="menu-text">Candidatos Bloqueados</span></a>
+              </li>
+              <li>
+                <a [routerLink]="'/admin/list-users'"><span class="menu-text">Lista de Funcionários</span></a>
               </li>
               <li class="ms-5 position-absolute sair">
                 <a [routerLink]="['/index']"><span class="menu-text text-white ">Sair
@@ -114,6 +117,9 @@
           </li>
           <li>
             <a href="/admin/cpf-block"><span class="menu-text">Candidatos Bloqueados</span></a>
+          </li>
+          <li>
+            <a [routerLink]="'/admin/list-users'"><span class="menu-text">Lista de Funcionários</span></a>
           </li>
           <li>
             <a href="/index"><span class="menu-text">Sair

@@ -10,7 +10,8 @@ admin.initializeApp({
 
 const auth = admin.auth();
 const db = admin.firestore();
-db.settings({ ignoreUndefinedProperties: true });
+const storage = admin.storage();
+
 
 export const getEnrollmentId = functions.https.onCall(async (data) => {
   if (data.email === undefined || data.course === undefined) return;
@@ -28,8 +29,8 @@ export const getEnrollmentId = functions.https.onCall(async (data) => {
 
 exports.createUserWithEmailAndPassword = functions.https.onCall(async (data, context) => {
 
-  const { email, password, name, type } = data;
-  const dataInfo = { email, password, name, type };
+  const { email, password, displayName, type, photoURL } = data;
+  const dataInfo = { email, password, displayName, type, photoURL };
 
   await validateAuthorization(context)
 
@@ -64,7 +65,8 @@ exports.editUser = functions.https.onCall(async (data, context) => {
   const updatedUser = {
     uid: data.uid,
     email: data.email,
-    name: data.name,
+    displayName: data.displayName,
+    photoURL: data.photoURL,
     type: data.type,
   };
 
@@ -98,7 +100,7 @@ async function validateAuthorization(context: any) {
         "Usuário não é adimistrador, somente administrador podem fazer essa solicitação!"
       );
 
-    } 
+    }
   }
   catch (err) {
 
@@ -114,7 +116,7 @@ async function validateAuthorization(context: any) {
 // Valida se existe dados nulos
 async function validateFields(data: any) {
 
-  const { email, password, name, type } = data;
+  const { email, password, displayName, type } = data;
 
   if (email == "" || password == "") {
 
@@ -125,7 +127,7 @@ async function validateFields(data: any) {
 
   }
 
-  if (name == "" || type == "") {
+  if (displayName == "" || type == "") {
 
     throw new functions.https.HttpsError(
       "invalid-argument",
@@ -167,14 +169,16 @@ async function setInColletion(userRecord: any, data: any) {
   const user = {
     uid: userRecord.uid,
     email: data.email,
-    name: data.name,
+    displayName: data.displayName,
     type: data.type,
+    photoURL: data.photoURL,
     registeredAt: data.createdAt
   };
 
   const customClaims = {
     type: [userRecord.type],
   };
+
 
   await auth.setCustomUserClaims(user.uid!, customClaims);
 
@@ -187,11 +191,12 @@ async function setInColletion(userRecord: any, data: any) {
       {
         uid: user.uid,
         email: user.email,
-        name: user.name,
+        displayName: user.displayName,
         type: user.type,
+        photoURL: user.photoURL,
         registeredAt: Date.now()
       },
-      { merge: true });
+      { merge: true});
 
       return {
         message: "Novo usuário criado com sucesso"
@@ -199,7 +204,9 @@ async function setInColletion(userRecord: any, data: any) {
 
 
   } catch(err) {
+
     await auth.deleteUser(user.uid);
+
     throw new functions.https.HttpsError(
       "unimplemented",
       "Não possível criar documento para o usuário, uid já cadastrado.",
@@ -217,7 +224,7 @@ async function updadeUserInAuthentication(data: any) {
 
     await auth.updateUser(data.uid, {
         email: data.email,
-        displayName: data.name,
+        displayName: data.displayName,
     })
 
   } catch(err) {
@@ -240,15 +247,15 @@ async function updateDoc(user: any) {
       {
         uid: user.uid,
         email: user.email,
-        name: user.name,
+        displayName: user.displayName,
         type: user.type,
-        registeredAt: Date.now(),
+        photoURL: user.photoURL,
       },
       { merge: true }
       );
 
       console.log(`Usuario atualizado com sucesso,
-      Nome: ${user.name},
+      Nome: ${user.displayName},
       Type: ${user.type}`
       );
 
@@ -269,11 +276,9 @@ async function deleteDoc(data: any) {
 
   try {
 
-    const user = await auth.getUser(data.uid);
+    await auth.deleteUser(data.uid);
 
-    await auth.deleteUser(user.uid);
-
-    await db.collection("Super-users").doc(user.uid).delete();
+    await db.collection("Super-users").doc(data.uid).delete();
 
     return {
       status: 200,
@@ -290,5 +295,4 @@ async function deleteDoc(data: any) {
     );
 
   }
-
 }
