@@ -4,5 +4,6 @@ export interface Teste{
     alternatives: string[];
     answers: string[];
     type:string;
+    category: string;
 }
 

@@ -1,4 +1,4 @@
-import { TesteLogicoEditComponent } from '../admin/components/tests/teste-logico/teste-logico-edit/teste-logico-edit.component';
+import { AdminModule } from './../admin/admin.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateCpfBlockComponent } from '../admin/components/cpf-block/create-cpf-block/create-cpf-block.component';
@@ -149,10 +149,6 @@ export const coreRoutes: Routes = [
       {
         path: 'teste-logico',
         component: TesteLogicoListComponent,
-      },
-      {
-        path: 'teste-logico/edit/:id',
-        component: TesteLogicoEditComponent,
       },
     ]
   },
