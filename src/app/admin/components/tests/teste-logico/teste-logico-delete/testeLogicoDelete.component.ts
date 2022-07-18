@@ -18,9 +18,9 @@ export class TesteLogicoDeleteComponent implements OnInit {
   modalDelete() {
     this.testeService.deleteTeste(this.testeId).pipe(
       this.toast.observe({
-        success: 'Processo criado com sucesso',
+        success: 'Questão deletada com sucesso',
         error: 'Um erro ocorreu',
-        loading: 'Criando processo...',
+        loading: 'Deletando questão...',
       })
     )
       .subscribe({

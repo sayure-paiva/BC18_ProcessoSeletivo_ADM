@@ -35,14 +35,12 @@ export class TesteLogicoAddComponent implements OnInit {
       this.answersChecked[index] = true;
     }
     else {
-      let i: number = 0;
-      this.formArray.controls.forEach((ctrl: FormControl) => {
+      this.formArray.controls.forEach((ctrl: FormControl, i) => {
         if (ctrl.value == event.target.value) {
           this.formArray.removeAt(i);
           return;
         }
         this.answersChecked[index] = false;
-        i++;
       });
     }
     this.teste.answers = this.formArray.value;
@@ -61,9 +59,9 @@ export class TesteLogicoAddComponent implements OnInit {
     this.testeService.insert(this.teste)
       .pipe(
         this.toast.observe({
-          success: 'Questão editada com sucesso',
+          success: 'Questão criada com sucesso',
           error: 'Um erro ocorreu',
-          loading: 'Editando questão...',
+          loading: 'Criando a questão...',
         })
       )
       .subscribe({
@@ -71,7 +69,6 @@ export class TesteLogicoAddComponent implements OnInit {
           (<FormArray>this.addTesteForm.get('answers')).clear()
           this.answersChecked = [false, false, false, false, false]
           this.addTesteForm.reset();
-         
         }
       })
 
