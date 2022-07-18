@@ -12,15 +12,19 @@
           <table class="table table-striped padding-10">
             <thead>
               <tr class="text-center">
-                <th scope="col">Nome</th>
+                <th scope="col" [class.active]="order === 'displayName'" (click)="setOrder('displayName')">Nome
+                  <span [hidden]="reverse" style="cursor: pointer; font-size: 10px;">▲</span><span [hidden]="!reverse" style="cursor: pointer; font-size: 10px">▼</span>
+                </th>
                 <th scope="col">Email</th>
                 <th scope="col">Data do Registro</th>
-                <th scope="col">Papel do Funcionário</th>
+                <th scope="col" [class.active]="order === 'type'" (click)="setOrder('type')">Papel do Funcionário
+                  <span [hidden]="reverse" style="cursor: pointer; font-size: 10px">▼</span><span [hidden]="!reverse" style="cursor: pointer; font-size: 10px">▲</span>
+                </th>
               </tr>
             </thead>
             <tbody>
 
-              <tr class="text-center hover-background" *ngFor="let user of listUsers | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+              <tr class="text-center hover-background" *ngFor="let user of listUsers | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | orderBy: order:reverse:caseInsensitive" >
                 <td (click)="onClickDetail(user)">{{ user.displayName }}</td>
                 <td (click)="onClickDetail(user)">{{ user.email }}</td>
                 <td (click)="onClickDetail(user)">{{ user.registeredAt | date : 'd MMMM, y, h:mm a'}}</td>

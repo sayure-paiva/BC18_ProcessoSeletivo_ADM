@@ -24,6 +24,10 @@ export class UserListComponent implements OnInit {
   public pageSize = 5;
   public listPage = [5, 10, 15, 20];
 
+  order: string = 'type';
+  reverse: boolean = true;
+  caseInsensitive: boolean = false;
+
   constructor(
     private adminSerivce: AdminService,
     private modalService: NgbModal,
@@ -59,6 +63,13 @@ export class UserListComponent implements OnInit {
     } else {
       this.listUsers = this.listUsersToSerach;
     }
+  }
+
+  setOrder(value: string) {
+    if (this.order === value) {
+      this.reverse = !this.reverse;
+    }
+    this.order = value;
   }
 
   refreshList() {

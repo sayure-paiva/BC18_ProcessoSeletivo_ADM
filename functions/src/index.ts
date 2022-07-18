@@ -10,7 +10,6 @@ admin.initializeApp({
 
 const auth = admin.auth();
 const db = admin.firestore();
-const storage = admin.storage();
 
 
 export const getEnrollmentId = functions.https.onCall(async (data) => {
@@ -26,6 +25,17 @@ export const getEnrollmentId = functions.https.onCall(async (data) => {
     .get();
   return querySnapshot.empty ? undefined : querySnapshot.docs[0].id;
 });
+
+exports.checkBootcampStatus = functions.pubsub
+  .schedule("0 0 * * *")
+  .timeZone("America/Sao_Paulo")
+  .onRun(async (data) => {
+    const snapshotProcess = await db.collection("Processos").get();
+    const process = snapshotProcess.docs.map((doc) => doc.data());
+
+    await checkBootcampDate(process);
+
+})
 
 exports.createUserWithEmailAndPassword = functions.https.onCall(async (data, context) => {
 
@@ -86,6 +96,32 @@ exports.deleteUser = functions.https.onCall(async (data, context) => {
 
 });
 
+// Verifica na Coleção Processos as datas dos Bootcamp para troca de status
+async function checkBootcampDate(process: any) {
+  const dataNow = new Date().setHours(0, 0, 0, 0);
+  let inicioInscricoes: any;
+  let terminoInscricoes: any;
+
+    process.map((prop: any) => {
+      inicioInscricoes = new Date(prop.inicioInscricoes._seconds * 1000)
+      terminoInscricoes = new Date(prop.terminoInscricoes._seconds * 1000)
+
+      if (inicioInscricoes.setHours(0, 0, 0, 0) <= dataNow && dataNow < terminoInscricoes.setHours(0, 0, 0, 0)) {
+       changeStatus("Ativo", prop);
+      }
+      else if (inicioInscricoes.setHours(0, 0, 0, 0) > dataNow) {
+        changeStatus("Aguardando Início", prop);
+      }
+      else {
+        changeStatus("Encerrado", prop);
+      }
+    });
+}
+
+// Muda o status do Bootcamp na coleção Processos
+async function changeStatus(status: string, processo: any) {
+    await db.collection("Processos").doc(processo.id).update({...processo, status: status})
+}
 
 // Valida se o token tem o type "Admin"
 async function validateAuthorization(context: any) {
