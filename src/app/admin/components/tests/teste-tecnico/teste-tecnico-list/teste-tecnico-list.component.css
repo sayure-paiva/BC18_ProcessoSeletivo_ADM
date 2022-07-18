@@ -1,0 +1,59 @@
+.table-responsive-container-fluid {
+    display: flex;
+    margin-right: 20px;
+    width: 67%;
+
+}
+
+.text-table {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 5%;
+}
+
+.table {
+    margin-right: 10px;
+}
+
+.spinner-border {
+    margin-top: 10%;
+}
+
+.spinner-border {
+  margin-top: 10%;
+}
+
+th {
+  cursor: pointer;
+}
+
+.iconeList {
+  cursor: pointer;
+}
+
+@media (max-width: 400px) {
+    app-teste-logico-add {
+        width: 100%;
+    }
+
+
+}
+
+@media (max-width: 720px) {
+    app-teste-logico-add {
+        width: 100%;
+    }
+}
+
+@media (min-width: 2000px) {
+    .grupo {
+        width: 2000px;
+        margin: auto;
+    }
+}
+
+@media (max-width: 1500px) {
+    .col-xl-8 {
+        width: 100%;
+    }
+}
