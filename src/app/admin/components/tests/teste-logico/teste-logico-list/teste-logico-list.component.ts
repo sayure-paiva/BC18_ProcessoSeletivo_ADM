@@ -26,7 +26,7 @@ export class TesteLogicoListComponent implements OnInit {
   loading: boolean = true;
   order: string = 'question';
   reverse: boolean = false;
-  
+
   constructor(public testeService: TesteLogicoService,
     private modalService: NgbModal,
     private orderPipe: OrderPipe
@@ -91,7 +91,7 @@ export class TesteLogicoListComponent implements OnInit {
       this.allTeste = this.listaTesteResponse.filter((item) =>
         item.question.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1 ||
         item.alternatives.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1 ||
-        item.answers.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1 
+        item.answers.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1
       )
     } else {
       this.allTeste = this.listaTesteResponse;

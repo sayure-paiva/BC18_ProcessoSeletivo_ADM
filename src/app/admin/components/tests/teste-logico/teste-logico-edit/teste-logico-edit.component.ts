@@ -51,7 +51,7 @@ export class TesteLogicoEditComponent implements OnInit {
   }
   //#endregion
 
-  onCheckChange(event, index: number) {
+   onCheckChange(event, index: number) {
     if (event.target.checked) {
       this.answersChecked[index] = true;
     }
@@ -72,7 +72,6 @@ export class TesteLogicoEditComponent implements OnInit {
     this.teste.alternatives[2] = this.alternatives3.value;
     this.teste.alternatives[3] = this.alternatives4.value;
     this.teste.alternatives[4] = this.alternatives5.value;
-
     let answers: string[] = [];
     this.answersChecked.forEach((answer, index) => {
       if (answer) {

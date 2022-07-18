@@ -16,7 +16,7 @@ export class TesteLogicoService {
       }).catch((error) => { console.log(error) }));
   }
 
-  updateTeste(teste:Teste) {
+  updateTeste(teste: Teste) {
     return from(this.db.collection('Question').doc(teste.id).update(teste));
   }
 
@@ -25,7 +25,7 @@ export class TesteLogicoService {
       .valueChanges() as Observable<Teste[]>
   }
 
-  getById(id: string){
+  getById(id: string) {
     return this.db.collection('Question').doc(id).valueChanges() as Observable<Teste>;
   }
 
