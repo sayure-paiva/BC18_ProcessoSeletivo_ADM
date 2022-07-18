@@ -23,7 +23,10 @@
                                 <i class="far fa-rocket"></i>
                                 Início do Bootcamp: {{processo.inicioBootcamp | date: 'dd/MM/yyyy'}}
                             </span>
-                            <p href="#" class="card-link status">Status: <strong>{{processo.status}}</strong></p>
+                            <span style="font-size: 16px; display: block;">
+                                <i class="far fa-traffic-light-stop"></i>
+                                Status: <strong>{{processo.status}}</strong>
+                            </span>
                         </div>
                         <div class="acoesWrapper">
                             <div>
@@ -52,19 +55,22 @@
                             <h6 class="card-subtitle mb-2">{{processo.turma}}</h6>
                         </div>
                         <div>
-                            <span style="font-size: 14px;">
-                                <i class="far fa-calendar-alt me-2"></i>
-                                Abertura das Inscrições: {{processo.inicioInscricoes | date: 'dd/MM/yyyy'}}<p></p>
+                            <span style="font-size: 14px; display: block;">
+                                <i class="far fa-calendar-alt"></i>
+                                Abertura das Inscrições: {{processo.inicioInscricoes | date: 'dd/MM/yyyy'}}
                             </span>
-                            <span style="font-size: 14px;">
-                                <i class="far fa-calendar-exclamation me-2"></i>
-                                Término das Inscrições: {{processo.terminoInscricoes | date: 'dd/MM/yyyy'}}<p></p>
+                            <span style="font-size: 14px; display: block;">
+                                <i class="far fa-calendar-exclamation"></i>
+                                Término das Inscrições: {{processo.terminoInscricoes | date: 'dd/MM/yyyy'}}
                             </span>
-                            <span style="font-size: 14px;">
+                            <span style="font-size: 14px; display: block;">
                                 <i class="far fa-rocket"></i>
-                                Início do Bootcamp: {{processo.inicioBootcamp | date: 'dd/MM/yyyy'}}<p></p>
+                                Início do Bootcamp: {{processo.inicioBootcamp | date: 'dd/MM/yyyy'}}
                             </span>
-                            <p href="#" class="card-link status">Status: <strong>{{processo.status}}</strong></p>
+                            <span style="font-size: 16px; display: block;">
+                                <i class="far fa-traffic-light-stop"></i>
+                                Status: <strong>{{processo.status}}</strong>
+                            </span>
                         </div>
                         <div class="acoesWrapper">
                             <div>
@@ -91,6 +97,7 @@
         </div>
     </div>
     <div class="fab-wrapper">
-        <button (click)="openCreateOptions()" class="scroll-top show botaoAdd" style="font-size: 28pt; padding-top: 3px;">+</button>
+        <button (click)="openCreate()" class="scroll-top show botaoAdd"
+            style="font-size: 28pt; padding-top: 3px;">+</button>
     </div>
 </div>

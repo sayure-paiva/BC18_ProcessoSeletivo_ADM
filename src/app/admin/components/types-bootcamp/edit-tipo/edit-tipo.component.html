@@ -1,0 +1,43 @@
+<div class="modal-header">
+  <h2 class="modal-title tituloForm text-primary">Editar Tipo de Bootcamp</h2>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <form class="formCreate" [formGroup]="this.editTipoForm">
+    <div class="inputWrapper">
+      <label class="text-white" for="tipo">Tipo de Bootcamp</label>
+      <input id="tipo" placeholder="Digite o tipo de Bootcamp" formControlName="tipo" type="text"
+        class="input-field col s12" />
+      <small class="text-danger" *ngIf="tipo?.touched && tipo?.invalid">
+        <span *ngIf="tipo?.hasError('required')">O nome do tipo é obrigatório</span>
+      </small>
+    </div>
+
+    <div class="inputWrapper">
+      <label class="text-white" for="idTeachable">ID do Teachable</label>
+      <input id="idTeachable" placeholder="Digite o respectivo ID do Teachable" formControlName="idTeachable" type="number" min="0"
+        class="input-field col s12" />
+      <small class="text-danger" *ngIf="idTeachable?.touched && idTeachable?.invalid || returnIfFieldIsZero(idTeachable.value)">
+        <span *ngIf="idTeachable?.hasError('required')">O ID do Teachable é obrigatório</span>
+        <span *ngIf="returnIfFieldIsZero(idTeachable.value)">O ID do Teachable não pode ser 0</span>
+      </small>
+    </div>
+
+    <div class="inputWrapper">
+      <label class="text-white" for="limiteTentativas">Limite de tentativas nos testes</label>
+      <input id="limiteTentativas" placeholder="Digite a quantidade de vezes que um candidato poderá falhar nos testes" formControlName="limiteTentativas" type="number" min="0"
+        class="input-field col s12"/>
+      <small class="text-danger" *ngIf="limiteTentativas?.touched && limiteTentativas?.invalid || returnIfFieldIsZero(limiteTentativas.value)">
+        <span *ngIf="limiteTentativas?.hasError('required')">O limite de tentativas é obrigatório</span>
+        <span *ngIf="returnIfFieldIsZero(limiteTentativas.value)">O limite de tentativas não pode ser 0</span>
+      </small>
+    </div>
+
+    <div class="submitWrapper">
+      <button class="btn btn-primary submit" (click)="onSubmit()"
+      [disabled]="editTipoForm.invalid || returnIfFieldIsZero(idTeachable.value)  || returnIfFieldIsZero(limiteTentativas.value)">
+        Editar Tipo de Bootcamp
+      </button>
+    </div>
+  </form>
+</div>

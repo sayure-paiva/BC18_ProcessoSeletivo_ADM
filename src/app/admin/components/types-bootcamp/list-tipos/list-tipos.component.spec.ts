@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { CreateOptionsDialogComponent } from './create-options-dialog.component';
+import { ListTiposComponent } from './list-tipos.component';
 
-describe('CreateOptionsDialogComponent', () => {
-  let component: CreateOptionsDialogComponent;
-  let fixture: ComponentFixture<CreateOptionsDialogComponent>;
+describe('ListTiposComponent', () => {
+  let component: ListTiposComponent;
+  let fixture: ComponentFixture<ListTiposComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateOptionsDialogComponent ]
+      declarations: [ ListTiposComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateOptionsDialogComponent);
+    fixture = TestBed.createComponent(ListTiposComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,7 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Processo } from 'src/app/shared/models/processo';
+import { TipoBootcamp } from 'src/app/shared/models/tipo-bootcamp';
 import { CoursesService } from 'src/app/shared/services/courses.service';
+import { TipoBootcampService } from 'src/app/shared/services/tipo-bootcamp.service';
 
 @Component({
   selector: 'app-edit-process',
@@ -15,10 +17,11 @@ export class EditProcessComponent implements OnInit {
   @Input() processo: Processo;
   processosAtivos: Processo[] = [];
   currentDate: Date = new Date();
-  tipos: string[] = [];
+  tiposBootcamp: TipoBootcamp[] = [];
 
   constructor(
     private coursesService: CoursesService,
+    private tipoService: TipoBootcampService,
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private toast: HotToastService
@@ -69,12 +72,13 @@ export class EditProcessComponent implements OnInit {
     const inicioBootcamp = this.formatDate(this.inicioBootcamp.value);
     const inicioInscricoes = this.formatDate(this.inicioInscricoes.value);
     const terminoInscricoes = this.formatDate(this.terminoInscricoes.value);
+    const tipoBootcamp = this.tiposBootcamp.find((tipoBootcamp) => this.tipo.value == tipoBootcamp.tipo);
 
     this.processo = {
       id: this.processo.id,
-      turma: this.processo.turma,
-      idTeachable: this.coursesService.returnIdTeachable(this.tipo.value),
-      tipo: this.tipo.value,
+      turma: this.turma.value,
+      idTeachable: tipoBootcamp.idTeachable,
+      tipo: tipoBootcamp.tipo,
       inicioBootcamp: inicioBootcamp,
       inicioInscricoes: inicioInscricoes,
       terminoInscricoes: terminoInscricoes,
@@ -97,13 +101,13 @@ export class EditProcessComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.turma.setValue(this.processo.turma);
     this.tipo.setValue(this.processo.tipo);
     this.inicioInscricoes.setValue(this.processo.inicioInscricoes.toLocaleString('sv', { timeZone: 'America/Sao_Paulo' }).slice(0, 10));
     this.terminoInscricoes.setValue(this.processo.terminoInscricoes.toLocaleString('sv', { timeZone: 'America/Sao_Paulo' }).slice(0, 10))
     this.inicioBootcamp.setValue(this.processo.inicioBootcamp.toLocaleString('sv', { timeZone: 'America/Sao_Paulo' }).slice(0, 10))
-    this.coursesService.tiposAndIdsTeachable.forEach((objeto) => this.tipos.push(objeto.tipo));
-    this.coursesService.getProcessesFilteredByStatus('Ativo')
-      .subscribe((processosAtivosFirestore) => this.processosAtivos = processosAtivosFirestore);
+    this.coursesService.getProcessesFilteredByStatus('Ativo').subscribe((processosAtivosFirestore) => this.processosAtivos = processosAtivosFirestore);
+    this.tipoService.getAllTiposBootcamp().subscribe((tiposBootcampFirestore) => this.tiposBootcamp = tiposBootcampFirestore);
   }
 
 }

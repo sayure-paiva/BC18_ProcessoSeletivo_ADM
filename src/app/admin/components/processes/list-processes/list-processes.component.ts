@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Processo } from 'src/app/shared/models/processo';
 import { CoursesService } from 'src/app/shared/services/courses.service';
-import { CreateOptionsDialogComponent } from '../create-options-dialog/create-options-dialog.component';
+import { CreateProcessComponent } from '../create-process/create-process.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { EditProcessComponent } from '../edit-process/edit-process.component';
 
@@ -22,8 +22,8 @@ export class ListProcessesComponent implements OnInit {
   processosAtivos: Processo[] = [];
   loading: boolean = true;
 
-  openCreateOptions() {
-    this.modalService.open(CreateOptionsDialogComponent, { size: 'sm', centered: true });
+  openCreate(){
+    this.modalService.open(CreateProcessComponent, { centered: true });
   }
 
   openEdit(processo: Processo) {

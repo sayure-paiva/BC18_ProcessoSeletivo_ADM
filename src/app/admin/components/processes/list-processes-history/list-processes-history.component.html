@@ -1,0 +1,67 @@
+<div class="container">
+  <div>
+    <div>
+      <div class="table-responsive-container-fluid">
+        <h1 style="text-align: center; font-size: 24px; margin-top: 10%">Histórico de Processos</h1>
+
+        <label for="typeahead-basic">Pesquisar:</label>
+        <input id="typeahead-basic" type="text" placeholder="Pesquise por: turma, tipo do bootcamp ou status"
+          class="form-control" [(ngModel)]="textSearch" (ngModelChange)="filterList()" />
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th [class.active]="order === 'turma'" (click)="setOrder('turma')">Turma
+                  <span style="cursor: pointer" [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+                </th>
+                <th [class.active]="order === 'tipo'" (click)="setOrder('tipo')">Tipo do Bootcamp
+                  <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+                </th>
+                <th [class.active]="order === 'inicioInscricoes'" (click)="setOrder('inicioInscricoes')">Abertura das Inscrições
+                  <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+                </th>
+                <th [class.active]="order === 'terminoInscricoes'" (click)="setOrder('terminoInscricoes')">Término das Inscrições
+                  <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+                </th>
+                <th [class.active]="order === 'inicioBootcamp'" (click)="setOrder('inicioBootcamp')">Início do Bootcamp
+                  <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+                </th>
+                <th [class.active]="order === 'status'" (click)="setOrder('status')">Status
+                  <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of processos | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | orderBy: order:reverse:caseInsensitive">
+                <td>{{ item.turma }}</td>
+                <td>{{ item.tipo }}</td>
+                <td>{{ item.inicioInscricoes | date: 'dd/MM/YYYY'}}</td>
+                <td>{{ item.terminoInscricoes | date: 'dd/MM/YYYY' }}</td>
+                <td>{{ item.inicioBootcamp | date: 'dd/MM/YYYY' }}</td>
+                <td>{{ item.status }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-between p-2">
+          <ngb-pagination [collectionSize]="processos.length" [(page)]="page" [pageSize]="pageSize"
+            (pageChange)="refreshBlock()">
+          </ngb-pagination>
+
+          <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshBlock()">
+            <option *ngFor="let item of listPage" [ngValue]="item">
+              {{ item }} - itens por página
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <div class="spinner-border" role="status" *ngIf="loading">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
+</div>

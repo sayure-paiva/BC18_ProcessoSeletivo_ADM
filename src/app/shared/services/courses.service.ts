@@ -14,24 +14,6 @@ export class CoursesService {
     private db: AngularFirestore
   ) { }
 
-  tiposAndIdsTeachable: { tipo: string, idTeachable: number }[] = [
-    {
-      tipo: 'Java Full Stack',
-      idTeachable: 1788844
-    },
-    {
-      tipo: 'Engenharia De Dados',
-      idTeachable: 1774608
-    },
-    {
-      tipo: 'Desenvolvedor Salesforce',
-      idTeachable: 1788757
-    },
-    {
-      tipo: 'Analista Midia Digital Performance',
-      idTeachable: 1785292
-    }
-  ];
 
   convertToDateFromFirestore(dateFirestore: Date): Date {
     let dateSplitted = dateFirestore.toString().split(',');
@@ -71,25 +53,47 @@ export class CoursesService {
 
       return ref
         .where('status', '==', status)
-    }).valueChanges() as Observable<Processo[]>
+    }).valueChanges()
+      .pipe(
+        tap((processos: Processo[]) => {
+          processos.forEach((processo: Processo) => {
+            processo.inicioBootcamp = this.convertToDateFromFirestore(processo.inicioBootcamp);
+            processo.inicioInscricoes = this.convertToDateFromFirestore(processo.inicioInscricoes);
+            processo.terminoInscricoes = this.convertToDateFromFirestore(processo.terminoInscricoes);
+          })
+        })
+      )
   }
 
-  returnProcessStatusBasedOnDate(inicioInscricoes: Date, terminoInscricoes: Date): string{
+  getProcessesFilteredByTipo(tipo: string): Observable<Processo[]> {
+    return this.db.collection('Processos', ref => {
+
+      return ref
+        .where('tipo', '==', tipo)
+    })
+      .valueChanges()
+      .pipe(
+        tap((processos: Processo[]) => {
+          processos.forEach((processo: Processo) => {
+            processo.inicioBootcamp = this.convertToDateFromFirestore(processo.inicioBootcamp);
+            processo.inicioInscricoes = this.convertToDateFromFirestore(processo.inicioInscricoes);
+            processo.terminoInscricoes = this.convertToDateFromFirestore(processo.terminoInscricoes);
+          })
+        })
+      )
+  }
+
+  returnProcessStatusBasedOnDate(inicioInscricoes: Date, terminoInscricoes: Date): string {
     const currentDate = new Date();
 
-    if(inicioInscricoes.setHours(0,0,0,0) > currentDate.setHours(0,0,0,0) ){
+    if (inicioInscricoes.setHours(0, 0, 0, 0) > currentDate.setHours(0, 0, 0, 0)) {
       return 'Aguardando Início';
-    }else if(inicioInscricoes.setHours(0,0,0,0) <= currentDate.setHours(0,0,0,0) && terminoInscricoes.setHours(0,0,0,0) > currentDate.setHours(0,0,0,0)){
+    } else if (inicioInscricoes.setHours(0, 0, 0, 0) <= currentDate.setHours(0, 0, 0, 0) && terminoInscricoes.setHours(0, 0, 0, 0) > currentDate.setHours(0, 0, 0, 0)) {
       return 'Ativo';
-    }else{
+    } else {
       return 'Encerrado';
     }
-    
-  }
 
-  returnIdTeachable(tipo: string): number {
-    const objetoTipoEIdTeachable = this.tiposAndIdsTeachable.find((objetoTipoEIdTeachable) => tipo == objetoTipoEIdTeachable.tipo)
-    return objetoTipoEIdTeachable.idTeachable;
   }
 
   createProcess(process: Processo): Observable<void> {
@@ -108,7 +112,7 @@ export class CoursesService {
   }
 
   verififyIfAnotherProcessHasSameType(processes: Processo[], tipo: string) {
-    if(processes.find((processFromArray) => processFromArray.tipo == tipo) != undefined){
+    if (processes.find((processFromArray) => processFromArray.tipo == tipo) != undefined) {
       return true;
     }
     return false;

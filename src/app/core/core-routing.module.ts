@@ -23,6 +23,8 @@ import { PoliticaPrivacidadeComponent } from "./soulcodeacademy/politica-privaci
 import { SobreNosComponent } from "./soulcodeacademy/sobre-nos/sobre-nos.component";
 import { TermosDeUsoComponent } from "./soulcodeacademy/termos-de-uso/termos-de-uso.component";
 import { TesteLogicoListComponent } from "../admin/components/tests/teste-logico/teste-logico-list/teste-logico-list.component";
+import { ListTiposComponent } from '../admin/components/types-bootcamp/list-tipos/list-tipos.component';
+import { ListProcessesHistoryComponent } from '../admin/components/processes/list-processes-history/list-processes-history.component';
 import { UserListComponent } from "../admin/components/users/user-list/user-list.component";
 
 export const coreRoutes: Routes = [
@@ -135,6 +137,10 @@ export const coreRoutes: Routes = [
         component: ListProcessesComponent,
       },
       {
+        path: "processos/historico",
+        component: ListProcessesHistoryComponent
+      },
+      {
         path: "processos/:id",
         component: ListCandidatesComponent,
       },
@@ -149,6 +155,10 @@ export const coreRoutes: Routes = [
       {
         path: "list-users",
         component: UserListComponent,
+      },
+      {
+        path: "tipos-bootcamp",
+        component: ListTiposComponent
       },
     ],
   },
