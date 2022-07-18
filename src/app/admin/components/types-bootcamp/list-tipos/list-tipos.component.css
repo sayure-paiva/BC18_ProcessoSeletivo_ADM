@@ -21,7 +21,6 @@
     background-color: #0f637a;
 }
 
-
 .card-subtitle {
     color: white;
 }
@@ -30,16 +29,11 @@
     height: 2rem;
 }
 
-.botao-detalhes-process {
-    width: 100%;
-    margin: 1vh 0;
-}
-
-.botao-editar-process {
+.botao-editar {
     width: 47%;
 }
 
-.botao-apagar-process {
+.botao-apagar {
     width: 47%;
 }
 

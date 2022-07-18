@@ -20,25 +20,37 @@
           <nav class="site-main-menu menu-hover-1">
             <ul>
               <li class="has-children position-static">
-                <a [routerLink]="'/admin/processos'"><span class="menu-text">Processos Seletivos</span></a>
+                <a [routerLink]="'/admin/processos'"><span class="menu-text">Processos e Tipos de Bootcamp</span></a>
                 <span class="menu-toggle"><i class="far fa-angle-down"></i></span>
-
-                <ul class="mega-menu" style="width: 465px;">
+                <ul class="mega-menu" style="width: 380px; left: 200px;">
                   <li>
-                    <ul >
-                      <li style="width: 400px; text-align: center;"><a  [routerLink]="'/admin/processos'">Processos Aguardando Início e Ativos</a></li>
-                      <li style="width: 400px; text-align: center;"><a  [routerLink]="['#']">Histórico de Processos</a></li>
+                    <ul>
+                      <li><a  [routerLink]="'/admin/processos'">Processos Seletivos Aguardando Início e Ativos</a></li>
+                      <li><a  [routerLink]="'/admin/processos/historico'">Histórico de Processos Seletivos</a></li>
+                      <li><a  [routerLink]="'/admin/tipos-bootcamp'">Tipos de Bootcamp</a></li>
                     </ul>
                   </li>
                 </ul>
               </li>
-
-              <li>
+              <li class="has-children position-static">
+                <a><span class="menu-text">Testes</span></a>
+                <span class="menu-toggle"><i class="far fa-angle-down"></i></span>
+                <ul class="mega-menu" style="width: 170px; left: 500px;">
+                  <li>
+                    <ul>
+                      <li><a [routerLink]="'/admin/teste-logico'"><span class="menu-text">Testes Lógicos</span></a></li>
+                      <li><a [routerLink]="['#']"><span class="menu-text">Testes Técnicos</span></a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <!-- <li>
+                
                 <a [routerLink]="'/admin/teste-logico'"><span class="menu-text">Testes Lógicos</span></a>
               </li>
               <li>
                 <a [routerLink]="['#']"><span class="menu-text">Testes Técnicos</span></a>
-              </li>
+              </li> -->
               <li>
                 <a [routerLink]="'/admin/cpf-block'"><span class="menu-text">Candidatos Bloqueados</span></a>
               </li>
@@ -100,17 +112,25 @@
             <ul class="mega-menu">
               <li>
                 <ul>
-                  <li><a href="/admin/processos"><span class="menu-text">Processos Aguardando Início e Ativos</span></a></li>
-                  <li><a href="#"><span class="menu-text">Histórico de Processos</span></a></li>
+                  <li><a href="/admin/processos"><span class="menu-text">Processos Seletivos Aguardando Início e Ativos</span></a></li>
+                  <li><a href="/admin/processos/historico"><span class="menu-text">Histórico de Processos Seletivos</span></a></li>
+                  <li><a href="/admin/tipos-bootcamp"><span class="menu-text">Tipos de Bootcamp</span></a></li>
                 </ul>
               </li>
             </ul>
           </li>
-          <li>
-            <a href="/admin/teste-logico"><span class="menu-text">Testes Lógicos</span></a>
-          </li>
-          <li>
-            <a href="#"><span class="menu-text">Testes Técnicos</span></a>
+          <li class="has-children position-static">
+            <a href="/admin/teste-logico"><span class="menu-text">Testes</span></a>
+            <span class="menu-toggle"><i class="far fa-angle-down"></i></span>
+
+            <ul class="mega-menu">
+              <li>
+                <ul>
+                  <li><a href="/admin/teste-logico"><span class="menu-text">Testes Lógicos</span></a></li>
+                  <li><a href="#"><span class="menu-text">Testes Técnicos</span></a></li>
+                </ul>
+              </li>
+            </ul>
           </li>
           <li>
             <a href="#"><span class="menu-text">Lista de Bloqueio</span></a>

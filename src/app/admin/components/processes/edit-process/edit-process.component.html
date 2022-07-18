@@ -6,7 +6,7 @@
     <form class="formCreate" [formGroup]="this.editProcessForm">
         <div class="inputWrapper">
             <label class="text-white" for="turma">Número do Bootcamp</label>
-            <input id="turma" [(ngModel)]="processo.turma" placeholder="Digite o número do BC" formControlName="turma"
+            <input id="turma" placeholder="Digite o número do BC" formControlName="turma"
                 type="text" class="input-field col s12" />
             <small class="text-danger" *ngIf="turma?.touched && turma?.invalid">
                 <span *ngIf="turma?.hasError('required')">A turma é obrigatória</span>
@@ -17,8 +17,8 @@
             <label class="text-white" for="tipo">Tipo de Bootcamp</label>
             <select id="tipo" class="form-select" formControlName="tipo">
                 <option value="" disabled>Selecione um tipo</option>
-                <option *ngFor="let tipo of tipos" [ngValue]="tipo">
-                    {{ tipo }}
+                <option *ngFor="let tipo of tiposBootcamp" [ngValue]="tipo.tipo">
+                    {{ tipo.tipo }}
                 </option>
             </select>
             <small class="text-danger" *ngIf="tipo?.touched && tipo?.invalid">

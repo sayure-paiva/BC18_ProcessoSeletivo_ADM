@@ -3,7 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Processo } from 'src/app/shared/models/processo';
+import { TipoBootcamp } from 'src/app/shared/models/tipo-bootcamp';
 import { CoursesService } from 'src/app/shared/services/courses.service';
+import { TipoBootcampService } from 'src/app/shared/services/tipo-bootcamp.service';
 
 @Component({
   selector: 'app-create-process',
@@ -14,6 +16,7 @@ export class CreateProcessComponent implements OnInit {
 
   constructor(
     private coursesService: CoursesService,
+    private tipoService: TipoBootcampService,
     private fb: FormBuilder,
     public activeModal: NgbActiveModal,
     private toast: HotToastService
@@ -21,7 +24,7 @@ export class CreateProcessComponent implements OnInit {
 
   processosAtivos: Processo[] = [];
   processo: Processo = {} as Processo;
-  tipos: string[] = [];
+  tiposBootcamp: TipoBootcamp[] = [];
   currentDate: Date = new Date();
 
   formatDate(stringDate: string) {
@@ -58,20 +61,21 @@ export class CreateProcessComponent implements OnInit {
 
 
   returnIfAnotherProcessIsActive() {
-        return (this.coursesService.verififyIfAnotherProcessHasSameType(this.processosAtivos, this.tipo.value)) &&
-        (this.formatDate(this.inicioInscricoes.value).setHours(0, 0, 0, 0) <= this.currentDate.setHours(0, 0, 0, 0)) &&
-        (this.formatDate(this.terminoInscricoes.value).setHours(0, 0, 0, 0) > this.currentDate.setHours(0, 0, 0, 0))
+    return (this.coursesService.verififyIfAnotherProcessHasSameType(this.processosAtivos, this.tipo.value)) &&
+      (this.formatDate(this.inicioInscricoes.value).setHours(0, 0, 0, 0) <= this.currentDate.setHours(0, 0, 0, 0)) &&
+      (this.formatDate(this.terminoInscricoes.value).setHours(0, 0, 0, 0) > this.currentDate.setHours(0, 0, 0, 0))
   }
 
   onSubmit() {
     const inicioBootcamp = this.formatDate(this.inicioBootcamp.value);
     const inicioInscricoes = this.formatDate(this.inicioInscricoes.value);
     const terminoInscricoes = this.formatDate(this.terminoInscricoes.value);
+    const tipoBootcamp = this.tiposBootcamp.find((tipoBootcamp) => this.tipo.value == tipoBootcamp.tipo);
 
     this.processo = {
       turma: this.processo.turma,
-      idTeachable: this.coursesService.returnIdTeachable(this.tipo.value),
-      tipo: this.tipo.value,
+      idTeachable: tipoBootcamp.idTeachable,
+      tipo: tipoBootcamp.tipo,
       inicioBootcamp: inicioBootcamp,
       inicioInscricoes: inicioInscricoes,
       terminoInscricoes: terminoInscricoes,
@@ -93,11 +97,13 @@ export class CreateProcessComponent implements OnInit {
         }
       })
 
+
   }
 
   ngOnInit(): void {
-    this.coursesService.tiposAndIdsTeachable.forEach((objeto) => this.tipos.push(objeto.tipo));
     this.coursesService.getProcessesFilteredByStatus('Ativo')
       .subscribe((processosAtivosFirestore) => this.processosAtivos = processosAtivosFirestore);
+
+    this.tipoService.getAllTiposBootcamp().subscribe((tiposBootcampFirestore) => this.tiposBootcamp = tiposBootcampFirestore);
   }
 }

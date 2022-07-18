@@ -17,8 +17,8 @@
             <label class="text-white" for="tipo">Tipo de Bootcamp</label>
             <select id="tipo" class="form-select" formControlName="tipo">
                 <option value="" disabled>Selecione um tipo</option>
-                <option *ngFor="let tipo of tipos" [ngValue]="tipo">
-                    {{ tipo }}
+                <option *ngFor="let tipo of tiposBootcamp" [ngValue]="tipo.tipo">
+                    {{ tipo.tipo }}
                 </option>
             </select>
             <small class="text-danger" *ngIf="tipo?.touched && tipo?.invalid">

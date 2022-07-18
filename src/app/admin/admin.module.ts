@@ -25,6 +25,11 @@ import { UserDeleteComponent } from './components/users/user-delete/user-delete.
 import { UserDetailComponent } from './components/users/user-detail/user-detail.component';
 import { UserListComponent } from './components/users/user-list/user-list.component';
 import { UserUpdateComponent } from './components/users/user-update/user-update.component';
+import { ListTiposComponent } from './components/types-bootcamp/list-tipos/list-tipos.component';
+import { CreateTipoComponent } from './components/types-bootcamp/create-tipo/create-tipo.component';
+import { EditTipoComponent } from './components/types-bootcamp/edit-tipo/edit-tipo.component';
+import { DeleteTipoDialogComponent } from './components/types-bootcamp/delete-tipo-dialog/delete-tipo-dialog.component';
+import { ListProcessesHistoryComponent } from './components/processes/list-processes-history/list-processes-history.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -35,6 +40,7 @@ const maskConfig: Partial<IConfig> = {
 @NgModule({
   declarations: [
     ListProcessesComponent,
+    ListProcessesHistoryComponent,
     CreateProcessComponent,
     ListCandidatesComponent,
     EditProcessComponent,
@@ -50,7 +56,11 @@ const maskConfig: Partial<IConfig> = {
     UserListComponent,
     UserUpdateComponent,
     UserDeleteComponent,
-    UserCreateComponent
+    UserCreateComponent,
+    ListTiposComponent,
+    CreateTipoComponent,
+    EditTipoComponent,
+    DeleteTipoDialogComponent
   ],
   imports: [
     OrderModule,
