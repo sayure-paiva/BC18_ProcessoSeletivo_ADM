@@ -26,6 +26,7 @@ import { TesteLogicoListComponent } from "../admin/components/tests/teste-logico
 import { ListTiposComponent } from '../admin/components/types-bootcamp/list-tipos/list-tipos.component';
 import { ListProcessesHistoryComponent } from '../admin/components/processes/list-processes-history/list-processes-history.component';
 import { UserListComponent } from "../admin/components/users/user-list/user-list.component";
+import { TesteTecnicoListComponent } from "../admin/components/tests/teste-tecnico/teste-tecnico-list/teste-tecnico-list.component";
 
 export const coreRoutes: Routes = [
   {
@@ -151,6 +152,10 @@ export const coreRoutes: Routes = [
       {
         path: "teste-logico",
         component: TesteLogicoListComponent,
+      },
+      {
+        path: "teste-tecnico",
+        component: TesteTecnicoListComponent,
       },
       {
         path: "list-users",

@@ -30,6 +30,11 @@ import { CreateTipoComponent } from './components/types-bootcamp/create-tipo/cre
 import { EditTipoComponent } from './components/types-bootcamp/edit-tipo/edit-tipo.component';
 import { DeleteTipoDialogComponent } from './components/types-bootcamp/delete-tipo-dialog/delete-tipo-dialog.component';
 import { ListProcessesHistoryComponent } from './components/processes/list-processes-history/list-processes-history.component';
+import { TesteTecnicoAddComponent } from './components/tests/teste-tecnico/teste-tecnico-add/teste-tecnico-add.component';
+import { TesteTecnicoDeleteComponent } from './components/tests/teste-tecnico/teste-tecnico-delete/teste-tecnico-delete.component';
+import { TesteTecnicoDetailComponent } from './components/tests/teste-tecnico/teste-tecnico-detail/teste-tecnico-detail.component';
+import { TesteTecnicoEditComponent } from './components/tests/teste-tecnico/teste-tecnico-edit/teste-tecnico-edit.component';
+import { TesteTecnicoListComponent } from './components/tests/teste-tecnico/teste-tecnico-list/teste-tecnico-list.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -60,7 +65,12 @@ const maskConfig: Partial<IConfig> = {
     ListTiposComponent,
     CreateTipoComponent,
     EditTipoComponent,
-    DeleteTipoDialogComponent
+    DeleteTipoDialogComponent,
+    TesteTecnicoAddComponent,
+    TesteTecnicoDeleteComponent,
+    TesteTecnicoDetailComponent,
+    TesteTecnicoEditComponent,
+    TesteTecnicoListComponent
   ],
   imports: [
     OrderModule,

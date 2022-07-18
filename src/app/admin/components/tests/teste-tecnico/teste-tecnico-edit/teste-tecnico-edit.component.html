@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h2 class="modal-title tituloForm text-primary">Questionário de Teste Técnico</h2>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="addTesteForm" class="formCreate">
+        <div class="inputWrapper">
+            <label class="text-white" for="question">Question</label>
+            <textarea type="text" class="form-control" 
+                placeholder="Digite a pergunta para seu candidato" formControlName="question" required id="question">
+            </textarea>
+            </div>
+        <div class="inputWrapper">
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" [value]="alternatives1.value"
+                        (change)="onCheckChange($event,0)" aria-label="Checkbox for following text input" [checked]="answersChecked[0]">
+                </div>
+                <textarea type="text" class="form-control" aria-label="Text input with checkbox"
+                    formControlName="alternatives1">
+                </textarea>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" [value]="alternatives2.value"
+                        (change)="onCheckChange($event, 1)" aria-label="Checkbox for following text input" [checked]="answersChecked[1]">
+                </div>
+                <textarea type="text" class="form-control" aria-label="Text input with checkbox"
+                    formControlName="alternatives2">
+                </textarea>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" [value]="alternatives3.value"
+                        (change)="onCheckChange($event, 2)" aria-label="Checkbox for following text input" [checked]="answersChecked[2]">
+                </div>
+                <textarea type="text" class="form-control" aria-label="Text input with checkbox"
+                    formControlName="alternatives3">
+                </textarea>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" [value]="alternatives4.value"
+                        (change)="onCheckChange($event,3)" aria-label="Checkbox for following text input" [checked]="answersChecked[3]">
+                </div>
+                <textarea type="text" class="form-control" aria-label="Text input with checkbox"
+                    formControlName="alternatives4">
+                </textarea>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" [value]="alternatives5.value"
+                        (change)="onCheckChange($event, 4)" aria-label="Checkbox for following text input" [checked]="answersChecked[4]">
+                </div>
+                <textarea type="text" class="form-control" aria-label="Text input with checkbox"
+                    formControlName="alternatives5">
+                </textarea>
+            </div>
+        </div>
+        <div class="submitWrapper">
+            <button type="submit" class="btn btn-primary submit" (click)="update()" 
+                [disabled]="addTesteForm.invalid || returnIfAllUnchecked()">Editar</button>
+        </div>
+    </form>
+</div>

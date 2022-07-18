@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h2 class="modal-title tituloForm text-primary">Detalhes</h2>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+  </div>
+  
+  <div class="modal-body text-white m-0 text-left">
+     <b>Questão:</b> {{ teste.question }} <br>
+     <b>Alternativa A:</b> {{ teste.alternatives[0] }} <br>
+     <b>Alternativa B:</b> {{ teste.alternatives[1] }} <br>
+     <b>Alternativa C:</b> {{ teste.alternatives[2] }} <br>
+     <b>Alternativa D:</b> {{ teste.alternatives[3] }} <br>
+     <b>Alternativa E:</b> {{ teste.alternatives[4] }} <br>
+     <b>Resposta:</b> {{ teste.answers}} <br>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary botao-cancelar"
+        (click)="activeModal.dismiss('Close click')">Fechar</button>
+  </div>
+  
