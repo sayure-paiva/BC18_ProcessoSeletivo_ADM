@@ -10,3 +10,55 @@
     width: 100%;
     text-align: center;
   }
+  #busca{
+
+    border: 2px;
+    border-color: black;
+    margin-left: 45%;
+    margin-right: 45%;
+    text-align: center;
+    width: 250px;
+  }
+  .formCreate{
+    padding: 3vh 20vh;
+}
+
+.modal-header {
+    border: none;
+    background-color: #0f637a;
+    display: flex;
+
+}
+
+.modal-body{
+    padding: 0;
+    background-color: #0f637a;
+}
+
+form>input {
+    margin: 1.5vh 0;
+}
+
+
+.submitWrapper {
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.submit {
+    width: 70%;
+}
+
+.tituloForm{
+    text-shadow: 2px 2px 5px black;
+}
+.textArea{
+  background-color: #0f637a;
+
+}
+.textarea-wrapper{
+background-color: #0f637a;
+}
+

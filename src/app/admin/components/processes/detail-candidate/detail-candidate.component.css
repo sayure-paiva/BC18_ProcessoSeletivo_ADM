@@ -1,0 +1,37 @@
+.detailPut {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.detailPut label {
+  padding: 10px;
+  width: 450px;
+}
+.btnClose{
+  color:#0f637a;
+  border: none;
+  background-color: yellow;
+}
+.modal-header {
+  border: none;
+  background-color: #0f637a;
+  display: flex;
+}
+.modal-footer{
+  border: none;
+  background-color: #0f637a;
+  display: flex;
+}
+
+.modal-body {
+  padding: 0;
+  background-color: #0f637a;
+}
+.textArea {
+  background-color: #0f637a;
+
+}
+::placeholder{
+    color:white !important;
+}

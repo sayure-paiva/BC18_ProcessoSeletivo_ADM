@@ -27,6 +27,7 @@ import { ListTiposComponent } from '../admin/components/types-bootcamp/list-tipo
 import { ListProcessesHistoryComponent } from '../admin/components/processes/list-processes-history/list-processes-history.component';
 import { UserListComponent } from "../admin/components/users/user-list/user-list.component";
 import { TesteTecnicoListComponent } from "../admin/components/tests/teste-tecnico/teste-tecnico-list/teste-tecnico-list.component";
+import { DetailCandidateComponent } from "../admin/components/processes/detail-candidate/detail-candidate.component";
 
 export const coreRoutes: Routes = [
   {
@@ -144,6 +145,14 @@ export const coreRoutes: Routes = [
       {
         path: "processos/:id",
         component: ListCandidatesComponent,
+      },
+      {
+        path: 'processos/:id',
+        component: DetailCandidateComponent,
+      },
+      {
+        path: 'cpf-block',
+        component: ListCpfBlockComponent
       },
       {
         path: "cpf-block",

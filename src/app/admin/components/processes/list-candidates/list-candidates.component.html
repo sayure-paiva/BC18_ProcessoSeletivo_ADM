@@ -1,133 +1,103 @@
-<div id="busca">
-    <input type="text" id="txtBusca" placeholder="Buscar..">
-</div>
-<div class="container-fluid">
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th scope="col"> N° </th>
-                <th scope="col">Nome</th>
-                <th scope="col">Email</th>
-                <th scope="col">Curso</th>
-                <th scope="col">Pitch</th>
-                <th scope="col">Status</th>
-                <th scope="col">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="text-center">
-                <th scope="row"> 1 </th>
-                <td>nome</td>
-                <td>email</td>
-                <td>ID-Curso</td>
-                <td> <button class=".button" type="button" (click)="onDownload()"
-                        class="btn btn-primary-disable">Download</button>
-                </td>
-                <td>
-                   NO STATUS
-                </td>
-                <td>
-                    <button class=".button" class="btn btn-outline-primary"
-                        (click)="openObservacoes(obs)">Ações</button>
-                </td>
+<div class="container">
+    <div>
+        <div>
 
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>nome</td>
-                <td>email</td>
-                <td>ID-Curso</td>
-                <td> <button class=".button" type="button" (click)="onDownload()"
-                        class="btn btn-primary-disable">Download</button>
-                </td>
-                <td>
-                    NO STATUS
-                </td>
-                <td>
-                    <button class=".button" class="btn btn-outline-primary"
-                        (click)="openObservacoes(obs)">Ações</button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>nome</td>
-                <td>email</td>
-                <td>ID-Curso</td>
-                <td> <button class=".button" type="button" (click)="onDownload()"
-                        class="btn btn-primary-disable">Download</button>
-                </td>
-                <td>
-                    NO STATUS
-                </td>
-                <td>
-                    <button class=".button" class="btn btn-outline-primary"
-                        (click)="openObservacoes(obs)">Ações</button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">4</th>
-                <td>nome</td>
-                <td>email</td>
-                <td>ID-Curso</td>
-                <td> <button class=".button" type="button" (click)="onDownload()"
-                        class="btn btn-primary-disable">Download</button>
-                </td>
-                <td>
-                    NO STATUS
-                </td>
-                <td>
-                    <button class=".button" class="btn btn-outline-primary"
-                        (click)="openObservacoes(obs)">Ações</button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">5</th>
-                <td>nome</td>
-                <td>email</td>
-                <td>ID-Curso</td>
-                <td> <button class=".button" type="button" (click)="onDownload()"
-                        class="btn btn-primary-disable">Download</button>
-                </td>
-                <td>
-                    NO STATUS
-                </td>
-                <td>
-                    <button class=".button" class="btn btn-outline-primary"
-                        (click)="openObservacoes(obs)">Ações</button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">6</th>
-                <td>Gabriel Moraes Santos</td>
-                <td>biel.moraes2701@gmail.com</td>
-                <td>1798835</td>
-                <td> <button class=".button" type="button" (click)="onDownload()"
-                        class="btn btn-primary-disable">Download</button>
-                </td>
-                <td>
-                    NO STATUS
-                </td>
-                <td>
-                    <button class=".button" class="btn btn-outline-primary"
-                        (click)="openObservacoes(obs)">Ações</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <!--modal-observações-->
-    <ng-template #obs let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Adicionar observação do Candidato</h4>
-            <button class=".button" type="button" class="btn-close" aria-label="Close"
-                (click)="d('Cross click')"></button>
+            <div class="table-responsive-container-fluid">
+                <h1 style="text-align: center; font-size: 24px; margin-top: 10%">Candidatos</h1>
+
+                <label for="typeahead-basic">Pesquisar:</label>
+                <input id="typeahead-basic" type="text" placeholder="Pesquise por: email, nome ou id "
+                    class="form-control" [(ngModel)]="textSearch" (ngModelChange)=" candidateSearch()" />
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr style="text-align: center ;">
+                                <th [class.active]="order === 'nomeCompleto'" (click)="setOrder('nomeCompleto')">Nome
+                                </th>
+                                <th [class.active]="order === 'email'" (click)="setOrder('email')">Email</th>
+                                <th [class.active]="order === 'statusJornada'" (click)="setOrder('statusJornada')">Etapa
+                                    Atual</th>
+                                <th [class.active]="order === 'detalhes'" (click)="setOrder('detalhes')">Detalhes </th>
+                                <th [class.active]="order === 'pitch'" (click)="setOrder('status')">Pitch</th>
+                                <th [class.active]="order === 'acoes'" (click)="setOrder('acoes')">Ações</th>
+                                <th [class.active]="order === 'statusFinal'" (click)="setOrder('statusFinal')">Status
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center ;">
+                            <tr
+                                *ngFor="let inscricao of inscricoes | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | orderBy: order:reverse:caseInsensitive">
+                                <td>{{inscricao.nomeCompleto}}</td>
+                                <td>{{inscricao.email }}</td>
+                                <td>
+                                    {{inscricao.statusJornada}}
+                                </td>
+                                <td>
+                                    <i (click)="candidateDetail(inscricao)" style="cursor: pointer;"
+                                        class="far fa-user-circle" aria-hidden="true"></i>
+                                </td>
+                                <td *ngIf="inscricao.pitchURL !== ''; else outroPitch ">
+                                    <a href="{{inscricao.pitchURL}}"><i class="far fa-download"
+                                            aria-hidden="true"></i></a>
+                                </td>
+                                <ng-template #outroPitch>
+                                    <td>
+                                        <a title="Não possui Pitch"><i class="far fa-download"
+                                                aria-hidden="true"></i></a>
+                                    </td>
+                                </ng-template>
+                                <td>
+                                    <i class="far fa-upload" style="cursor: pointer;"
+                                        (click)=" openActions(content, inscricao)" aria-hidden="true"></i>
+                                </td>
+                                <td>
+                                    {{inscricao.statusFinal}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-between p-2">
+                    <ngb-pagination [collectionSize]="inscricoes.length" [(page)]="page" [pageSize]="pageSize"
+                        (pageChange)="refreshBlock()">
+                    </ngb-pagination>
+
+                    <select class="form-select" style="width: auto" [(ngModel)]="pageSize"
+                        (ngModelChange)="refreshBlock()">
+                        <option *ngFor="let item of listPage" [ngValue]="item">
+                            {{ item }} - itens por página
+                        </option>
+                    </select>
+                </div>
+            </div>
         </div>
-        <div class="modal-body" class="text-center">
-            <textarea name="comentario" id="" cols="30" rows="10">Adicione um comentário</textarea>
-            <input type="button" (click)="openAlertAp()" value="Aprovado">
-            {{ '' }}
-            <input type="button" (click)="openAlertRe()" value="Reprovado">
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
-        </div>
-    </ng-template>
+    </div>
+    <div>
+        <!--modal-observações-->
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h2 class="modal-title tituloForm text-primary">Insira um comentário para o candidato</h2>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <form [formGroup]="actionsForm">
+                <div class="container-fluid textarea-wrapper">
+                    <textarea class="textArea text-white" [(ngModel)]="candidateModal.comentario"
+                        formControlName="comentario" cols="10" rows="10">Escreva aqui</textarea>
+
+                </div>
+            </form>
+            <div class="modal-body">
+                <div class="submitWrapper">
+                    <button class="btn btn-primary " (click)="changeStatus('Aprovado')" style="margin: 15px;">
+                        Aprovar
+                    </button>
+                    <button class="btn btn-outline-primary " (click)="changeStatus('Reprovado')" style="margin: 15px;">
+                        Reprovar
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
