@@ -109,6 +109,13 @@ export class InscricaoComponent implements OnInit {
       racaOuCor,
       telefone,
       uf,
+      statusFinal,
+      comentario,
+      pitchURL,
+      uid,
+      processoUid,
+      etnia,
+      souPCD
     } = this.formInscricao.value;
 
     this.inscricao = {
@@ -127,6 +134,13 @@ export class InscricaoComponent implements OnInit {
       racaOuCor: racaOuCor,
       telefone: telefone,
       uf: uf,
+      comentario: comentario,
+      statusFinal :statusFinal,
+      uid: uid,
+      processoUid: processoUid,
+      pitchURL: pitchURL,
+      etnia: etnia,
+      souPCD:  souPCD
     };
 
     if (this.formInscricao.valid) {

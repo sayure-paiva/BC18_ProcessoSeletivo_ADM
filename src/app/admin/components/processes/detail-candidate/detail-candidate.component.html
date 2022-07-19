@@ -1,0 +1,35 @@
+<div>
+    <div class="modal-header">
+        <h2 class="modal-title tituloForm text-primary">Detalhes do Candidato</h2>
+        <button type="button" class="btn-close" aria-label="Close" (click)=" modalDismiss('Cross click')"></button>
+    </div>
+    <div class="detailPut modal-body">
+        <label class="text-primary">Nome:
+            <input type="text" class="textArea" disabled placeholder="{{inscricao.nomeCompleto}}">
+        </label>
+        <label class="text-primary">Etnia:
+            <input type="text" class="textArea" disabled placeholder="{{inscricao.etnia}}">
+        </label>
+        <label class="text-primary">Email:
+            <input type="text" class="textArea" disabled placeholder="{{inscricao.email}}">
+        </label>
+        <label class="text-primary">Cidade/UF:
+            <input type="text" class="textArea" disabled placeholder="{{inscricao.cidade}} - {{inscricao.uf}}">
+        </label>
+        <label class="text-primary">Status:
+            <input type="text" class="textArea" disabled placeholder="{{inscricao.statusFinal}}">
+        </label>
+        <label class="text-primary">Pitch:
+            <input type="text" class="textArea" disabled placeholder="{{inscricao.pitchURL}}">
+        </label>
+        <label class="text-primary"> Comentario:
+            <input type="text" class="textArea" disabled placeholder="{{inscricao.comentario}}">
+        </label>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary " (click)=" modalDismiss('Cross click')" style="margin: 15px;">
+            Concluído
+        </button>
+    </div>
+</div>

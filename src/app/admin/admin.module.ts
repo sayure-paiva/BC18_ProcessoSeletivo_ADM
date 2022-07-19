@@ -35,6 +35,7 @@ import { TesteTecnicoDeleteComponent } from './components/tests/teste-tecnico/te
 import { TesteTecnicoDetailComponent } from './components/tests/teste-tecnico/teste-tecnico-detail/teste-tecnico-detail.component';
 import { TesteTecnicoEditComponent } from './components/tests/teste-tecnico/teste-tecnico-edit/teste-tecnico-edit.component';
 import { TesteTecnicoListComponent } from './components/tests/teste-tecnico/teste-tecnico-list/teste-tecnico-list.component';
+import { DetailCandidateComponent } from './components/processes/detail-candidate/detail-candidate.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -70,7 +71,8 @@ const maskConfig: Partial<IConfig> = {
     TesteTecnicoDeleteComponent,
     TesteTecnicoDetailComponent,
     TesteTecnicoEditComponent,
-    TesteTecnicoListComponent
+    TesteTecnicoListComponent,
+    DetailCandidateComponent
   ],
   imports: [
     OrderModule,

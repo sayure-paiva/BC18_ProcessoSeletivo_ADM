@@ -12,11 +12,11 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Inscricao } from 'src/app/shared/models/inscricao';
-import { 
-  areasDeFormacao, 
-  estadosDoBrasil, 
-  generos, meiosDeContato, 
-  niveisDeEscolaridade, 
+import {
+  areasDeFormacao,
+  estadosDoBrasil,
+  generos, meiosDeContato,
+  niveisDeEscolaridade,
   racasOuCores } from 'src/app/shared/options';
 
 @Component({
@@ -103,6 +103,13 @@ export class MartechAcademyComponent implements OnInit {
       racaOuCor,
       telefone,
       uf,
+      statusFinal,
+      comentario,
+      pitchURL,
+      uid,
+      processoUid,
+      etnia,
+      souPCD
     } = this.formMartech.value;
 
     this.inscricao = {
@@ -121,6 +128,13 @@ export class MartechAcademyComponent implements OnInit {
       racaOuCor: racaOuCor,
       telefone: telefone,
       uf: uf,
+      comentario: comentario,
+      statusFinal:statusFinal,
+      uid: uid,
+      processoUid: processoUid,
+      pitchURL: pitchURL,
+      etnia: etnia,
+      souPCD: souPCD
     };
     console.log(this.inscricao);
     if (this.formMartech.valid) {
@@ -276,7 +290,7 @@ export class MartechAcademyComponent implements OnInit {
     const escolaridade = this.formMartech.get("escolaridade");
     const areaDeFormacao = this.formMartech.get("areaDeFormacao");
     const cursoDeFormacao = this.formMartech.get("cursoDeFormacao");
-    
+
     areaDeFormacao.disable();
     cursoDeFormacao.disable();
     escolaridade.valueChanges.subscribe((value) => {
