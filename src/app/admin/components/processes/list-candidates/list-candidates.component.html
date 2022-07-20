@@ -73,31 +73,39 @@
             </div>
         </div>
     </div>
-    <div>
-        <!--modal-observações-->
-        <ng-template #content let-modal>
-            <div class="modal-header">
-                <h2 class="modal-title tituloForm text-primary">Insira um comentário para o candidato</h2>
-                <button type="button" class="btn-close" aria-label="Close"
-                    (click)="modal.dismiss('Cross click')"></button>
+</div>
+<div>
+    <!--modal-observações-->
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h2 class="modal-title tituloForm text-primary">Ações sobre o candidato</h2>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <form [formGroup]="actionsForm" style="background-color: #0f637a;">
+            <div class="container-fluid textarea-wrapper">
+                <label class="text-white" for="comentario">Insira um comentário rápido ou mais detalhado</label>
+                <select id="motivo" class="form-select textArea text-white" style="margin-right: 15px; margin-bottom:15px;"
+                    [(ngModel)]="candidateModal.comentario" formControlName="motivo">
+                    <option value="" selected="true"  disabled>Escolha um comentário</option>
+                    <option *ngFor="let item of motivos" [ngValue]="item">
+                        {{ item }}
+                    </option>
+                </select>
             </div>
-            <form [formGroup]="actionsForm">
-                <div class="container-fluid textarea-wrapper">
-                    <textarea class="textArea text-white" [(ngModel)]="candidateModal.comentario"
-                        formControlName="comentario" cols="10" rows="10">Escreva aqui</textarea>
-
-                </div>
-            </form>
-            <div class="modal-body">
-                <div class="submitWrapper">
-                    <button class="btn btn-primary " (click)="changeStatus('Aprovado')" style="margin: 15px;">
-                        Aprovar
-                    </button>
-                    <button class="btn btn-outline-primary " (click)="changeStatus('Reprovado')" style="margin: 15px;">
-                        Reprovar
-                    </button>
-                </div>
+            <div class="container-fluid textarea-wrapper">
+                <textarea class="textArea text-white" [(ngModel)]="candidateModal.comentario"
+                    formControlName="comentario" cols="10" rows="10" placeholder="Digite seu comentário">Escreva aqui</textarea>
             </div>
-        </ng-template>
-    </div>
+        </form>
+        <div class="modal-body">
+            <div class="submitWrapper">
+                <button class="btn btn-primary " (click)="changeStatus('Aprovado')" style="margin: 15px;">
+                    Aprovar
+                </button>
+                <button class="btn btn-outline-primary " (click)="changeStatus('Reprovado')" style="margin: 15px;">
+                    Reprovar
+                </button>
+            </div>
+        </div>
+    </ng-template>
 </div>
