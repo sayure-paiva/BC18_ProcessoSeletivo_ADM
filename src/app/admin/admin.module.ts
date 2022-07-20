@@ -36,6 +36,7 @@ import { TesteTecnicoDetailComponent } from './components/tests/teste-tecnico/te
 import { TesteTecnicoEditComponent } from './components/tests/teste-tecnico/teste-tecnico-edit/teste-tecnico-edit.component';
 import { TesteTecnicoListComponent } from './components/tests/teste-tecnico/teste-tecnico-list/teste-tecnico-list.component';
 import { DetailCandidateComponent } from './components/processes/detail-candidate/detail-candidate.component';
+import { CloseProcessDialogComponent } from './components/processes/close-process-dialog/close-process-dialog.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -72,7 +73,8 @@ const maskConfig: Partial<IConfig> = {
     TesteTecnicoDetailComponent,
     TesteTecnicoEditComponent,
     TesteTecnicoListComponent,
-    DetailCandidateComponent
+    DetailCandidateComponent,
+    CloseProcessDialogComponent
   ],
   imports: [
     OrderModule,

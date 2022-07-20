@@ -14,18 +14,18 @@ export interface Inscricao {
     racaOuCor: string;
     telefone: string;
     uf: string;
-// adicionados depois
     senha?: string;
-    souPCD: boolean;
+    souPCD?: boolean;
     uid?: string;
-    processoUid:string;
-    pitchURL?: string;
+    uidUsuario?: string;
+    processoUid?: string;
+    pitchURL?: string; 
     cpfBlock?: boolean;
     comentario?:string;
     etnia?: string;
     results?: Array<Answers>;
     statusJornada?: string;
-    statusFinal: string;
+    statusFinal?: string;
     qtTentativas?: number;
 }
 

@@ -4,6 +4,7 @@ import { detalhesDosCursos } from '../options';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Inscricao } from '../models/inscricao';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +66,23 @@ export class CoursesService {
       )
   }
 
+  getProcessesAguardandoInicioEAtivos(): Observable<Processo[]> {
+    return this.db.collection('Processos', ref => {
+
+      return ref
+        .where('status', '!=', 'Encerrado')
+    }).valueChanges()
+      .pipe(
+        tap((processos: Processo[]) => {
+          processos.forEach((processo: Processo) => {
+            processo.inicioBootcamp = this.convertToDateFromFirestore(processo.inicioBootcamp);
+            processo.inicioInscricoes = this.convertToDateFromFirestore(processo.inicioInscricoes);
+            processo.terminoInscricoes = this.convertToDateFromFirestore(processo.terminoInscricoes);
+          })
+        })
+      )
+  }
+
   getProcessesFilteredByTipo(tipo: string): Observable<Processo[]> {
     return this.db.collection('Processos', ref => {
 
@@ -81,6 +99,10 @@ export class CoursesService {
           })
         })
       )
+  }
+
+  getInscritosOfProcess(id: string): Observable<Inscricao[]>{
+    return this.db.collection('Inscricao', ref => ref.where('processoUid', '==', id)).valueChanges() as Observable<Inscricao[]>;
   }
 
   returnProcessStatusBasedOnDate(inicioInscricoes: Date, terminoInscricoes: Date): string {
@@ -100,11 +122,16 @@ export class CoursesService {
     return from(this.db.collection('Processos').add(process)
       .then((docRef) => {
         docRef.update({ id: docRef.id });
+        process.id = docRef.id;
       }))
   }
 
   updateProcess(process: Processo): Observable<void> {
     return from(this.db.collection('Processos').doc(process.id).update(process));
+  }
+
+  updateInscritosOfProcess(inscrito: Inscricao){
+    return from(this.db.collection('Inscricao').doc(inscrito.uid).update(inscrito));
   }
 
   deleteProcess(id: string): Observable<void> {

@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { DeleteDialogComponent } from './delete-dialog.component';
+import { CloseProcessDialogComponent } from './close-process-dialog.component';
 
-describe('DeleteDialogComponent', () => {
-  let component: DeleteDialogComponent;
-  let fixture: ComponentFixture<DeleteDialogComponent>;
+describe('CloseProcessDialogComponent', () => {
+  let component: CloseProcessDialogComponent;
+  let fixture: ComponentFixture<CloseProcessDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeleteDialogComponent ]
+      declarations: [ CloseProcessDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeleteDialogComponent);
+    fixture = TestBed.createComponent(CloseProcessDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

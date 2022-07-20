@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
-import { EMPTY, Observable } from 'rxjs';
 import { Processo } from 'src/app/shared/models/processo';
 import { CoursesService } from 'src/app/shared/services/courses.service';
 import { TipoBootcampService } from 'src/app/shared/services/tipo-bootcamp.service';

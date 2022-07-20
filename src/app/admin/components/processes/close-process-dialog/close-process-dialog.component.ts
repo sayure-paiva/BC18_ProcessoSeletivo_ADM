@@ -1,16 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
+import { Processo } from 'src/app/shared/models/processo';
 import { CoursesService } from 'src/app/shared/services/courses.service';
 
 @Component({
-  selector: 'app-delete-dialog',
-  templateUrl: './delete-dialog.component.html',
-  styleUrls: ['./delete-dialog.component.css']
+  selector: 'app-close-process-dialog',
+  templateUrl: './close-process-dialog.component.html',
+  styleUrls: ['./close-process-dialog.component.css']
 })
-export class DeleteDialogComponent implements OnInit {
+export class CloseProcessDialogComponent implements OnInit {
 
-  @Input() processoId: string;
+  @Input() processo: Processo;
 
   constructor(public activeModal: NgbActiveModal, private coursesService: CoursesService, private toast: HotToastService) { }
 
@@ -18,22 +19,22 @@ export class DeleteDialogComponent implements OnInit {
     this.activeModal.dismiss('Cross click')
   }
 
-  onApagar(){
-    this.coursesService.deleteProcess(this.processoId)
+  onEncerrar(){
+    this.processo.terminoInscricoes = new Date();
+    this.processo.status = 'Encerrado';
+    this.coursesService.updateProcess(this.processo)
     .pipe(
       this.toast.observe({
-        success: 'Processo excluído com sucesso',
+        success: 'Processo encerrado com sucesso',
         error: 'Um erro ocorreu',
-        loading: 'Excluindo processo...',
+        loading: 'Encerrando processo...',
       })
     )
     .subscribe({
       complete: () => this.activeModal.dismiss('Cross click')
     });
-    
   }
 
   ngOnInit() {
   }
-
 }
