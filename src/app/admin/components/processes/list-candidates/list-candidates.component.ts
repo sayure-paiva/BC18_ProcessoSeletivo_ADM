@@ -32,10 +32,14 @@ export class ListCandidatesComponent implements OnInit {
   page = 1;
   pageSize = 5;
   listPage = [5, 10, 15, 20];
-  conteudo: Inscricao['pitchURL']
-
-
-
+  motivos: string[] = [
+    'Não realizou as etapas necessarias',
+    'Não obteve um bom aproveitamento',
+    'Não Enviou o Picth',
+    'Concluiu todas as etapas',
+    'Teve ótimo aproveitamento',
+    'Possui caracteristicas compativeis'
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -54,7 +58,9 @@ export class ListCandidatesComponent implements OnInit {
 
   actionsForm = this.fb.group({
     comentario: [this.candidateModal.comentario, [Validators.required, Validators.maxLength(150)]],
+    motivo: ['', [Validators.required]],
   });
+
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
@@ -107,7 +113,7 @@ export class ListCandidatesComponent implements OnInit {
   openActions(content, inscricao: Inscricao) {
     this.modalService.open(content, { size: 'lg', centered: true });
     this.candidateModal = inscricao
-    console.log(this.candidateModal)
+
 
   }
 
@@ -130,4 +136,9 @@ export class ListCandidatesComponent implements OnInit {
     }
     this.order = value;
   }
+  get motivo() {
+    return this.actionsForm.get('motivo');
+  }
+
 }
+

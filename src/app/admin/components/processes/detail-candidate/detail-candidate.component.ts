@@ -21,7 +21,6 @@ export class DetailCandidateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.inscricao)
   }
 
   modalDismiss(Cross) {

@@ -19,7 +19,6 @@ return this.db.collection("Inscricao").valueChanges() as Observable<Inscricao[]>
 
 
 updateCandidate(inscricao: Inscricao){
-  console.log(inscricao)
  return from(this.db.collection('Inscricao').doc(inscricao.uid).update(inscricao))
 }
 

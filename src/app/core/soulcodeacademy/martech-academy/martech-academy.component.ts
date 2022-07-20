@@ -136,7 +136,6 @@ export class MartechAcademyComponent implements OnInit {
       etnia: etnia,
       souPCD: souPCD
     };
-    console.log(this.inscricao);
     if (this.formMartech.valid) {
       this.db
         .collection("Inscricao")
