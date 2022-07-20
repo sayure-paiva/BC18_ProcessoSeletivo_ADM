@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { HotToastService } from '@ngneat/hot-toast';
+import { CreateHotToastRef, HotToastService } from '@ngneat/hot-toast';
+import { Inscricao } from 'src/app/shared/models/inscricao';
 import { Processo } from 'src/app/shared/models/processo';
 import { TipoBootcamp } from 'src/app/shared/models/tipo-bootcamp';
 import { CoursesService } from 'src/app/shared/services/courses.service';
@@ -13,11 +14,13 @@ import { TipoBootcampService } from 'src/app/shared/services/tipo-bootcamp.servi
   styleUrls: ['./edit-process.component.css']
 })
 export class EditProcessComponent implements OnInit {
-  
+
   @Input() processo: Processo;
+  inscritosProcesso: Inscricao[];
   processosAtivos: Processo[] = [];
   currentDate: Date = new Date();
   tiposBootcamp: TipoBootcamp[] = [];
+  toastLoading: CreateHotToastRef<unknown>;
 
   constructor(
     private coursesService: CoursesService,
@@ -58,17 +61,18 @@ export class EditProcessComponent implements OnInit {
     return new Date(+parts[0], +parts[1] - 1, +parts[2]);
   }
 
-  returnIfAnotherProcessIsActive(){
+  returnIfAnotherProcessIsActive() {
     let processosAtivosSemOAtual: Processo[] = []
 
     processosAtivosSemOAtual = this.processosAtivos.filter((processoAtivo) => processoAtivo.id != this.processo.id)
 
     return this.coursesService.verififyIfAnotherProcessHasSameType(processosAtivosSemOAtual, this.tipo.value) &&
-    this.formatDate(this.inicioInscricoes.value).setHours(0,0,0,0) <= this.currentDate.setHours(0,0,0,0) &&
-    this.formatDate(this.terminoInscricoes.value).setHours(0,0,0,0) > this.currentDate.setHours(0,0,0,0);
+      this.formatDate(this.inicioInscricoes.value).setHours(0, 0, 0, 0) <= this.currentDate.setHours(0, 0, 0, 0) &&
+      this.formatDate(this.terminoInscricoes.value).setHours(0, 0, 0, 0) > this.currentDate.setHours(0, 0, 0, 0);
   }
 
   onSubmit() {
+    const tipoAntigoProcesso = this.processo.tipo;
     const inicioBootcamp = this.formatDate(this.inicioBootcamp.value);
     const inicioInscricoes = this.formatDate(this.inicioInscricoes.value);
     const terminoInscricoes = this.formatDate(this.terminoInscricoes.value);
@@ -86,16 +90,44 @@ export class EditProcessComponent implements OnInit {
     }
 
     this.coursesService.updateProcess(this.processo)
-      .pipe(
-        this.toast.observe({
-          success: 'Processo editado com sucesso',
-          error: 'Um erro ocorreu',
-          loading: 'Editando processo...',
-        })
-      )
       .subscribe({
-        complete: () => this.activeModal.dismiss('Cross click')
+        next: () => {
+          this.toastLoading = this.toast.loading('Editando processo...');
+        },
+        error: () => {
+          this.toastLoading.close();
+          this.toast.error('Um erro ocorreu');
+        },
+        complete: () => {
+          if (this.processo.tipo != tipoAntigoProcesso) {
+            this.inscritosProcesso.forEach((inscrito, index) => {
+              inscrito.curso = tipoBootcamp.idTeachable;
+
+              this.coursesService.updateInscritosOfProcess(inscrito).subscribe({
+                complete: () => {
+                  if ((index + 1) == this.inscritosProcesso.length) {
+                    this.toastLoading.close();
+                    this.toast.success('Processo editado com sucesso');
+                    this.activeModal.dismiss('Cross click');
+                  }
+                }
+              });
+            });
+
+          }else{
+            this.toastLoading.close();
+            this.toastLoading = this.toast.success('Processo editado com sucesso');
+            this.activeModal.dismiss('Cross click')
+          }
+        }
+        // complete: () => this.activeModal.dismiss('Cross click')
       });
+
+
+
+
+
+
 
   }
 
@@ -108,6 +140,7 @@ export class EditProcessComponent implements OnInit {
     this.inicioBootcamp.setValue(this.processo.inicioBootcamp.toLocaleString('sv', { timeZone: 'America/Sao_Paulo' }).slice(0, 10))
     this.coursesService.getProcessesFilteredByStatus('Ativo').subscribe((processosAtivosFirestore) => this.processosAtivos = processosAtivosFirestore);
     this.tipoService.getAllTiposBootcamp().subscribe((tiposBootcampFirestore) => this.tiposBootcamp = tiposBootcampFirestore);
+    this.coursesService.getInscritosOfProcess(this.processo.id).subscribe((inscritos) => this.inscritosProcesso = inscritos)
   }
 
 }

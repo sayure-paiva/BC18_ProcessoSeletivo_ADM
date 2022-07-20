@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Processo } from 'src/app/shared/models/processo';
 import { CoursesService } from 'src/app/shared/services/courses.service';
+import { CloseProcessDialogComponent } from '../close-process-dialog/close-process-dialog.component';
 import { CreateProcessComponent } from '../create-process/create-process.component';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { EditProcessComponent } from '../edit-process/edit-process.component';
 
 @Component({
@@ -31,14 +31,13 @@ export class ListProcessesComponent implements OnInit {
     modalRef.componentInstance.processo = processo;
   }
 
-  openDelete(id: string) {
-    const modalRef = this.modalService.open(DeleteDialogComponent, { size: 'sm', centered: true });
-    modalRef.componentInstance.processoId = id;
+  openCloseProcess(processo:  Processo) {
+    const modalRef = this.modalService.open(CloseProcessDialogComponent, { size: 'sm', centered: true });
+    modalRef.componentInstance.processo = processo;
   }
 
   ngOnInit(): void {
-
-    this.coursesService.getAllProcesses()
+    this.coursesService.getProcessesAguardandoInicioEAtivos()
       .subscribe(processosFirestore => {
         const processosFiltradosAguardandoInicio: Processo[] = [];
         const processosFiltradosAtivos: Processo[] = [];
@@ -56,6 +55,5 @@ export class ListProcessesComponent implements OnInit {
         this.loading = false
         
       });
-
   }
 }
