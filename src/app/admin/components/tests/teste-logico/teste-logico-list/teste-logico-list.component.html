@@ -22,6 +22,7 @@
                 </th>
                 <th scope="col">Alternativas</th>
                 <th scope="col">Respostas Corretas</th>
+                <th scope="col">Bootcamp</th>
               </tr>
             </thead>
             <tbody>
@@ -29,6 +30,7 @@
                 <td>{{ellipsis(quest.question)}}</td>
                 <td>{{ellipsis(quest.alternatives.toString())}}</td>
                 <td>{{ellipsis(quest.answers.toString())}}</td>
+                <td>{{ellipsis(quest.bootcamp.toString())}}</td>
                 <td><i (click)="onClickDetail(quest)" class="far fa-solid fa-eye" aria-hidden="true"></i></td>
                 <td><i (click)="openEdit(quest)" class="far fa-edit text-info"></i></td>
                 <td><i (click)="deleteTeste(quest.id)" class="far fa-trash-alt text-danger"></i></td>

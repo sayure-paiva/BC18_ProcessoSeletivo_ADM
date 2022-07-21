@@ -3,6 +3,8 @@ import { TesteLogicoService } from '../../../../../shared/services/teste-logico.
 import { Component, OnInit } from '@angular/core';
 import { Teste } from 'src/app/shared/models/teste';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { TipoBootcamp } from 'src/app/shared/models/tipo-bootcamp';
+import { TipoBootcampService } from 'src/app/shared/services/tipo-bootcamp.service';
 
 @Component({
   selector: 'app-teste-logico-add',
@@ -10,11 +12,14 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
   styleUrls: ['./teste-logico-add.component.css']
 })
 export class TesteLogicoAddComponent implements OnInit {
-  teste: Teste = {alternatives: ["", "", "", "", ""]} as Teste;
+  teste: Teste = { alternatives: ["", "", "", "", ""] } as Teste;
   answersChecked: boolean[] = [false, false, false, false, false];
+  tiposBootcamp: TipoBootcamp[] = [];
+  
   constructor(private testeService: TesteLogicoService,
     private fb: FormBuilder,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private tipoService: TipoBootcampService
   ) { }
 
   addTesteForm: FormGroup = this.fb.group({
@@ -24,8 +29,13 @@ export class TesteLogicoAddComponent implements OnInit {
     alternatives3: ['', [Validators.required]],
     alternatives4: ['', [Validators.required]],
     alternatives5: ['', [Validators.required]],
+    bootcamp: ['', [Validators.required]],
     answers: new FormArray([])
   });
+
+  get bootcamp() {
+    return this.addTesteForm.get('bootcamp');
+  }
 
   formArray: FormArray = this.addTesteForm.get('answers') as FormArray;
   onCheckChange(event, index: number) {
@@ -47,6 +57,7 @@ export class TesteLogicoAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.tipoService.getAllTiposBootcamp().subscribe((tiposBootcampFirestore) => this.tiposBootcamp = tiposBootcampFirestore);
   }
 
   agregar() {
@@ -56,6 +67,8 @@ export class TesteLogicoAddComponent implements OnInit {
       this.teste.type = "checkbox"
     }
     this.teste.category = "teste-logico";
+    const tipoBootcamp = this.tiposBootcamp.find((tipoBootcamp) => this.bootcamp.value == tipoBootcamp.tipo);
+    this.teste.bootcamp = tipoBootcamp.tipo
     this.testeService.insert(this.teste)
       .pipe(
         this.toast.observe({

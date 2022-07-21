@@ -4,6 +4,8 @@ import { Teste } from 'src/app/shared/models/teste';
 import { TesteLogicoService } from 'src/app/shared/services/teste-logico.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TipoBootcamp } from 'src/app/shared/models/tipo-bootcamp';
+import { TipoBootcampService } from 'src/app/shared/services/tipo-bootcamp.service';
 
 @Component({
   selector: 'app-teste-logico-edit',
@@ -11,6 +13,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./teste-logico-edit.component.css']
 })
 export class TesteLogicoEditComponent implements OnInit {
+  tiposBootcamp: TipoBootcamp[] = [];
   answersChecked: boolean[] = [false, false, false, false, false];
   @Input() teste: Teste;
 
@@ -18,7 +21,8 @@ export class TesteLogicoEditComponent implements OnInit {
     private testeService: TesteLogicoService,
     private fb: FormBuilder,
     public activeModal: NgbActiveModal,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private tipoService: TipoBootcampService
   ) { }
 
   addTesteForm: FormGroup = this.fb.group({
@@ -28,6 +32,7 @@ export class TesteLogicoEditComponent implements OnInit {
     alternatives3: ['', [Validators.required]],
     alternatives4: ['', [Validators.required]],
     alternatives5: ['', [Validators.required]],
+    bootcamp: ['', [Validators.required]],
   });
 
   //#region Getters e Setters Form
@@ -48,6 +53,9 @@ export class TesteLogicoEditComponent implements OnInit {
   }
   get alternatives5() {
     return this.addTesteForm.get('alternatives5');
+  }
+  get bootcamp() {
+    return this.addTesteForm.get('bootcamp');
   }
   //#endregion
 
@@ -79,6 +87,8 @@ export class TesteLogicoEditComponent implements OnInit {
       }
     })
     this.teste.answers = answers;
+    const tipoBootcamp = this.tiposBootcamp.find((tipoBootcamp) => this.bootcamp.value == tipoBootcamp.tipo);
+    this.teste.bootcamp = tipoBootcamp.tipo;
   }
 
   ngOnInit(): void {
@@ -92,6 +102,8 @@ export class TesteLogicoEditComponent implements OnInit {
       var index = this.teste.alternatives.indexOf(answer)
       this.answersChecked[index] = true;
     }
+    this.bootcamp.setValue(this.teste.bootcamp);
+    this.tipoService.getAllTiposBootcamp().subscribe((tiposBootcampFirestore) => this.tiposBootcamp = tiposBootcampFirestore);
   }
 
   returnIfAllUnchecked() {
