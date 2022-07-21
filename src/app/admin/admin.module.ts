@@ -1,3 +1,4 @@
+import { CommonPieComponent } from './components/dashboard/components/common-pie/common-pie.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -37,6 +38,9 @@ import { TesteTecnicoEditComponent } from './components/tests/teste-tecnico/test
 import { TesteTecnicoListComponent } from './components/tests/teste-tecnico/teste-tecnico-list/teste-tecnico-list.component';
 import { DetailCandidateComponent } from './components/processes/detail-candidate/detail-candidate.component';
 import { CloseProcessDialogComponent } from './components/processes/close-process-dialog/close-process-dialog.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NgChartsModule } from 'ng2-charts';
+
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -74,7 +78,9 @@ const maskConfig: Partial<IConfig> = {
     TesteTecnicoEditComponent,
     TesteTecnicoListComponent,
     DetailCandidateComponent,
-    CloseProcessDialogComponent
+    CloseProcessDialogComponent,
+    DashboardComponent,
+    CommonPieComponent
   ],
   imports: [
     OrderModule,
@@ -89,6 +95,7 @@ const maskConfig: Partial<IConfig> = {
     HotToastModule.forRoot({
       position: 'bottom-center',
     }),
+    NgChartsModule
   ]
 })
 export class AdminModule { }

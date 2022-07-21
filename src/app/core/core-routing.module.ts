@@ -1,3 +1,4 @@
+import { DashboardComponent } from './../admin/components/dashboard/dashboard.component';
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { ListCpfBlockComponent } from "../admin/components/cpf-block/list-cpf-block/list-cpf-block.component";
@@ -174,6 +175,10 @@ export const coreRoutes: Routes = [
         path: "tipos-bootcamp",
         component: ListTiposComponent
       },
+      {
+        path:"dash",
+        component:DashboardComponent
+      }
     ],
   },
   {
