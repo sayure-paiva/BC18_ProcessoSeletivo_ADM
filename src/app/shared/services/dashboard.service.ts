@@ -33,13 +33,9 @@ getEtnias() {
 
 private _etnias(inscricao: Inscricao[]) {
   const todosTipos = inscricao.map((inscricao) => inscricao.escolaridade);
-  const todasEscolaridades = inscricao.map((inscricao) => inscricao.escolaridade);
-  const todosNomes = inscricao.map((inscricao) => inscricao.nomeCompleto);
-
 
   console.log(todosTipos);
-  console.log(todasEscolaridades);
-  console.log(todosNomes);
+
   const tipos = new Set(todosTipos);
 
   const obj: { [x: string]: number } = {};
