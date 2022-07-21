@@ -6,5 +6,7 @@ export interface User {
     photoURL: string;
     emailVerified: boolean;
     type: string;
-    registeredAt: Date
+    registeredAt: Date;
+    lastSignIn: Date;
+    disabled: boolean;
 }

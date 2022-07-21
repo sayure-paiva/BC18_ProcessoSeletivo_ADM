@@ -14,10 +14,6 @@
   </div>
   <div class="modal-body m-0 d-flex flex-lg-row justify-content-center flex-wrap gap-1">
 
-  <label>Id:
-    <input class="form-control" type="text" placeholder="{{ usuario.uid }}" disabled>
-  </label>
-
   <label>Nome:
     <input class="form-control" type="text" placeholder="{{ usuario.displayName }}" disabled>
   </label>
@@ -26,7 +22,7 @@
     <input class="form-control" type="text" placeholder="{{ usuario.email }}" disabled>
   </label>
 
-  <label>Entrou em:
+  <label>Registrado em:
     <input class="form-control" type="text" placeholder="{{ usuario.registeredAt | date : 'd MMMM, y, h:mm a' }}" disabled>
   </label>
 

@@ -2,3 +2,15 @@
   border: 1px solid;
   cursor: pointer;
 }
+
+th {
+  text-align: center;
+}
+
+.desabledColor td {
+  color: crimson;
+}
+
+.enabledColor {
+  color: #000;
+}

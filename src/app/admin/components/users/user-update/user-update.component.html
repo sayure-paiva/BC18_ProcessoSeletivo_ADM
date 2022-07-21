@@ -25,29 +25,27 @@
     <div
       class="modal-body m-0 d-flex flex-lg-row justify-content-center flex-wrap gap-1">
       <div class="form-group">
-        <label>Id:</label>
+        <label>Registrado em:</label>
         <input
-          [(ngModel)]="usuario.uid"
-          [ngModelOptions]="{standalone: true}"
           class="form-control"
           type="text"
-          placeholder="{{ usuario.uid }}"
+          placeholder="{{ usuario.registeredAt | date : 'd MMMM, y, h:mm a'  }}"
           disabled/>
       </div>
       <div class="form-group">
-        <label>Entrou em:</label>
+        <label>Último Acesso:</label>
         <input
-        [(ngModel)]="usuario.registeredAt"
+        [(ngModel)]="usuario.lastSignIn"
         [ngModelOptions]="{standalone: true}"
           class="form-control"
           type="text"
-          placeholder="{{ usuario.registeredAt | date: 'd MMMM, y, h:mm a' }}"
-          disabled/>
+          placeholder="{{ usuario.lastSignIn | date : 'd MMMM, y, h:mm a'  }}"
+          disabled
+          />
       </div>
       <div class="form-group">
         <label>Nome:</label>
         <input
-        [(ngModel)]="usuario.displayName"
         class="form-control"
         type="text"
         formControlName="displayName"
@@ -61,11 +59,10 @@
       <div class="form-group">
         <label>E-mail:</label>
         <input
-        [(ngModel)]="usuario.email"
         class="form-control"
         type="text"
         formControlName="email"
-          placeholder="{{ usuario.email }}"/>
+        placeholder="{{ usuario.email }}"/>
         <small
           *ngIf="updateUserForm.get('email')?.errors?.['required'] && updateUserForm.get('email')?.touched"
           class="form-text text-danger"
@@ -85,8 +82,6 @@
           <option value="" selected>Tipo atual: {{ usuario.type }}</option>
           <option value="Admin">Admin</option>
           <option value="Recruiter">Recruiter</option>
-          <option value="Placement">Placement</option>
-          <option value="Pedagogic">Pedagogic</option>
         </select>
         <small
           *ngIf="
