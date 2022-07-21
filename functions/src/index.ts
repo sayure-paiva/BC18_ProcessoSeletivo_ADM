@@ -10,7 +10,7 @@ admin.initializeApp({
 
 const auth = admin.auth();
 const db = admin.firestore();
-
+db.settings({ ignoreUndefinedProperties: true })
 
 export const getEnrollmentId = functions.https.onCall(async (data) => {
   if (data.email === undefined || data.course === undefined) return;
@@ -27,10 +27,13 @@ export const getEnrollmentId = functions.https.onCall(async (data) => {
 });
 
 exports.checkBootcampStatus = functions.pubsub
-  .schedule("0 0 * * *")
+  .schedule("0 0 * * *") // Executa todos os dias 00:00
   .timeZone("America/Sao_Paulo")
   .onRun(async (data) => {
-    const snapshotProcess = await db.collection("Processos").get();
+    const snapshotProcess = await db.collection("Processos")
+    .where("status", "!=", "Encerrado")
+    .get();
+
     const process = snapshotProcess.docs.map((doc) => doc.data());
 
     await checkBootcampDate(process);
@@ -70,7 +73,10 @@ exports.editUser = functions.https.onCall(async (data, context) => {
 
   }
 
-  const customClaims = { type: [data.type] };
+  const customClaims = {
+    type: data.type,
+    disabled: data.disabled
+  };
 
   const updatedUser = {
     uid: data.uid,
@@ -78,6 +84,8 @@ exports.editUser = functions.https.onCall(async (data, context) => {
     displayName: data.displayName,
     photoURL: data.photoURL,
     type: data.type,
+    lastSignIn: data.lastSignIn,
+    disabled: data.disabled
   };
 
   await updadeUserInAuthentication(data);
@@ -208,11 +216,13 @@ async function setInColletion(userRecord: any, data: any) {
     displayName: data.displayName,
     type: data.type,
     photoURL: data.photoURL,
-    registeredAt: data.createdAt
+    registeredAt: data.createdAt,
+    disabled: false,
   };
 
   const customClaims = {
-    type: [userRecord.type],
+    type: data.type,
+    disabled: false
   };
 
 
@@ -230,7 +240,8 @@ async function setInColletion(userRecord: any, data: any) {
         displayName: user.displayName,
         type: user.type,
         photoURL: user.photoURL,
-        registeredAt: Date.now()
+        registeredAt: Date.now(),
+        disabled: false
       },
       { merge: true});
 
@@ -274,7 +285,7 @@ async function updadeUserInAuthentication(data: any) {
   }
 }
 
-// Atualiza o doc do user com novas dados
+// Atualiza o doc do user com novos dados 
 async function updateDoc(user: any) {
 
   try {
@@ -286,6 +297,8 @@ async function updateDoc(user: any) {
         displayName: user.displayName,
         type: user.type,
         photoURL: user.photoURL,
+        lastSignIn: user.lastSignIn,
+        disabled: user.disabled
       },
       { merge: true }
       );

@@ -1,10 +1,33 @@
 <div class="modal-header m-0">
-  <h2 class="m-0" style="font-size: 16px">Deseja deletar Funcionário(a): {{ usuario.displayName }} ?</h2>
+  <h2 class="m-0" style="font-size: 16px">Deseja desabilitar Funcionário(a): {{ usuario.displayName }} ?</h2>
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 
+<div class="d-flex justify-content-center m-1">
+  <div *ngIf="usuario.photoURL !== ''; else mudaImagem">
+    <img [src]="usuario.photoURL" style="max-width: 100px; max-height: 80px; border-radius: 50%;" alt="">
+  </div>
+  <ng-template #mudaImagem>
+    <img src="https://jsl-online.com/wp-content/uploads/2017/01/placeholder-user.png" id="example-header-image">
+  </ng-template>
+</div>
+
+<div class="modal-body m-0 d-flex flex-lg-row justify-content-center flex-wrap gap-1">
+  <label>E-mail:
+    <input class="form-control" type="text" placeholder="{{ usuario.email }}" disabled>
+  </label>
+
+  <label>Tipo do Usuário:
+    <input class="form-control" type="text" placeholder="{{ usuario.type }}" disabled>
+  </label>
+
+  <label>Desabilitado:
+    <input class="form-control" type="text" placeholder="{{ usuario.disabled }}" disabled>
+  </label>
+</div>
+
 <div class="modal-footer d-flex justify-content-between">
-  <button type="button" class="btn btn-danger" (click)="onSubmit()" style="max-height: 35px">Apagar</button>
+  <button type="button" class="btn btn-danger" (click)="onSubmit()" style="max-height: 35px">{{ textButton }}</button>
   <button type="button" class="btn btn-primary botao-cancelar"
       (click)="activeModal.dismiss('Close click')" style="max-height: 35px">Cancelar</button>
 </div>
