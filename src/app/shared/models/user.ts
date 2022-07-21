@@ -7,6 +7,6 @@ export interface User {
     emailVerified: boolean;
     type: string;
     registeredAt: Date;
-    lastSignIn: Date;
+    lastSignIn: string;
     disabled: boolean;
 }

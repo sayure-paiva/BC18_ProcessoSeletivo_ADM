@@ -5,5 +5,6 @@ export interface Teste{
     answers: string[];
     type:string;
     category: string;
+    bootcamp: string;
 }
 

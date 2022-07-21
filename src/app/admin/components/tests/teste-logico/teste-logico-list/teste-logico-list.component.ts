@@ -8,6 +8,7 @@ import { Teste } from 'src/app/shared/models/teste';
 import { TesteLogicoService } from 'src/app/shared/services/teste-logico.service';
 import { TesteLogicoAddComponent } from '../teste-logico-add/teste-logico-add.component';
 import { OrderPipe } from 'ngx-order-pipe';
+import { TipoBootcamp } from 'src/app/shared/models/tipo-bootcamp';
 
 @Component({
   selector: 'app-teste-logico-list',
@@ -91,7 +92,8 @@ export class TesteLogicoListComponent implements OnInit {
       this.allTeste = this.listaTesteResponse.filter((item) =>
         item.question.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1 ||
         item.alternatives.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1 ||
-        item.answers.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1
+        item.answers.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1 ||
+        item.bootcamp.toString().toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1
       )
     } else {
       this.allTeste = this.listaTesteResponse;

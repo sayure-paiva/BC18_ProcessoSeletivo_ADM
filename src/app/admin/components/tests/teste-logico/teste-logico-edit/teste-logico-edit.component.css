@@ -41,3 +41,7 @@
 .form-select {
   color: #696969;
 }
+
+select{
+  font-size: 17px;
+}
