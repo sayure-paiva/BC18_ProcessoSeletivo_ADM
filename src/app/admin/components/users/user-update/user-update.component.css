@@ -4,6 +4,10 @@
   font-size: 14px;
 }
 
+.modal-body {
+  padding: 10px;
+}
+
 label {
   width: 230px;
 }

@@ -46,29 +46,18 @@ export class AuthService {
         success: 'Logado com sucesso!',
       }),
     ).subscribe(async (res) => {
-      
+
       const info = await res.user.getIdTokenResult()
       const lastSignIn = Date.parse(info.authTime);
 
       const user = {
-        uid: res.user.uid, 
-        displayName: res.user.displayName, 
-        email: res.user.email,
-        type: info.claims.type,
+        uid: res.user.uid,
         lastSignIn: lastSignIn,
-        disabled: info.claims.disabled
       }
 
       from(this.db.collection("Super-users").doc(user.uid)
-        .set({
-          uid: user.uid, 
-          displayName: user.displayName, 
-          email: user.email,
-          type: info.claims.type,
-          lastSignIn: lastSignIn,
-          disabled: user.disabled
-      },{ merge: true }));
-     
+        .set({ lastSignIn: lastSignIn, }, { merge: true }));
+
       this.router.navigate(['/admin']);
 
     });

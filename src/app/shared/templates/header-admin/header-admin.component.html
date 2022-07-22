@@ -32,7 +32,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="has-children position-static">
+              <li class="has-children position-static" *ngIf="isRecruiter;">
                 <a><span class="menu-text">Testes</span></a>
                 <span class="menu-toggle"><i class="far fa-angle-down"></i></span>
                 <ul class="mega-menu" style="width: 170px; left: 500px;">
@@ -43,22 +43,23 @@
                     </ul>
                   </li>
                 </ul>
+
               </li>
+
               <!-- <li>
-                
                 <a [routerLink]="'/admin/teste-logico'"><span class="menu-text">Testes Lógicos</span></a>
               </li>
               <li>
                 <a [routerLink]="['#']"><span class="menu-text">Testes Técnicos</span></a>
               </li> -->
-              <li>
+              <li *ngIf="isRecruiter">
                 <a [routerLink]="'/admin/cpf-block'"><span class="menu-text">Candidatos Bloqueados</span></a>
               </li>
-              <li>
+              <li *ngIf="isAdmin">
                 <a [routerLink]="'/admin/list-users'"><span class="menu-text">Lista de Funcionários</span></a>
               </li>
               <li class="ms-5 position-absolute sair">
-                <a [routerLink]="['/index']"><span class="menu-text text-white ">Sair
+                <a [routerLink]="['/index']"><span class="menu-text text-white" (click)="authService.logout()">Sair
                     <i class="far fa-md fa-sign-in ms-2"></i></span></a>
               </li>
             </ul>
@@ -105,7 +106,7 @@
     <div class="mobile-menu-content">
       <nav class="site-mobile-menu">
         <ul>
-          <li class="has-children position-static">
+          <li class="has-children position-static" *ngIf="isAdmin">
             <a href="/admin/processos"><span class="menu-text">Processos Seletivos</span></a>
             <span class="menu-toggle"><i class="far fa-angle-down"></i></span>
 
@@ -119,7 +120,7 @@
               </li>
             </ul>
           </li>
-          <li class="has-children position-static">
+          <li class="has-children position-static" *ngIf="isRecruiter">
             <a href="/admin/teste-logico"><span class="menu-text">Testes</span></a>
             <span class="menu-toggle"><i class="far fa-angle-down"></i></span>
 
@@ -132,17 +133,17 @@
               </li>
             </ul>
           </li>
-          <li>
+          <li *ngIf="isRecruiter">
             <a href="#"><span class="menu-text">Lista de Bloqueio</span></a>
           </li>
-          <li>
+          <li *ngIf="isRecruiter">
             <a href="/admin/cpf-block"><span class="menu-text">Candidatos Bloqueados</span></a>
           </li>
-          <li>
+          <li *ngIf="isAdmin">
             <a [routerLink]="'/admin/list-users'"><span class="menu-text">Lista de Funcionários</span></a>
           </li>
           <li>
-            <a href="/index"><span class="menu-text">Sair
+            <a href="/index"><span class="menu-text" (click)="authService.logout()">Sair
                 <i class="far fa-md fa-sign-in ms-2"></i></span></a>
           </li>
         </ul>

@@ -8,7 +8,7 @@ import { SnackService } from '../services/snack.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private auth: AuthService, 
+  constructor(private auth: AuthService,
     private router: Router,
     private snack: SnackService) { }
   canActivate(
@@ -22,5 +22,5 @@ export class AuthGuard implements CanActivate {
       }
       return isLoggedIn;
   }
-  
+
 }
