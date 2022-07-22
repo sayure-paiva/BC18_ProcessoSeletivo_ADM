@@ -11,26 +11,45 @@ import { ChartData } from 'chart.js';
 })
 export class DashboardComponent implements OnInit {
 
-
   constructor(private dashboardService: DashboarService) { }
 
-  etnias$?: Observable<ChartData>;
+  racaOuCor$?: Observable<ChartData>;
   escolaridades$?: Observable<ChartData>;
-  cidades$?: Observable<ChartData>;
-  cursos$?: Observable<ChartData>;
+  estados$?: Observable<ChartData>;
+  generos$?: Observable<ChartData>;
+  statusJornada$?: Observable<ChartData>;
+  pitchUrl$?: Observable<ChartData>;
+  dataNasc$?: Observable<ChartData>;
 
   ngOnInit(): void {
-    this.etnias$ = this.getDadosGrafico(1);
-    this.escolaridades$ = this.getDadosEscolaridades();
-    this.cidades$ = this.getDadosCidades();
-    this.cursos$ = this.getDadosGrafico(1);
+    this.racaOuCor$ = this.getDataEthnicity();
+    this.escolaridades$ = this.getDataSchooling();
+    this.estados$ = this.getDataStates();
+    this.generos$ = this.getDataGenre();
+    this.statusJornada$ = this.getDataStatus();
+    this.pitchUrl$ = this.getDataPitch();
+    this.dataNasc$ = this.getDataAge();
   }
 
+  // getDadosGrafico(any){
+  //   return this.dashboardService.getCities()
+  //     .pipe(map(data => {
+  //       console.log(data)
+  //       return {
+  //         labels: Object.keys(data),
+  //         datasets: [
+  //           {
+  //             data: Object.values(data),
+  //           },
+  //         ],
+  //       };
+  //     })
+  //     )
+  // }
 
-  getDadosGrafico(any){
-    return this.dashboardService.getEtnias()
+  getDataEthnicity() {
+    return this.dashboardService.getEthnicity()
       .pipe(map(data => {
-        console.log(data)
         return {
           labels: Object.keys(data),
           datasets: [
@@ -43,10 +62,9 @@ export class DashboardComponent implements OnInit {
       )
   }
 
-  getDadosEscolaridades(){
-    return this.dashboardService.getEtnias()
+  getDataSchooling() {
+    return this.dashboardService.getSchooling()
       .pipe(map(data => {
-        console.log(data)
         return {
           labels: Object.keys(data),
           datasets: [
@@ -59,10 +77,69 @@ export class DashboardComponent implements OnInit {
       )
   }
 
-  getDadosCidades(){
-    return this.dashboardService.getEtnias()
+  getDataStates() {
+    return this.dashboardService.getStates()
       .pipe(map(data => {
-        console.log(data)
+        return {
+          labels: Object.keys(data),
+          datasets: [
+            {
+              data: Object.values(data),
+            },
+          ],
+        };
+      })
+      )
+  }
+
+  getDataGenre() {
+    return this.dashboardService.getGenre()
+      .pipe(map(data => {
+        return {
+          labels: Object.keys(data),
+          datasets: [
+            {
+              data: Object.values(data),
+            },
+          ],
+        };
+      })
+      )
+  }
+
+  getDataStatus() {
+    return this.dashboardService.getStatus()
+      .pipe(map(data => {
+        return {
+          labels: Object.keys(data),
+          datasets: [
+            {
+              data: Object.values(data),
+            },
+          ],
+        };
+      })
+      )
+  }
+
+  getDataPitch() {
+    return this.dashboardService.getPitch()
+      .pipe(map(data => {
+        return {
+          labels: Object.keys(data),
+          datasets: [
+            {
+              data: Object.values(data),
+            },
+          ],
+        };
+      })
+      )
+  }
+
+  getDataAge() {
+    return this.dashboardService.getAge()
+      .pipe(map(data => {
         return {
           labels: Object.keys(data),
           datasets: [

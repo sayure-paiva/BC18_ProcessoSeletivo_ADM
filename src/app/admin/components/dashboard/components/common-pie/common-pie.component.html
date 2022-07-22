@@ -1,5 +1,5 @@
-<div class="chart-wrapper" *ngIf="chartData$ | async as data">
-    <canvas baseChart [type]="typeChart"
+<div  *ngIf="chartData$ | async as data"  style="position: relative; margin-bottom: 20%; ">
+    <canvas baseChart [type]="typeChart" title="Titúlo"
         [data]="data"
         [options]="config">
     </canvas>

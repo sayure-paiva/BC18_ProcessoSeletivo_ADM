@@ -29,9 +29,14 @@ export class CommonPieComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.dashboardService.getEtnias().subscribe(val => {
-      console.log(val)
-    })
+    // this.dashboardService.getSchooling().subscribe(val => {
+    //   console.log(val)
+    // })
+    // this.dashboardService.getCities().subscribe(val => {
+    //   console.log(val)
+    // })
+
+
   //   this.chartData$ = this.dashboardService.getEtnias()
   //     .pipe(map(data => {
   //       console.log(data)
