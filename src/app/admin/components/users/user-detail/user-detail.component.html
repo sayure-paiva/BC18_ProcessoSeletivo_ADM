@@ -26,6 +26,10 @@
     <input class="form-control" type="text" placeholder="{{ usuario.registeredAt | date : 'd MMMM, y, h:mm a' }}" disabled>
   </label>
 
+  <label>Último acesso::
+    <input class="form-control" type="text" placeholder="{{ usuario.lastSignIn | date : 'd MMMM, y, h:mm a' }}" disabled>
+  </label>
+
   <label>Tipo do Usuário:
     <input class="form-control" type="text" placeholder="{{ usuario.type }}" disabled>
   </label>

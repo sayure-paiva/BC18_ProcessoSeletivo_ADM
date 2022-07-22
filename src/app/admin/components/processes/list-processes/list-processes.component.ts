@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IsAdminGuard } from 'src/app/shared/guards/isAdmin/is-admin.guard';
+import { IsRecruiterGuard } from 'src/app/shared/guards/isRecruiter/is-recruiter.guard';
 import { Processo } from 'src/app/shared/models/processo';
 import { CoursesService } from 'src/app/shared/services/courses.service';
 import { CloseProcessDialogComponent } from '../close-process-dialog/close-process-dialog.component';
@@ -13,9 +15,12 @@ import { EditProcessComponent } from '../edit-process/edit-process.component';
 })
 export class ListProcessesComponent implements OnInit {
 
+  isAdmin: boolean;
+
   constructor(
     private coursesService: CoursesService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private adminGuard: IsAdminGuard,
   ) { }
 
   processosAguardandoInicio: Processo[] = [];
@@ -37,6 +42,10 @@ export class ListProcessesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.adminGuard.isAthorized(true).subscribe((boolean) => {
+      this.isAdmin = boolean;
+    });
+
     this.coursesService.getProcessesAguardandoInicioEAtivos()
       .subscribe(processosFirestore => {
         const processosFiltradosAguardandoInicio: Processo[] = [];
@@ -53,7 +62,8 @@ export class ListProcessesComponent implements OnInit {
         this.processosAguardandoInicio = processosFiltradosAguardandoInicio;
         this.processosAtivos = processosFiltradosAtivos;
         this.loading = false
-        
+
       });
+
   }
 }
