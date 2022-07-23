@@ -1,7 +1,6 @@
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
-import { ChartConfiguration, ChartData } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartEvent } from 'chart.js';
 import { DashboarService } from 'src/app/shared/services/dashboard.service';
 
 @Component({
@@ -10,9 +9,17 @@ import { DashboarService } from 'src/app/shared/services/dashboard.service';
   styleUrls: ['./common-pie.component.scss']
 })
 export class CommonPieComponent implements OnInit {
-  @Input('dados') chartData$!:  Observable<ChartData>;
+  @Input('dados') chartData$!:  Observable<ChartData | { labels: string[]; datasets: { data: number[]; label: string;}[]; }>;
   @Input('typeChart') typeChart: any;
+  @Input('labels') labels: any;
 
+  public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
+    console.log(event, active);
+  }
 
   constructor(private dashboardService: DashboarService) { }
 
@@ -23,7 +30,7 @@ export class CommonPieComponent implements OnInit {
     plugins: {
       legend: {
         position: 'bottom',
-        display: true,
+        display: true
       },
     },
   };

@@ -1,21 +1,4 @@
-/* .row {
-  width: 50%;
-  height: 60%
+.container {
+  border:1px solid #0F637A;
+  border-radius: 15px ;
 }
-
-.col {
-  width: 50%;
-  height: 60%
-} */
-
-/* .col-sm {
-  width: 70%;
-  height: 80%
-} */
-
-.container{
-  width: 1200px;
-  margin: 0 auto;
-  height: 350px;
-  padding: 10px;
-  }

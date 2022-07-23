@@ -1,7 +1,11 @@
+import { Processo } from 'src/app/shared/models/processo';
+import { ProcessoConverter } from './../models/processo';
 import { Injectable } from '@angular/core';
 import { collectionData, Firestore } from '@angular/fire/firestore';
-import { collection } from '@firebase/firestore';
+import { collection, query, where } from '@firebase/firestore';
 import { map } from 'rxjs/operators';
+import * as moment from 'moment';  //niver
+
 
 import { Inscricao, InscricaoConverter } from '../models/inscricao';
 
@@ -11,13 +15,16 @@ import { Inscricao, InscricaoConverter } from '../models/inscricao';
 })
 export class DashboarService {
   inscricao = collection(this.db2, 'Inscricao').withConverter(InscricaoConverter);
+  processo = collection(this.db2, 'Processos').withConverter(ProcessoConverter);
+
 
   constructor(private db2: Firestore) { }
 
-  getEthnicity() {
-    return collectionData(this.inscricao).pipe(map(this._etnia));
+  getEthnicity(processoUid: string[]) {
+    console.log(processoUid)
+    return this.getFilter(processoUid).pipe(map(this._etnia));
   }
-  private _etnia (inscricao: Inscricao[]) {
+  private _etnia(inscricao: Inscricao[]) {
     const todasAsRacas = inscricao.map((inscricao) => inscricao.racaOuCor);
     const racas = new Set(todasAsRacas);
     const obj: { [x: string]: number } = {};
@@ -28,8 +35,8 @@ export class DashboarService {
     return obj;
   }
 
-  getSchooling() {
-    return collectionData(this.inscricao).pipe(map(this._escolaridade));
+  getSchooling(processoUid: string[]) {
+    return this.getFilter(processoUid).pipe(map(this._escolaridade));
   }
   private _escolaridade(inscricao: Inscricao[]) {
     const todosOsNiveis = inscricao.map((inscricao) => inscricao.escolaridade);
@@ -42,8 +49,8 @@ export class DashboarService {
     return obj;
   }
 
-  getStates() {
-    return collectionData(this.inscricao).pipe(map(this._estados));
+  getStates(processoUid: string[]) {
+    return this.getFilter(processoUid).pipe(map(this._estados));
   }
   private _estados(inscricao: Inscricao[]) {
     const todosOsEstados = inscricao.map((inscricao) => inscricao.uf);
@@ -55,22 +62,22 @@ export class DashboarService {
     return obj;
   }
 
-  getGenre() {
-    return collectionData(this.inscricao).pipe(map(this._sexo));
-  }
-  private _sexo(inscricao: Inscricao[]) {
-    const todosGeneros = inscricao.map((inscricao) => inscricao.genero);
-    console.log(todosGeneros);
-    const classes = new Set(todosGeneros);
-    const obj: { [x: string]: number } = {};
-    classes.forEach((classe) => {
-      obj[classe] = todosGeneros.filter((cla) => cla === classe).length;
-    });
-    return obj;
-  }
+  // getGenre() {
+  //   return this.getFilter([]).pipe(map(this._sexo));
+  // }
+  // private _sexo(inscricao: Inscricao[]) {
+  //   const todosGeneros = inscricao.map((inscricao) => inscricao.genero);
+  //   console.log(todosGeneros);
+  //   const classes = new Set(todosGeneros);
+  //   const obj: { [x: string]: number } = {};
+  //   classes.forEach((classe) => {
+  //     obj[classe] = todosGeneros.filter((cla) => cla === classe).length;
+  //   });
+  //   return obj;
+  // }
 
-  getStatus() {
-    return collectionData(this.inscricao).pipe(map(this._statusJornada));
+  getStatus(processoUid: string[]) {
+    return this.getFilter(processoUid).pipe(map(this._statusJornada));
   }
   private _statusJornada(inscricao: Inscricao[]) {
     const todosOsStatus = inscricao.map((inscricao) => inscricao.statusJornada);
@@ -82,8 +89,8 @@ export class DashboarService {
     return obj;
   }
 
-  getPitch() {
-    return collectionData(this.inscricao).pipe(map(this._pitch));
+  getPitch(processoUid: string[]) {
+    return this.getFilter(processoUid).pipe(map(this._pitch));
   }
   private _pitch(inscricao: Inscricao[]) {
     const todosOsVideos = inscricao.map((inscricao) => inscricao.pitchURL);
@@ -95,10 +102,17 @@ export class DashboarService {
     return obj;
   }
 
-  getAge() {
-    return collectionData(this.inscricao).pipe(map(this._dataNasc));
+  getAge(processoUid: string[]) {
+
+    return this.getFilter(processoUid).pipe(map(this._dataNasc));
   }
+
   private _dataNasc(inscricao: Inscricao[]) {
+
+    inscricao.forEach(insc => {
+      insc.dataNascimento = moment().diff(insc.dataNascimento, 'years', false).toString()
+    })
+
     const todasAsIdades = inscricao.map((inscricao) => inscricao.dataNascimento);
     const idades = new Set(todasAsIdades);
     const obj: { [x: string]: number } = {};
@@ -106,6 +120,53 @@ export class DashboarService {
       obj[idade] = todasAsIdades.filter((vid) => vid === idade).length;
     });
     return obj;
+  }
+
+  getGenre(processoUid: string[]) {
+
+    return this.getFilter(processoUid).pipe(map(this._sexo));
+  }
+  private _sexo(inscricao: Inscricao[]) {
+    const todosGeneros = inscricao.map((inscricao) => inscricao.processoUid);
+    console.log(todosGeneros);
+    const classes = new Set(todosGeneros);
+    const obj: { [x: string]: number } = {};
+    classes.forEach((classe) => {
+      obj[classe] = todosGeneros.filter((cla) => cla === classe).length;
+    });
+    return obj;
+  }
+
+  getFilter(processoUid: string[]) {
+   if(processoUid.length > 0){
+    return collectionData(
+      query(this.inscricao,
+        where('processoUid', 'in', processoUid)))
+
+   }else{
+    return collectionData(this.inscricao);
+   }
+
+  }
+
+  getAllProcessos() {
+    return collectionData(this.processo);
+  }
+
+  getSelectedProcesso() {
+    return this.getAllProcessos().pipe(map(this._selected));
+  }
+
+  private _selected(processos: Processo[]) {
+    const selectedProcesso = [];
+    processos.forEach(item => {
+      let processo = { id: item.id, turma: item.turma, selected:true};
+      console.log(processo);
+      selectedProcesso.push(processo);
+    })
+
+    console.log(selectedProcesso);
+    return selectedProcesso;
   }
 
 

@@ -30,6 +30,7 @@
     "chart.js": "^3.6.0",
     "firebase": "^9.8.3",
     "jquery": "^3.6.0",
+    "moment": "^2.29.4",
     "ng2-charts": "^3.0.0",
     "ngx-mask": "^14.0.2",
     "ngx-order-pipe": "^2.2.0",
