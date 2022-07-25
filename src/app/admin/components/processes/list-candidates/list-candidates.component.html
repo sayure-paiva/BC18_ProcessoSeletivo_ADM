@@ -83,17 +83,7 @@
         </div>
         <form [formGroup]="actionsForm" style="background-color: #0f637a;">
             <div class="container-fluid textarea-wrapper">
-                <label class="text-white" for="comentario">Insira um comentário rápido ou mais detalhado</label>
-                <select id="motivo" class="form-select textArea text-white" style="margin-right: 15px; margin-bottom:15px;"
-                    [(ngModel)]="candidateModal.comentario" formControlName="motivo">
-                    <option value="" selected="true"  disabled>Escolha um comentário</option>
-                    <option *ngFor="let item of motivos" [ngValue]="item">
-                        {{ item }}
-                    </option>
-                </select>
-            </div>
-            <div class="container-fluid textarea-wrapper">
-                <textarea class="textArea text-white" [(ngModel)]="candidateModal.comentario"
+                <textarea class="textArea text-white"
                     formControlName="comentario" cols="10" rows="10" placeholder="Digite seu comentário">Escreva aqui</textarea>
             </div>
         </form>
