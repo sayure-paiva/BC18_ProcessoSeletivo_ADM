@@ -8,14 +8,16 @@ import { IsRecruiterGuard } from '../../guards/isRecruiter/is-recruiter.guard';
 })
 export class HeaderComponent implements OnInit {
 
-  isRecruiter = this.recruiterGuard.isRecruiter;
-  
+  isRecruiter: boolean;
+
   constructor(
     private recruiterGuard: IsRecruiterGuard
   ) { }
 
   ngOnInit(): void {
-
+    this.recruiterGuard.isAthorized().subscribe(res => {
+      this.isRecruiter = res;
+    })
   }
 
 }

@@ -89,13 +89,13 @@ export class UserListComponent implements OnInit {
 
   changeDisabled() {
 
-    this.disabled ? this.titulo = 'Funcionarios cadastrados' : this.titulo = 'Funcionarios desabilitados' 
-    
-    this.disabled ? this.disabled = false : this.disabled = true ; 
-    
+    this.disabled ? this.titulo = 'Funcionarios cadastrados' : this.titulo = 'Funcionarios desabilitados'
+
+    this.disabled ? this.disabled = false : this.disabled = true ;
+
     // Salva na variável todos os usuários com disabled == false
     this.allUsers$ = this.adminSerivce.getAllUsers(this.disabled);
-    
+
     this.allUsers$.pipe(
 
       this.toast.observe({
@@ -114,9 +114,9 @@ export class UserListComponent implements OnInit {
   onClickCreate() {
     const ref = this.modalService.open(UserCreateComponent, { centered: true }); {
       ref.closed.subscribe({
-        next: (result) => {
+        next: async (result) => {
           if (result) {
-            this.adminSerivce.createUser(result.usuario, result.imagem)
+            await this.adminSerivce.createUser(result.usuario, result.imagem)
           }
         }
       })
@@ -134,9 +134,9 @@ export class UserListComponent implements OnInit {
     ref.componentInstance.usuario = user;
     {
       ref.closed.subscribe({
-        next: (result) => {
+        next:  (result) => {
           if (result) {
-            this.adminSerivce.updateUser(result.usuario, result.imagem)
+            this.adminSerivce.updateUser(result.usuario, result.imagem).then(res => console.log(res))
           }
         },
       });
@@ -150,7 +150,10 @@ export class UserListComponent implements OnInit {
       ref.closed.subscribe({
         next: (result) => {
           if (result) {
-            this.adminSerivce.updateUser(result.usuario)
+            this.adminSerivce.updateUser(result.usuario).finally(() => {
+              this.disabled = false;
+              this.changeDisabled();
+            });
           }
         },
       });

@@ -22,7 +22,9 @@ export class UserDeleteComponent implements OnInit {
   }
 
   onSubmit() {
+
     this.usuario.disabled ? this.usuario.disabled = false : this.usuario.disabled = true;
+
     this.activeModal.close({ usuario: this.usuario })
   }
 

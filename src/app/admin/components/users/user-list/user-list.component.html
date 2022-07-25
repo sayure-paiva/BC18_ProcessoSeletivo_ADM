@@ -37,7 +37,7 @@
 
                   <td (click)="onClickDetail(user)" title="Exibe mais informações do funcionpario">{{ user.type }}</td>
                   <td><i (click)="onClickEdit(user)" class="far fa-edit text-info cursor-pointer" aria-hidden="true" title="Atualiza as informações do funcionário"></i></td>
-                  <td><i (click)="onClickDelete(user)" class="fa fa-power-off text-danger cursor-pointer" aria-hidden="true" title="Desabilita funcionário"></i></td>
+                  <td><i (click)="onClickDelete(user)" [ngClass]="{'text-danger': disabled === false, 'powerOn': disabled === true}" class="fa fa-power-off text-danger cursor-pointer" aria-hidden="true" title="Desabilita/Habilitar funcionário"></i></td>
                 </tr>
             </tbody>
             <ng-template #semUsers>
