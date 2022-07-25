@@ -19,9 +19,9 @@ export interface Inscricao {
     uid?: string;
     uidUsuario?: string;
     processoUid?: string;
-    pitchURL?: string; 
+    pitchURL?: string;
     cpfBlock?: boolean;
-    comentario?:string;
+    comentario?: string;
     etnia?: string;
     results?: Array<Answers>;
     statusJornada?: string;
