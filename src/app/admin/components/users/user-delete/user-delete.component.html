@@ -27,7 +27,7 @@
 </div>
 
 <div class="modal-footer d-flex justify-content-between">
-  <button type="button" class="btn btn-danger" (click)="onSubmit()" style="max-height: 35px">{{ textButton }}</button>
+  <button type="button" [ngClass]="{'btn-danger': usuario.disabled == false, 'btn-green': usuario.disabled == true}" class="btn btn-danger" (click)="onSubmit()" style="max-height: 35px">{{ textButton }}</button>
   <button type="button" class="btn btn-primary botao-cancelar"
       (click)="activeModal.dismiss('Close click')" style="max-height: 35px">Cancelar</button>
 </div>

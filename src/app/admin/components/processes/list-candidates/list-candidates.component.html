@@ -38,7 +38,7 @@
                                         class="far fa-user-circle" aria-hidden="true"></i>
                                 </td>
                                 <td *ngIf="inscricao.pitchURL !== ''; else outroPitch ">
-                                    <a href="{{inscricao.pitchURL}}"><i class="far fa-download"
+                                    <a target="_blank" href="{{inscricao.pitchURL}}"><i class="far fa-download"
                                             aria-hidden="true"></i></a>
                                 </td>
                                 <ng-template #outroPitch>

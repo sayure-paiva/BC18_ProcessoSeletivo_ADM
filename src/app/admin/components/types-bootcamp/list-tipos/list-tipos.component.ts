@@ -15,7 +15,7 @@ import { EditTipoComponent } from '../edit-tipo/edit-tipo.component';
   styleUrls: ['./list-tipos.component.css']
 })
 export class ListTiposComponent implements OnInit {
-  isAdmin = this.adminGuard.isAdmin;
+  isAdmin: boolean;
   isRecruiter = this.recruiterGuard.isRecruiter;
 
   constructor(
@@ -44,7 +44,9 @@ export class ListTiposComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.adminGuard.isAthorized(true).subscribe();
+    this.adminGuard.isAthorized(true).subscribe((boolean) => {
+      this.isAdmin = boolean;
+    });
 
     this.tipoService.getAllTiposBootcamp()
       .subscribe(tiposFirestore => {

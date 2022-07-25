@@ -25,7 +25,7 @@ export class AdminService {
     return this.db.collection('Super-users', ref => {
 
       return ref.where("disabled", "==", disabled)
-      
+
     }).valueChanges() as Observable<User[]>;
 
   }
@@ -36,24 +36,25 @@ export class AdminService {
 
     const { displayName: displayName, email: email, password: password, type: type} = user;
 
-    return this.functions.httpsCallable('createUserWithEmailAndPassword')({ displayName: displayName, email: email, password: password, type: type, photoURL: this.imagemURL })
-    .pipe(
-      this.toast.observe({
-        loading: 'Adicionando novo funcionário...',
-        error: 'Ocorreu um erro!',
-        success: 'Funcionário adicionado com sucesso!',
-      }),
-    ).subscribe()
+    return this.functions.httpsCallable('createUserWithEmailAndPassword')
+    ({
+      displayName: displayName,
+      email: email,
+      password: password,
+      type: type,
+      photoURL: this.imagemURL
+    })
+    .subscribe()
   }
 
   async updateUser(user: User, imagem?: File) {
 
     // Se uma imagem vinher para upload a antiga é apagada do storage
     if (imagem != null) {
-      
+
       this.db.collection("Super-users").doc(user.uid).valueChanges()
-      .subscribe((response: User) => {        
-      
+      .subscribe((response: User) => {
+
         this.imagemURL = response.photoURL;
 
       });
@@ -61,20 +62,20 @@ export class AdminService {
         // Se tiver usuário tiver photoURL apagamos
         // A foto antiga do storage e subimos uma nova.
 
-      this.imagemURL !== "" ? 
-      this.storage.refFromURL(this.imagemURL).delete() && 
+      this.imagemURL !== "" ?
+      this.storage.refFromURL(this.imagemURL).delete() &&
       await this.uploadStorage(imagem) : await this.uploadStorage(imagem);
-      
+
     } else {
       this.imagemURL = user.photoURL;
     }
-    
+
     return this.functions.httpsCallable('editUser')({
-      uid: user.uid, 
-      displayName: user.displayName, 
-      email: user.email, 
-      type: user.type, 
-      photoURL: this.imagemURL,  
+      uid: user.uid,
+      displayName: user.displayName,
+      email: user.email,
+      type: user.type,
+      photoURL: this.imagemURL,
       lastSignIn: user.lastSignIn,
       disabled: user.disabled
     })
@@ -84,7 +85,8 @@ export class AdminService {
         error: "Ocorreu um erro!",
         success: "Usuário atualizado com sucesso!",
       })
-    ).subscribe(() => {
+    )
+    .subscribe(() => {
       this.imagemURL = "";
     });
   }
@@ -104,12 +106,12 @@ export class AdminService {
 
     }
 
-     // Envia solicitação para cloud function desabilitar o usuário 
-    return this.functions.httpsCallable('deleteUser')({ uid: uid, disabled: true }); 
+     // Envia solicitação para cloud function desabilitar o usuário
+    return this.functions.httpsCallable('deleteUser')({ uid: uid, disabled: true });
   }
 
   // Faz upload da photo usuário e salva a URL da imagem na váriavel
-  async uploadStorage(file: File) { 
+  async uploadStorage(file: File) {
 
       if (file) {
 

@@ -14,3 +14,7 @@ th {
 .enabledColor {
   color: #000;
 }
+
+.powerOn {
+  color: green;
+}
