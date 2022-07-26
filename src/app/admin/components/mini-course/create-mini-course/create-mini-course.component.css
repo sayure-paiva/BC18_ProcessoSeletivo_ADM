@@ -1,0 +1,111 @@
+.formCreate {
+    margin: 3rem 6rem;
+    padding: 3rem 5rem 3rem 5rem;
+    border: 1px solid #FAFAFA;
+    border-radius: 15px;
+    box-shadow: 0 0 0.5em #0F637A;  
+}
+
+.labelForm {
+    font-size: 16pt;
+}
+
+.titulo {
+    text-align: center;
+    margin-top: 6rem;
+    margin-bottom: 3vh;
+    font-family: "Gilroy";
+    font-weight: 700;
+    line-height: 1.3;
+    color: #3F3A64;
+}
+
+.formTopico{
+    padding: 3vh 5rem 0 5rem;
+}
+
+.modal-header,
+.modal-body {
+    background-color: #0f637a;
+}
+
+.modal-header {
+    border: none;
+}
+
+.modal-body {
+    padding: 0;
+}
+
+.submitWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.tituloForm {
+    text-shadow: 2px 2px 5px black;
+}
+
+.inputWrapper {
+    margin-bottom: 1.2rem;
+}
+
+.btnRemove {
+    background-color: #F44336;
+    color: white;
+}
+
+.btnRemove:hover {
+    background-color: #ff1100;
+}
+
+.wrapperImagem{
+    width: 30%;
+}
+
+.wrapperSubtitulo {
+    width: 60%;
+}
+
+table {
+    margin-top: 2rem;
+}
+
+tr {
+    margin-bottom: 20px;
+}
+
+.iconeList {
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    .formTopico{
+        padding: 3vh 2rem 0 2rem;
+    }
+}
+
+@media (min-width: 990px) {
+    .wrapperImagem{
+        width: 20%;
+    }
+    
+    .wrapperSubtitulo {
+        width: 80%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .formCreate {
+        margin: 3rem auto;
+        width: 900px;
+        padding: 3rem 5rem 3rem 5rem;
+    }
+}

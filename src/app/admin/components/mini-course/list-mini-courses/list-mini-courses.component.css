@@ -12,8 +12,16 @@ h5{
     height: 26px;
 }
 
+.subtitulo {
+    margin-left: -8px;
+    margin-top: 2rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: #8C89A2;
+}
+
 .card {
-    height: 25rem;
+    height: 20rem;
     background-color: #0f637a;
 }
 
@@ -23,6 +31,11 @@ h5{
 
 .btn {
     height: 2rem;
+}
+
+.botao-detalhes {
+    width: 100%;
+    margin: 1vh 0;
 }
 
 .botao-editar {

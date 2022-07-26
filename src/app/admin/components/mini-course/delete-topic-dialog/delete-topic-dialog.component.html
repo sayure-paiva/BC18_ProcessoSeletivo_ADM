@@ -1,0 +1,12 @@
+<div class="modal-header">
+  <h4 class="modal-title tituloForm text-primary">Deseja excluir o tópico {{indexTopic + 1}}?</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body mb-0">
+  <h6 class="text-white m-0 text-center">ATENÇÃO: Os dados deste tópico não poderão ser recuperados</h6>
+
+  <div class="d-flex justify-content-between pt-5">
+    <button type="button" class="btn btn-primary botao-cancelar" (click)="activeModal.dismiss()">Não</button>
+    <button type="button" class="btn btn-outline-danger botao-apagar" (click)="onApagar()">Sim</button>
+  </div>
+</div>

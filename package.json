@@ -22,6 +22,8 @@
     "@angular/platform-browser": "^14.0.4",
     "@angular/platform-browser-dynamic": "^14.0.4",
     "@angular/router": "^14.0.4",
+    "@ckeditor/ckeditor5-angular": "^4.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^34.2.0",
     "@ng-bootstrap/ng-bootstrap": "^13.0.0-beta.1",
     "@ngneat/hot-toast": "^4.1.0",
     "@ngneat/overview": "^2.0.2",

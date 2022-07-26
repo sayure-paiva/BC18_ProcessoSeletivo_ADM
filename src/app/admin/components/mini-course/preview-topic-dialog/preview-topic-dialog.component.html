@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h2 class="modal-title tituloForm text-primary">Preview do tópico {{index + 1}}</h2>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <div class="inputWrapper">
+    <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example"
+      tabindex="0">
+
+      <div style="padding: 2rem;">
+        <h3 style="text-align: center;">{{topico.subtitulo}}</h3>
+        <img *ngIf="topico.imagemURL != ''" [src]=srcImagem>
+        <p [innerHTML]="convertHtmlToText(topico.texto)" style="text-align: start;"></p>
+      </div>
+
+    </div>
+  </div>
+
+</div>

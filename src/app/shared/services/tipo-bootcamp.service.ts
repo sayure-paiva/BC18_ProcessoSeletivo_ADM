@@ -18,6 +18,11 @@ export class TipoBootcampService {
     return this.db.collection('TiposBootcamp').valueChanges() as Observable<TipoBootcamp[]>;
   }
 
+  getAllTiposBootcampFilteredByMiniCurso(miniCursoTitulo: string): Observable<TipoBootcamp[]> {
+    return this.db.collection('TiposBootcamp', ref => ref.where('miniCurso', '==', miniCursoTitulo))
+    .valueChanges() as Observable<TipoBootcamp[]>;
+  }
+
   createTipoBootcamp(tipoBootcamp: TipoBootcamp): Observable<void> {
     return from(this.db.collection('TiposBootcamp').add(tipoBootcamp)
       .then((docRef) => {
