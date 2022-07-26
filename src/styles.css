@@ -23665,3 +23665,15 @@ only screen and (max-width: 767px) {
   background-color: #0f637a;
   border-color: #0f637a;
 }
+
+.ck-editor__editable_inline {
+  min-height: 300px;
+  max-height: 300px;
+}
+
+@media (min-width: 1920px) {
+  .ck-editor__editable_inline {
+    min-height: 500px;
+    max-height: 500px;
+  }
+}

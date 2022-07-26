@@ -1,0 +1,113 @@
+<div class="table-responsive-container">
+    <h2 class="titulo">Criar Mini-Curso</h2>
+    <form class="formCreate" [formGroup]="this.createMiniCursoForm">
+        <div class="inputWrapper">
+            <label class="labelForm" for="titulo">Título do Mini Curso</label>
+            <input id="titulo" placeholder="Digite o título do Mini Curso" formControlName="titulo" type="text"
+                class="input-field col s12" />
+            <small class="text-danger" *ngIf="titulo?.touched && titulo?.invalid">
+                <span *ngIf="titulo?.hasError('required')">O título é obrigatório</span>
+            </small>
+        </div>
+
+
+        <div class="d-flex justify-content-between align-items-center">
+            <button type="button" (click)="addTopico(content)" class="btn btn-info mb-3" style="width: 100%;">Adicionar
+                tópico</button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped" formArrayName="topicos" *ngIf="this.topicos().value.length > 0">
+                <thead>
+                    <tr>
+                        <th>Subtítulo</th>
+                        <th>Texto</th>
+                        <th>Imagem</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let topico of this.topicos().value; let i=index" [formGroupName]="i">
+                        <td>{{ ellipsis(topico.subtitulo) }}</td>
+                        <td>{{ convertHtml(topico.texto) }}</td>
+                        <td>{{ textImage(i)}}</td>
+                        <td><i (click)="onClickPreview(topico, i)" class="far fa-solid fa-eye iconeList" aria-hidden="true"></i></td>
+                        <td><i (click)="onClickEdit(content, topico, i)" class="far fa-edit text-info iconeList"
+                                aria-hidden="true"></i></td>
+                        <td><i (click)="removerTopico(i)" class="far fa-trash-alt text-danger iconeList"
+                                aria-hidden="true"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="submitWrapper">
+            <button type="submit" class="btn btn-primary submit" (click)="onSubmit()"
+                [disabled]="this.createMiniCursoForm.invalid || this.topicos().value.length == 0">
+                Criar Mini Curso
+            </button>
+        </div>
+    </form>
+
+</div>
+
+
+<!-- MODAL ADICIONAR LINHA -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h2 class="modal-title tituloForm text-primary">Editar tópico {{index + 1}}</h2>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="inputWrapper">
+
+
+            <form class="formTopico" style="background-color: #0f637a;" [formGroup]="this.topicoForm">
+                <div class="d-flex justify-content-between">
+                    <div class="inputWrapper wrapperImagem">
+                        <label class="labelFormTopico text-white" for="titulo">Imagem</label>
+                        <div class="d-flex justify-content-start align-items-end" style="width: 100%">
+                            <img (click)="changeImage.click()" id="imgChange"
+                                src="https://greenvolt.com.br/wp-content/uploads/2018/05/ef3-placeholder-image.jpg"
+                                style="max-width: 70px; min-width: 70px; height: 56px; cursor: pointer; object-fit: cover; border-radius: 5px;"
+                                alt="" />
+                            <input #changeImage type="file" (change)="receiveImage($event)" hidden>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" (click)="changeImage.click()"
+                                style="max-width: 15px; min-width: 15px; height: 15px; cursor: pointer; margin-left: 5px;">
+                                <path
+                                    d="M194.6 32H317.4C338.1 32 356.4 45.22 362.9 64.82L373.3 96H448C483.3 96 512 124.7 512 160V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V160C0 124.7 28.65 96 64 96H138.7L149.1 64.82C155.6 45.22 173.9 32 194.6 32H194.6zM256 384C309 384 352 341 352 288C352 234.1 309 192 256 192C202.1 192 160 234.1 160 288C160 341 202.1 384 256 384z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="inputWrapper wrapperSubtitulo">
+                        <label class="labelFormTopico text-white" for="subtitulo">Subtítulo</label>
+                        <input id="subtitulo" type="text" [(ngModel)]="input.subtitulo" formControlName="subtitulo"
+                            class="input-field" placeholder="Digite o subtítulo do tópico {{index + 1}}"
+                            style="color: #696969;">
+                        <small class="text-danger" *ngIf="subtitulo?.touched && subtitulo?.invalid">
+                            <span *ngIf="subtitulo?.hasError('required')">O subtítulo é obrigatório</span>
+                        </small>
+                    </div>
+                </div>
+                <div class="inputWrapper">
+                    <label class="labelFormTopico text-white" for="texto">Texto</label>
+                    <ckeditor [config]="this.config" tagName="textarea" [editor]="Editor" id="texto" class="textArea" [(ngModel)]="input.texto" cols="10" formControlName="texto"
+                    rows="10"></ckeditor>
+                    <small class="text-danger" *ngIf="texto?.touched && texto?.invalid">
+                        <span *ngIf="texto?.hasError('required')">O texto é obrigatório</span>
+                    </small>
+                </div>
+                <div class="submitWrapper">
+                    <button (click)="onDefinir()" class="btn btn-primary" style="width: 100%;"
+                        [disabled]="this.input.subtitulo == '' || this.input.texto == ''">
+                        Definir
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</ng-template>

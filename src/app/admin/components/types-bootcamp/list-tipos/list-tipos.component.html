@@ -8,12 +8,18 @@
                       <div class="text-center">
                           <h5 class="card-title text-primary">{{tipoBootcamp.tipo}}</h5>
                       </div>
-                      <div>
-                          <span style="font-size: 16px; display: block;">
+                      <div style="height: 147px;">
+                          <span style="font-size: 14px; display: block;">
                               <i class="fas fa-fingerprint"></i>
-                              ID do Teachable: {{tipoBootcamp.idTeachable}}
+                              ID do Teachable: <strong>{{tipoBootcamp.idTeachable}}</strong>
                           </span>
-                          <span style="font-size: 16px; display: block; margin-top: 2px;">
+
+                          <span style="font-size: 14px; display: block;">
+                            <i class="fas fa-computer-classic"></i>
+                            Mini-Curso: <strong>{{tipoBootcamp.miniCurso}}</strong>
+                        </span>
+                          
+                          <span style="font-size: 14px; display: block;">
                               <i class="fas fa-exclamation-triangle"></i>
                               O candidato poderá falhar nos testes <strong>{{tipoBootcamp.limiteTentativas}}</strong> vezes até ser reprovado
                               automaticamente

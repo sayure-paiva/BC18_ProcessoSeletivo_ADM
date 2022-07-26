@@ -1,0 +1,45 @@
+<ng-template #conteudo>
+  <div *ngIf="tiposBootcampDesseMiniCurso.length > 0; else exclusao">
+    <div class="modal-header" >
+      <h5 class="modal-title tituloForm text-primary">Não é possível excluir esse Mini-Curso</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body mb-0">
+      <h6 class="text-white m-0" style="display: inline;">ATENÇÃO: O(s) tipo(s) de bootcamp </h6>
+      <div *ngFor="let tipoBootcamp of tiposBootcampDesseMiniCurso; let i = index" style="display: inline-block;">
+        <h6 class="text-white inline m-0" *ngIf="i != tiposBootcampDesseMiniCurso.length - 1; else ultimoItem">{{tipoBootcamp.tipo}}, </h6>
+        <ng-template #ultimoItem>
+          <h6 class="text-white inline m-0"> {{tipoBootcamp.tipo}} </h6>
+        </ng-template>
+      </div>
+      
+      <h6 class="text-white m-0" style="display: inline;"> fazem uso deste Mini-Curso</h6>
+
+      <div class="d-flex justify-content-between pt-5">
+        <button type="button" class="btn btn-primary" (click)="onTiposBootcamp()">Ir para Tipos de Bootcamp</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #exclusao>
+  <div class="modal-header">
+    <h4 class="modal-title tituloForm text-primary">Deseja excluir o Mini-Curso?</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body mb-0">
+    <h6 class="text-white m-0 text-center">ATENÇÃO: EXCLUSÃO PERMANENTE</h6>
+  
+    <div class="d-flex justify-content-between pt-5">
+      <button type="button" class="btn btn-primary botao-cancelar" (click)="onCancel()">Não</button>
+      <button type="button" class="btn btn-outline-danger botao-apagar" (click)="onApagar()">Sim</button>
+    </div>
+  </div>
+</ng-template>
+
+
+<div class="text-center">
+  <div class="spinner-border" *ngIf="loading; else conteudo" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>

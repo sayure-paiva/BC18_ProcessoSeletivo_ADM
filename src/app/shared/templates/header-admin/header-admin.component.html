@@ -20,7 +20,7 @@
           <nav class="site-main-menu menu-hover-1">
             <ul>
               <li class="has-children position-static">
-                <a [routerLink]="'/admin/processos'"><span class="menu-text">Processos e Tipos de Bootcamp</span></a>
+                <a [routerLink]="'/admin/processos'"><span class="menu-text">Processos, Tipos e Mini-Cursos</span></a>
                 <span class="menu-toggle"><i class="far fa-angle-down"></i></span>
                 <ul class="mega-menu" style="width: 380px; left: 200px;">
                   <li>
@@ -29,6 +29,7 @@
                       <li><a  [routerLink]="'/admin/processos/historico'">Histórico de Processos Seletivos</a></li>
                       <li><a  [routerLink]="'/admin/dashboard'">Dashboard de Inscritos</a></li>
                       <li><a  [routerLink]="'/admin/tipos-bootcamp'">Tipos de Bootcamp</a></li>
+                      <li><a  [routerLink]="'/admin/mini-cursos'">Mini Cursos</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -101,7 +102,7 @@
       <nav class="site-mobile-menu">
         <ul>
           <li class="has-children position-static" *ngIf="isAdmin">
-            <a href="/admin/processos"><span class="menu-text">Processos Seletivos</span></a>
+            <a href="/admin/processos"><span class="menu-text">Processos, Tipos e Mini-Cursos</span></a>
             <span class="menu-toggle"><i class="far fa-angle-down"></i></span>
 
             <ul class="mega-menu">
@@ -110,6 +111,7 @@
                   <li><a href="/admin/processos"><span class="menu-text">Processos Seletivos Aguardando Início e Ativos</span></a></li>
                   <li><a href="/admin/processos/historico"><span class="menu-text">Histórico de Processos Seletivos</span></a></li>
                   <li><a href="/admin/tipos-bootcamp"><span class="menu-text">Tipos de Bootcamp</span></a></li>
+                  <li><a href="/admin/mini-cursos"><span class="menu-text">Mini Cursos</span></a></li>
                 </ul>
               </li>
             </ul>

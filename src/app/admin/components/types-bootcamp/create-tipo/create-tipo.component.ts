@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
+import { MiniCurso } from 'src/app/shared/models/mini-curso';
 import { TipoBootcamp } from 'src/app/shared/models/tipo-bootcamp';
+import { MiniCourseService } from 'src/app/shared/services/mini-course.service';
 import { TipoBootcampService } from 'src/app/shared/services/tipo-bootcamp.service';
 
 @Component({
@@ -16,13 +18,16 @@ export class CreateTipoComponent implements OnInit {
     private tipoService: TipoBootcampService,
     private fb: FormBuilder,
     public activeModal: NgbActiveModal,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private miniCourseService: MiniCourseService
   ) { }
 
   tipoBootcamp: TipoBootcamp = {} as TipoBootcamp;
+  miniCursos: MiniCurso[] = [];
 
   createTipoForm = this.fb.group({
     tipo: ['', [Validators.required]],
+    miniCurso: ['', [Validators.required]],
     idTeachable: ['', [Validators.required]],
     limiteTentativas: ['', [Validators.required]]
   });
@@ -30,6 +35,9 @@ export class CreateTipoComponent implements OnInit {
   //#region Getters
   get tipo() {
     return this.createTipoForm.get('tipo');
+  }
+  get miniCurso() {
+    return this.createTipoForm.get('miniCurso');
   }
   get idTeachable() {
     return this.createTipoForm.get('idTeachable');
@@ -47,6 +55,8 @@ export class CreateTipoComponent implements OnInit {
   }
 
   onSubmit() {
+    this.tipoBootcamp.miniCurso = this.miniCurso.value;
+    
     this.tipoService.createTipoBootcamp(this.tipoBootcamp)
       .pipe(
         this.toast.observe({
@@ -64,6 +74,7 @@ export class CreateTipoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.miniCourseService.getAllMiniCursos().subscribe((miniCursosFirestore) => this.miniCursos = miniCursosFirestore);
   }
 
 }
