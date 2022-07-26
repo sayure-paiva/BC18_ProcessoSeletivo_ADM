@@ -4,6 +4,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Teste } from 'src/app/shared/models/teste';
 import { TesteTecnicoService } from 'src/app/shared/services/teste-tecnico.service';
+import { TipoBootcamp } from 'src/app/shared/models/tipo-bootcamp';
+import { TipoBootcampService } from 'src/app/shared/services/tipo-bootcamp.service';
 
 @Component({
   selector: 'app-teste-tecnico-edit',
@@ -11,13 +13,15 @@ import { TesteTecnicoService } from 'src/app/shared/services/teste-tecnico.servi
   styleUrls: ['./teste-tecnico-edit.component.css']
 })
 export class TesteTecnicoEditComponent implements OnInit {
+  tiposBootcamp: TipoBootcamp [] = [];
   answersChecked: boolean[] = [false, false, false, false, false];
   @Input() teste: Teste;
 
   constructor(private testeService: TesteTecnicoService,
     private fb: FormBuilder,
     public activeModal: NgbActiveModal,
-    private toast: HotToastService) { }
+    private toast: HotToastService,
+    private tipoService: TipoBootcampService) { }
 
     addTesteForm: FormGroup = this.fb.group({
       question: ['', [Validators.required, Validators.minLength(8)]],
@@ -26,6 +30,7 @@ export class TesteTecnicoEditComponent implements OnInit {
       alternatives3: ['', [Validators.required]],
       alternatives4: ['', [Validators.required]],
       alternatives5: ['', [Validators.required]],
+      bootcamp: ['', [Validators.required]],
     });
 
     get question() {
@@ -45,6 +50,9 @@ export class TesteTecnicoEditComponent implements OnInit {
     }
     get alternatives5() {
       return this.addTesteForm.get('alternatives5');
+    }
+    get bootcamp() {
+      return this.addTesteForm.get('bootcamp');
     }
 
     onCheckChange(event, index: number) {
@@ -76,6 +84,8 @@ export class TesteTecnicoEditComponent implements OnInit {
         }
       })
       this.teste.answers = answers;
+      const tipoBootcamp = this.tiposBootcamp.find((tipoBootcamp) => this.bootcamp.value == tipoBootcamp.tipo);
+      this.teste.bootcamp = tipoBootcamp.tipo;
     }
 
 
@@ -90,6 +100,8 @@ export class TesteTecnicoEditComponent implements OnInit {
       let index = this.teste.alternatives.indexOf(answer)
       this.answersChecked[index] = true;
     }
+    this.bootcamp.setValue(this.teste.bootcamp);
+    this.tipoService.getAllTiposBootcamp().subscribe((tiposBootcampFirestore) => this.tiposBootcamp = tiposBootcampFirestore);
   }
 
   returnIfAllUnchecked() {

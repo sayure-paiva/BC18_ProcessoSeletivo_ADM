@@ -1,60 +1,61 @@
-
 <div class="grupo">
-<div class="container-fluid">
-  <div class="row">
-    <div class="col formulario">
-      <div class="form">
-        <app-teste-logico-add></app-teste-logico-add>
-      </div>
-    </div>
-    <div class="col-xl-8 tabela">
-      <div class="table-responsive-container">
-        <h1 class="text-table">Perguntas cadastradas</h1>
-        <label for="typeahead-basic">Pesquisar:</label>
-        <input id="typeahead-basic" type="text" placeholder="Pesquise por: Questão, Alternativas e respostas corretas "
-          class="form-control" [(ngModel)]="textSearch" (ngModelChange)="filterList()" />
-        <div class="table-responsive-sm">
-          <table class=" table table-striped">
-            <thead>
-              <tr>
-                <th [class.active]="order === 'question'" (click)="setOrder('question')">QUESTÃO
-                  <span style="cursor: pointer" [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
-                </th>
-                <th scope="col">Alternativas</th>
-                <th scope="col">Respostas Corretas</th>
-                <th scope="col">Bootcamp</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let quest of allTeste  | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | orderBy: order:reverse:caseInsensitive">
-                <td>{{ellipsis(quest.question)}}</td>
-                <td>{{ellipsis(quest.alternatives.toString())}}</td>
-                <td>{{ellipsis(quest.answers.toString())}}</td>
-                <td>{{ellipsis(quest.bootcamp.toString())}}</td>
-                <td><i (click)="onClickDetail(quest)" class="far fa-solid fa-eye" aria-hidden="true"></i></td>
-                <td><i (click)="openEdit(quest)" class="far fa-edit text-info"></i></td>
-                <td><i (click)="deleteTeste(quest.id)" class="far fa-trash-alt text-danger"></i></td>
-              </tr>
-            </tbody>
-          </table>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col formulario">
+        <div class="form">
+          <app-teste-logico-add></app-teste-logico-add>
         </div>
-        <div class="d-flex justify-content-between p-2">
-          <ngb-pagination [collectionSize]="allTeste.length" [(page)]="page" [pageSize]="pageSize"
-            (pageChange)="refreshBlock()">
-          </ngb-pagination>
-          <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshBlock()">
-            <option *ngFor="let item of listPage" [ngValue]="item">
-              {{ item }} - itens por página
-            </option>
-          </select>
+      </div>
+      <div class="col-xl-8 tabela">
+        <div class="table-responsive-container">
+          <h1 class="text-table">Perguntas cadastradas</h1>
+          <label for="typeahead-basic">Pesquisar:</label>
+          <input id="typeahead-basic" type="text"
+            placeholder="Pesquise por: Questão, Alternativas e respostas corretas " class="form-control"
+            [(ngModel)]="textSearch" (ngModelChange)="filterList()" />
+          <div class="table-responsive-sm">
+            <table class=" table table-striped">
+              <thead>
+                <tr>
+                  <th [class.active]="order === 'question'" (click)="setOrder('question')">QUESTÃO
+                    <span style="cursor: pointer" [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+                  </th>
+                  <th scope="col">Alternativas</th>
+                  <th scope="col">Respostas Corretas</th>
+                  <th scope="col">Bootcamp</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let quest of allTeste  | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | orderBy: order:reverse:caseInsensitive">
+                  <td>{{ellipsis(quest.question)}}</td>
+                  <td>{{ellipsis(quest.alternatives.toString())}}</td>
+                  <td>{{ellipsis(quest.answers.toString())}}</td>
+                  <td>{{ellipsis(quest.bootcamp.toString())}}</td>
+                  <td><i (click)="onClickDetail(quest)" class="far fa-solid fa-eye" aria-hidden="true"></i></td>
+                  <td><i (click)="openEdit(quest)" class="far fa-edit text-info"></i></td>
+                  <td><i (click)="deleteTeste(quest.id)" class="far fa-trash-alt text-danger"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-between p-2">
+            <ngb-pagination [collectionSize]="allTeste.length" [(page)]="page" [pageSize]="pageSize"
+              (pageChange)="refreshBlock()">
+            </ngb-pagination>
+            <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshBlock()">
+              <option *ngFor="let item of listPage" [ngValue]="item">
+                {{ item }} - itens por página
+              </option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="text-center">
-  <div class="spinner-border" role="status" *ngIf="loading">
+  <div class="text-center">
+    <div class="spinner-border" role="status" *ngIf="loading">
       <span class="sr-only">Loading...</span>
+    </div>
   </div>
-</div>
 </div>
