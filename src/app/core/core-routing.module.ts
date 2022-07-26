@@ -156,8 +156,8 @@ export const coreRoutes: Routes = [
         component: ListCpfBlockComponent
       },
       {
-        path: "cpf-block",
-        component: ListCpfBlockComponent,
+        path:'dashboard',
+        component: DashboardComponent
       },
       {
         path: "teste-logico",
@@ -175,10 +175,6 @@ export const coreRoutes: Routes = [
         path: "tipos-bootcamp",
         component: ListTiposComponent
       },
-      {
-        path:"dash",
-        component:DashboardComponent
-      }
     ],
   },
   {
