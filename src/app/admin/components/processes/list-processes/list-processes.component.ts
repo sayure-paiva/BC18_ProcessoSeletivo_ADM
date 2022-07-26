@@ -16,6 +16,10 @@ import { EditProcessComponent } from '../edit-process/edit-process.component';
 export class ListProcessesComponent implements OnInit {
 
   isAdmin: boolean;
+  processosAll: Processo[] = [];
+  processosAguardandoInicio: Processo[] = [];
+  processosAtivos: Processo[] = [];
+  loading: boolean = true;
 
   constructor(
     private coursesService: CoursesService,
@@ -23,17 +27,15 @@ export class ListProcessesComponent implements OnInit {
     private adminGuard: IsAdminGuard,
   ) { }
 
-  processosAguardandoInicio: Processo[] = [];
-  processosAtivos: Processo[] = [];
-  loading: boolean = true;
-
   openCreate(){
-    this.modalService.open(CreateProcessComponent, { centered: true });
+    const modalRef = this.modalService.open(CreateProcessComponent, { centered: true });
+    modalRef.componentInstance.processosAll = this.processosAll;
   }
 
   openEdit(processo: Processo) {
     const modalRef = this.modalService.open(EditProcessComponent, { centered: true });
     modalRef.componentInstance.processo = processo;
+    modalRef.componentInstance.processosAll = this.processosAll;
   }
 
   openCloseProcess(processo:  Processo) {
@@ -46,12 +48,15 @@ export class ListProcessesComponent implements OnInit {
       this.isAdmin = boolean;
     });
 
-    this.coursesService.getProcessesAguardandoInicioEAtivos()
+    this.coursesService.getAllProcesses()
       .subscribe(processosFirestore => {
+        const processosAll: Processo[] = [];
         const processosFiltradosAguardandoInicio: Processo[] = [];
         const processosFiltradosAtivos: Processo[] = [];
 
         processosFirestore.forEach((processo) => {
+          processosAll.push(processo);
+
           if (processo.status == 'Aguardando Início') {
             processosFiltradosAguardandoInicio.push(processo);
           } else if (processo.status == 'Ativo') {
@@ -59,6 +64,7 @@ export class ListProcessesComponent implements OnInit {
           }
         })
 
+        this.processosAll = processosAll;
         this.processosAguardandoInicio = processosFiltradosAguardandoInicio;
         this.processosAtivos = processosFiltradosAtivos;
         this.loading = false
