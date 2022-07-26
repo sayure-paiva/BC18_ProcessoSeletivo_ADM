@@ -23,7 +23,7 @@ export interface Inscricao {
     processoUid?: string;
     pitchURL?: string;
     cpfBlock?: boolean;
-    comentario?:string;
+    comentario?: string;
     etnia?: string;
     results?: Array<Answers>;
     statusJornada?: string;

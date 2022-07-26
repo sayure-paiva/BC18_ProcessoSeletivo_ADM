@@ -27,6 +27,8 @@ export class UserListComponent implements OnInit {
   order: string = 'type';
   reverse: boolean = true;
   caseInsensitive: boolean = false;
+  titulo = 'Funcionarios Cadastrados';
+  disabled: boolean = false;
 
   constructor(
     private adminSerivce: AdminService,
@@ -35,11 +37,15 @@ export class UserListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.allUsers$ = this.adminSerivce.getAllUsers();
+
+    // Salva na variável todos os usuários com disabled == false
+    this.allUsers$ = this.adminSerivce.getAllUsers(false);
 
     this.allUsers$.subscribe((users) => {
+
       this.listUsers = users;
       this.listUsersToSerach = users;
+
     });
   }
 
@@ -81,12 +87,36 @@ export class UserListComponent implements OnInit {
       );
   }
 
-   onClickCreate() {
+  changeDisabled() {
+
+    this.disabled ? this.titulo = 'Funcionarios cadastrados' : this.titulo = 'Funcionarios desabilitados'
+
+    this.disabled ? this.disabled = false : this.disabled = true ;
+
+    // Salva na variável todos os usuários com disabled == false
+    this.allUsers$ = this.adminSerivce.getAllUsers(this.disabled);
+
+    this.allUsers$.pipe(
+
+      this.toast.observe({
+        loading: "Atualizando...",
+        error: "Ocorreu um erro!",
+        success: "Usuários atualizados",
+
+      })).subscribe(users => {
+
+      this.listUsers = users;
+      this.listUsersToSerach = users;
+    });
+
+  }
+
+  onClickCreate() {
     const ref = this.modalService.open(UserCreateComponent, { centered: true }); {
       ref.closed.subscribe({
-        next: (result) => {
+        next: async (result) => {
           if (result) {
-            this.adminSerivce.createUser(result.usuario, result.imagem)
+            await this.adminSerivce.createUser(result.usuario, result.imagem)
           }
         }
       })
@@ -100,12 +130,13 @@ export class UserListComponent implements OnInit {
 
   onClickEdit(user: User) {
     const ref = this.modalService.open(UserUpdateComponent, { centered: true });
+
     ref.componentInstance.usuario = user;
     {
       ref.closed.subscribe({
-        next: (result) => {
+        next:  (result) => {
           if (result) {
-            this.adminSerivce.updateUser(result.usuario, result.uid, result.imagem)
+            this.adminSerivce.updateUser(result.usuario, result.imagem).then(res => console.log(res))
           }
         },
       });
@@ -119,17 +150,10 @@ export class UserListComponent implements OnInit {
       ref.closed.subscribe({
         next: (result) => {
           if (result) {
-            console.log(result);
-            this.adminSerivce
-              .deleteUser(result.usuario.uid)
-              .pipe(
-                this.toast.observe({
-                  loading: "Deletando...",
-                  error: "Ocorreu um erro",
-                  success: "Deletado com sucesso!",
-                })
-              )
-              .subscribe();
+            this.adminSerivce.updateUser(result.usuario).finally(() => {
+              this.disabled = false;
+              this.changeDisabled();
+            });
           }
         },
       });

@@ -16,12 +16,17 @@ export class PaginaDefaultComponent implements OnInit {
     public auth: AuthService,
     public coursesService: CoursesService,
     public route: ActivatedRoute
-    ){
-    }
+    ){}
+    headerAppears: boolean = false;
 
     onActivate(event: any): void {
       this.componentObject = event;
       this.componentName= event.constructor.name;      
+      if(this.componentName == 'LoginComponent' || this.componentName == 'MartechAcademyComponent'){
+        this.headerAppears = false;
+      }else{
+        this.headerAppears = true;
+      }
     }
 
   ngOnInit() {

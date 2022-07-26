@@ -20,40 +20,65 @@ export class AdminService {
     private toast: HotToastService
     ) { }
 
-  getAllUsers(): Observable<User[]> {
-   return this.db.collection('Super-users')
-   .valueChanges() as Observable<User[]>;
+  getAllUsers(disabled: boolean): Observable<User[]> {
+
+    return this.db.collection('Super-users', ref => {
+
+      return ref.where("disabled", "==", disabled)
+
+    }).valueChanges() as Observable<User[]>;
+
   }
 
   async createUser(user: User, imagem?: File) {
+
     await this.uploadStorage(imagem);
 
     const { displayName: displayName, email: email, password: password, type: type} = user;
 
-    return this.functions.httpsCallable('createUserWithEmailAndPassword')({ displayName: displayName, email: email, password: password, type: type, photoURL: this.imagemURL })
-    .pipe(
-      this.toast.observe({
-        loading: 'Adicionando novo funcionário...',
-        error: 'Ocorreu um erro!',
-        success: 'Funcionário adicionado com sucesso!',
-      }),
-    ).subscribe()
-   }
+    return this.functions.httpsCallable('createUserWithEmailAndPassword')
+    ({
+      displayName: displayName,
+      email: email,
+      password: password,
+      type: type,
+      photoURL: this.imagemURL
+    })
+    .subscribe()
+  }
 
-  async updateUser(user: User, userUid: string, imagem?: File) {
+  async updateUser(user: User, imagem?: File) {
 
-    await this.uploadStorage(imagem);
+    // Se uma imagem vinher para upload a antiga é apagada do storage
+    if (imagem != null) {
 
-    if(this.imagemURL === '') {
-      const user = this.db.collection("Super-users").doc(userUid).valueChanges() as Observable<User>
-      user.subscribe(res => {
-        this.imagemURL = res.photoURL;
+      this.db.collection("Super-users").doc(user.uid).valueChanges()
+      .subscribe((response: User) => {
+
+        this.imagemURL = response.photoURL;
+
       });
+
+        // Se tiver usuário tiver photoURL apagamos
+        // A foto antiga do storage e subimos uma nova.
+
+      this.imagemURL !== "" ?
+      this.storage.refFromURL(this.imagemURL).delete() &&
+      await this.uploadStorage(imagem) : await this.uploadStorage(imagem);
+
+    } else {
+      this.imagemURL = user.photoURL;
     }
 
-    const { displayName: displayName, email: email, type: type} = user;
-
-    return this.functions.httpsCallable('editUser')({uid: userUid, displayName: displayName, email: email, type: type, photoURL: this.imagemURL})
+    return this.functions.httpsCallable('editUser')({
+      uid: user.uid,
+      displayName: user.displayName,
+      email: user.email,
+      type: user.type,
+      photoURL: this.imagemURL,
+      lastSignIn: user.lastSignIn,
+      disabled: user.disabled
+    })
     .pipe(
       this.toast.observe({
         loading: "Atualizando o usuário...",
@@ -61,23 +86,31 @@ export class AdminService {
         success: "Usuário atualizado com sucesso!",
       })
     )
-    .subscribe();
+    .subscribe(() => {
+      this.imagemURL = "";
+    });
   }
 
   deleteUser(uid: string) {
 
     const user = this.db.collection("Super-users").doc(uid).valueChanges() as Observable<User>
     user.subscribe(res => {
+
       this.imagemURL = res.photoURL;
+
     });
 
     if (this.imagemURL !== '') {
+
       this.storage.refFromURL(this.imagemURL).delete();
+
     }
 
-    return this.functions.httpsCallable('deleteUser')({uid: uid});
+     // Envia solicitação para cloud function desabilitar o usuário
+    return this.functions.httpsCallable('deleteUser')({ uid: uid, disabled: true });
   }
 
+  // Faz upload da photo usuário e salva a URL da imagem na váriavel
   async uploadStorage(file: File) {
 
       if (file) {
@@ -96,5 +129,6 @@ export class AdminService {
       } else {
         return null;
       }
-    }
+  }
+
 }

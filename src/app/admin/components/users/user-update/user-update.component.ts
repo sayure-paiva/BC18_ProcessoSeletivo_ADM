@@ -21,11 +21,10 @@ export class UserUpdateComponent implements OnInit {
     displayName: ["", [Validators.required]],
     email: ["", [Validators.required, Validators.email]],
     type: ["", Validators.required],
+    photoURL: [""],
+    lastSignIn: [""],
+    disabled: [undefined],
   });
-
-  changeImageProfile() {
-
-  }
 
   setImage(event: any) {
     this.imagem = event.target.files[0];
@@ -44,8 +43,34 @@ export class UserUpdateComponent implements OnInit {
   }
 
   onSubmit() {
-    this.activeModal.close({ usuario: this.updateUserForm.value, uid: this.usuario.uid, imagem: this.imagem, });
+
+    let { displayName, email, type, photoURL, lastSignIn, disabled } = this.updateUserForm.value; 
+
+    displayName == '' ? displayName = this.usuario.displayName : displayName;
+
+    email == '' ? email = this.usuario.email : email;
+
+    photoURL == '' ? photoURL = this.usuario.photoURL : photoURL;
+
+    lastSignIn == '' ? lastSignIn = this.usuario.lastSignIn : lastSignIn;
+
+    disabled == undefined ? disabled = this.usuario.disabled : disabled;
+
+    const user = {
+      uid: this.usuario.uid,
+      displayName: displayName,
+      email: email,
+      type: type,
+      photoURL: photoURL,
+      lastSignIn: lastSignIn,
+      disabled: disabled
+    }
+    
+
+    this.activeModal.close({ usuario: user, imagem: this.imagem, });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.updateUserForm.patchValue({...this.usuario})
+  }
 }

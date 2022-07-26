@@ -16,7 +16,7 @@
                 <!-- Header Logo End -->
 
                 <!-- Header Main Menu Start -->
-                <div class="col d-none d-xl-block position-static">
+                <div class="col d-xl-block position-static">
                     <nav class="site-main-menu menu-hover-1">
                         <ul>
                             <li class="has-children position-static">
@@ -70,7 +70,7 @@
                             <li>
                                 <a [routerLink]="['/martech-academy']"><span class="menu-text">Martech</span></a>
                             </li>
-                            <li class="ms-5 has-children position-absolute ja-sou-aluno">
+                            <li class="ms-5 has-children position-absolute ja-sou-aluno" *ngIf="!isRecruiter; else btnAdmin">
                                 <a><span class="menu-text text-primary ">Já Sou Aluno
                                         <i class="far fa-md fa-sign-in ms-2"></i></span></a>
                                 <ul class="sub-menu start-0">
@@ -81,6 +81,13 @@
                                                 class="menu-text">Online</span></a></li>
                                 </ul>
                             </li>
+                            <ng-template #btnAdmin>
+                              <li>
+                                <a [routerLink]="['/admin']">
+                                  <span class="menu-text text-primary">Área Administrativa</span>
+                                </a>
+                              </li>
+                            </ng-template>
                         </ul>
                     </nav>
                 </div>

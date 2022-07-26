@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IsRecruiterGuard } from '../../guards/isRecruiter/is-recruiter.guard';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  isRecruiter: boolean;
+
+  constructor(
+    private recruiterGuard: IsRecruiterGuard
+  ) { }
 
   ngOnInit(): void {
+    this.recruiterGuard.isAthorized().subscribe(res => {
+      this.isRecruiter = res;
+    })
   }
 
 }

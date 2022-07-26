@@ -23,5 +23,4 @@ updateCandidate(inscricao: Inscricao){
 }
 
 
-
 }

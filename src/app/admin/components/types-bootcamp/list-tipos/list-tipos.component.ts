@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IsAdminGuard } from 'src/app/shared/guards/isAdmin/is-admin.guard';
+import { IsRecruiterGuard } from 'src/app/shared/guards/isRecruiter/is-recruiter.guard';
 import { TipoBootcamp } from 'src/app/shared/models/tipo-bootcamp';
 import { CoursesService } from 'src/app/shared/services/courses.service';
 import { TipoBootcampService } from 'src/app/shared/services/tipo-bootcamp.service';
@@ -13,10 +15,14 @@ import { EditTipoComponent } from '../edit-tipo/edit-tipo.component';
   styleUrls: ['./list-tipos.component.css']
 })
 export class ListTiposComponent implements OnInit {
+  isAdmin: boolean;
+  isRecruiter = this.recruiterGuard.isRecruiter;
 
   constructor(
     private tipoService: TipoBootcampService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private adminGuard: IsAdminGuard,
+    private recruiterGuard: IsRecruiterGuard
   ) { }
 
   tiposBootcamp: TipoBootcamp[] = [];
@@ -38,6 +44,10 @@ export class ListTiposComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.adminGuard.isAthorized(true).subscribe((boolean) => {
+      this.isAdmin = boolean;
+    });
+
     this.tipoService.getAllTiposBootcamp()
       .subscribe(tiposFirestore => {
 

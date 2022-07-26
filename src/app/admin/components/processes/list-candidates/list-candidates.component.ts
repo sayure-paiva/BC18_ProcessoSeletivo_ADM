@@ -32,14 +32,7 @@ export class ListCandidatesComponent implements OnInit {
   page = 1;
   pageSize = 5;
   listPage = [5, 10, 15, 20];
-  motivos: string[] = [
-    'Não realizou as etapas necessarias',
-    'Não obteve um bom aproveitamento',
-    'Não Enviou o Picth',
-    'Concluiu todas as etapas',
-    'Teve ótimo aproveitamento',
-    'Possui caracteristicas compativeis'
-  ];
+
 
   constructor(
     private route: ActivatedRoute,
@@ -57,8 +50,7 @@ export class ListCandidatesComponent implements OnInit {
   }
 
   actionsForm = this.fb.group({
-    comentario: [this.candidateModal.comentario, [Validators.required, Validators.maxLength(150)]],
-    motivo: ['', [Validators.required]],
+    comentario: [this.candidateModal.comentario,  [Validators.required, Validators.maxLength(150)]],
   });
 
 
@@ -102,6 +94,12 @@ export class ListCandidatesComponent implements OnInit {
     })
 
   }
+
+  createComentario(){
+    const textArea = document.getElementById('textInho');
+    textArea.removeAttribute('hidden')
+  }
+
 
   refreshBlock() {
     this.inscricoes

@@ -29,6 +29,9 @@ import { ListProcessesHistoryComponent } from '../admin/components/processes/lis
 import { UserListComponent } from "../admin/components/users/user-list/user-list.component";
 import { TesteTecnicoListComponent } from "../admin/components/tests/teste-tecnico/teste-tecnico-list/teste-tecnico-list.component";
 import { DetailCandidateComponent } from "../admin/components/processes/detail-candidate/detail-candidate.component";
+import { IsAdminGuard } from "../shared/guards/isAdmin/is-admin.guard";
+import { IsRecruiterGuard } from "../shared/guards/isRecruiter/is-recruiter.guard";
+
 
 export const coreRoutes: Routes = [
   {
@@ -138,42 +141,52 @@ export const coreRoutes: Routes = [
       {
         path: "processos",
         component: ListProcessesComponent,
+        canActivate: [IsRecruiterGuard]
       },
       {
         path: "processos/historico",
-        component: ListProcessesHistoryComponent
+        component: ListProcessesHistoryComponent,
+        canActivate: [IsRecruiterGuard]
       },
       {
         path: "processos/:id",
         component: ListCandidatesComponent,
+        canActivate: [IsRecruiterGuard]
       },
       {
         path: 'processos/:id',
         component: DetailCandidateComponent,
+        canActivate: [IsRecruiterGuard]
       },
       {
         path: 'cpf-block',
-        component: ListCpfBlockComponent
+        component: ListCpfBlockComponent,
+        canActivate: [IsRecruiterGuard]
       },
       {
         path:'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        canActivate: [IsRecruiterGuard]
       },
       {
         path: "teste-logico",
         component: TesteLogicoListComponent,
+        canActivate: [IsRecruiterGuard]
       },
       {
         path: "teste-tecnico",
         component: TesteTecnicoListComponent,
+        canActivate: [IsRecruiterGuard]
       },
       {
         path: "list-users",
         component: UserListComponent,
+        canActivate: [IsAdminGuard]
       },
       {
         path: "tipos-bootcamp",
-        component: ListTiposComponent
+        component: ListTiposComponent,
+        canActivate: [IsRecruiterGuard]
       },
     ],
   },

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/shared/models/user';
 
@@ -9,17 +9,22 @@ import { User } from 'src/app/shared/models/user';
 })
 export class UserDeleteComponent implements OnInit {
 
+  textButton = 'Desabilitar';
 
-
-  @Input() public dados: any;
-  constructor( public activeModal: NgbActiveModal) { }
+  constructor( 
+    public activeModal: NgbActiveModal,
+    ) {}
 
   usuario: User = {} as User
 
   ngOnInit(): void {
+    this.usuario.disabled == true ? this.textButton = 'Habilitar' : this.textButton = 'Desabilitar';
   }
 
   onSubmit() {
+
+    this.usuario.disabled ? this.usuario.disabled = false : this.usuario.disabled = true;
+
     this.activeModal.close({ usuario: this.usuario })
   }
 

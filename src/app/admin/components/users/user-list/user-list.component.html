@@ -1,46 +1,65 @@
-<div class="container">
+<div class="container" >
   <div *ngIf="allUsers$ | async as user">
     <div>
 
       <div class="table-responsive-container-fluid">
-        <h1 style="text-align: center; font-size: 24px; margin-top: 10%">Funcionários Cadastrados</h1>
+        <h1 style="text-align: center; font-size: 24px; margin-top: 10%">{{ titulo }}</h1>
 
         <label for="typeahead-basic">Pesquisar:</label>
         <input id="typeahead-basic" type="text" placeholder="Pesquise o usuário. Ex: Tawan"
-          class="form-control" [(ngModel)]="textSearch" (ngModelChange)="filtrarLista()" />
+          class="form-control" [(ngModel)]="textSearch" (ngModelChange)="filtrarLista()" title="Pesquisar por nome, email e tipo."/>
         <div class="table-responsive">
           <table class="table table-striped padding-10">
             <thead>
               <tr class="text-center">
                 <th scope="col" [class.active]="order === 'displayName'" (click)="setOrder('displayName')">Nome
-                  <span [hidden]="reverse" style="cursor: pointer; font-size: 10px;">▲</span><span [hidden]="!reverse" style="cursor: pointer; font-size: 10px">▼</span>
+                  <span [hidden]="reverse" style="cursor: pointer; font-size: 10px;" title="Ordernar por nome">▲</span><span [hidden]="!reverse" style="cursor: pointer; font-size: 10px" title="Ordernar por nome">▼</span>
                 </th>
                 <th scope="col">Email</th>
-                <th scope="col">Data do Registro</th>
+                <th scope="col">Último Acesso</th>
                 <th scope="col" [class.active]="order === 'type'" (click)="setOrder('type')">Papel do Funcionário
-                  <span [hidden]="reverse" style="cursor: pointer; font-size: 10px">▼</span><span [hidden]="!reverse" style="cursor: pointer; font-size: 10px">▲</span>
+                  <span [hidden]="reverse" style="cursor: pointer; font-size: 10px" title="Ordernar por tipo.">▼</span><span [hidden]="!reverse" style="cursor: pointer; font-size: 10px" title="Ordernar por tipo.">▲</span>
                 </th>
+                <th scope="col" title="Troca lista para funcionários desabilitados"><i (click)="changeDisabled()" class="fa fa-exchange cursor-pointer" aria-hidden="true"></i></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody *ngIf="listUsers.length > 0; else semUsers">
+                <tr [ngClass]="{'enabledColor': disabled === false, 'desabledColor': disabled === true}" class="text-center hover-background" *ngFor="let user of listUsers | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | orderBy: order:reverse:caseInsensitive" >
 
-              <tr class="text-center hover-background" *ngFor="let user of listUsers | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | orderBy: order:reverse:caseInsensitive" >
-                <td (click)="onClickDetail(user)">{{ user.displayName }}</td>
-                <td (click)="onClickDetail(user)">{{ user.email }}</td>
-                <td (click)="onClickDetail(user)">{{ user.registeredAt | date : 'd MMMM, y, h:mm a'}}</td>
-                <td (click)="onClickDetail(user)">{{ user.type }}</td>
-                <td><i (click)="onClickEdit(user)" class="far fa-edit text-info cursor-pointer" aria-hidden="true"></i></td>
-                <td><i (click)="onClickDelete(user)" class="far fa-trash-alt text-danger cursor-pointer" aria-hidden="true"></i></td>
-              </tr>
+                  <td (click)="onClickDetail(user)">{{ user.displayName }}</td>
+                  <td (click)="onClickDetail(user)">{{ user.email }}</td>
+
+                  <td *ngIf="user.lastSignIn; else lastSignInIsNull" (click)="onClickDetail(user)">{{ user.lastSignIn | date : 'd MMMM, y, h:mm a' }}</td>
+
+                  <ng-template #lastSignInIsNull>
+                    <td (click)="onClickDetail(user)">Ainda sem registro</td>
+                  </ng-template>
+
+                  <td (click)="onClickDetail(user)" title="Exibe mais informações do funcionpario">{{ user.type }}</td>
+                  <td><i (click)="onClickEdit(user)" class="far fa-edit text-info cursor-pointer" aria-hidden="true" title="Atualiza as informações do funcionário"></i></td>
+                  <td><i (click)="onClickDelete(user)" [ngClass]="{'text-danger': disabled === false, 'powerOn': disabled === true}" class="fa fa-power-off text-danger cursor-pointer" aria-hidden="true" title="Desabilita/Habilitar funcionário"></i></td>
+                </tr>
             </tbody>
+            <ng-template #semUsers>
+              <tbody>
+                <tr>
+                  <td>Não há funcionários desabilitados</td>
+                  <td>Não há funcionários desabilitados</td>
+                  <td>Não há funcionários desabilitados</td>
+                  <td>Não há funcionários desabilitados</td>
+                  <td><i class="far fa-edit text-info cursor-pointer" aria-hidden="true"></i></td>
+                  <td><i class="fa fa-power-off text-danger cursor-pointer" aria-hidden="true"></i></td>
+                </tr>
+              </tbody>
+            </ng-template>
           </table>
         </div>
         <div class="d-flex justify-content-between p-2">
           <ngb-pagination [collectionSize]="listUsers.length" [(page)]="page" [pageSize]="pageSize"
-            (pageChange)="refreshList()">
+            (pageChange)="refreshList()" class="cursor-pointer">
           </ngb-pagination>
 
-          <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshList()">
+          <select class="form-select cursor-pointer" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshList()">
             <option *ngFor="let user of listPage" [ngValue]="user">
               {{ user }} - itens por página
             </option>
@@ -51,6 +70,6 @@
   </div>
 
   <div class="fab-wrapper">
-    <button class="scroll-top show botaoAdd" style="font-size: 20pt; border: none;" (click)="onClickCreate()">+</button>
+    <button class="scroll-top show botaoAdd" style="font-size: 20pt; border: none;" (click)="onClickCreate()" title="Adiciona novo funcionário">+</button>
   </div>
 </div>
