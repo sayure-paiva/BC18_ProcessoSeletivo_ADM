@@ -11,6 +11,7 @@
             </textarea>
             </div>
         <div class="inputWrapper">
+            <label class="text-white" for="question">Selecione pelo menos uma resposta correta</label>
             <div class="input-group mb-3">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" [value]="alternatives1.value"
@@ -57,6 +58,13 @@
                 </textarea>
             </div>
         </div>
+        <label class="text-white" for="tipo">Tipo de Bootcamp</label>
+                <select id="tipo" class="form-select form-select-lg mb-3" type="text-primary" formControlName="bootcamp">
+                    <option value="" disabled>Selecione um tipo</option>
+                    <option *ngFor="let tipo of tiposBootcamp" [ngValue]="tipo.tipo">
+                        {{ tipo.tipo }}
+                    </option>
+                </select>
         <div class="submitWrapper">
             <button type="submit" class="btn btn-primary submit" (click)="update()" 
                 [disabled]="addTesteForm.invalid || returnIfAllUnchecked()">Editar</button>
