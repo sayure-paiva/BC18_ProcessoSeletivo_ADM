@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { collectionData, docData, Firestore } from '@angular/fire/firestore';
 import { collection, deleteDoc, doc, updateDoc } from '@firebase/firestore';
 import { from, Observable } from 'rxjs';
-import { Block, BlockConverter } from '../models/cpf-block/block';
+import { Block, BlockConverter } from '../models/block';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 
@@ -40,4 +40,6 @@ export class CpfBlockService {
     const bkDoc = doc(this.bk, blokc.id);
     return from(deleteDoc(bkDoc));
   }
+
+
 }

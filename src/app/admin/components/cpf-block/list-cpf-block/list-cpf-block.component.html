@@ -1,59 +1,59 @@
 <div class="container">
-  <div>
-    <div>
+  <div class="table-responsive-container-fluid">
+    <h1 style="text-align: center; font-size: 24px; margin-top: 10%">Candidatos Bloqueados
+      <small><i class="far fa-info-circle" aria-hidden="true"
+        title="Esta tabela contempla os candidatos que foram bloqueados por motivos diversos como comportamento inadequado,
+        entre outros. No entanto, reforçamos que eles podem ser resgatados conforme critério do recrutador."
+        ></i></small>
+    </h1>
 
-      <div class="table-responsive-container-fluid">
-        <h1 style="text-align: center; font-size: 24px; margin-top: 10%">Candidatos Bloqueados</h1>
+    <label for="typeahead-basic">Pesquisar:</label>
+    <input id="typeahead-basic" type="text" placeholder="Pesquise por: cpf, email, nome ou motivo "
+      class="form-control" [(ngModel)]="textSearch" (ngModelChange)="filterList()" />
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th [class.active]="order === 'cpf'" (click)="setOrder('cpf')">CPF
+              <span style="cursor: pointer" [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+            </th>
+            <th [class.active]="order === 'email'" (click)="setOrder('email')">Email
+              <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+            </th>
+            <th [class.active]="order === 'nomeCompleto'" (click)="setOrder('nomeCompleto')">Nome completo
+              <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+            </th>
+            <th [class.active]="order === 'motivo'" (click)="setOrder('motivo')">Motivo
+              <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
+            </th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listaBlock | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | orderBy: order:reverse:caseInsensitive">
+            <td>{{ this.formatCpf(item.cpf) }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.nomeCompleto }}</td>
+            <td>{{ item.motivo }}</td>
+            <td class="iconeList"><i (click)="onClickDetail(item)" class="far fa-solid fa-eye" aria-hidden="true"></i></td>
+            <td class="iconeList"><i (click)="onClickEdit(item)" class="far fa-edit text-info" aria-hidden="true"></i></td>
+            <td class="iconeList"><i (click)="onClickDelete(item)" class="far fa-trash-alt text-danger" aria-hidden="true"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-between p-2">
+      <ngb-pagination [collectionSize]="listaBlock.length" [(page)]="page" [pageSize]="pageSize"
+        (pageChange)="refreshBlock()">
+      </ngb-pagination>
 
-        <label for="typeahead-basic">Pesquisar:</label>
-        <input id="typeahead-basic" type="text" placeholder="Pesquise por: cpf, email, nome ou motivo "
-          class="form-control" [(ngModel)]="textSearch" (ngModelChange)="filterList()" />
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th [class.active]="order === 'cpf'" (click)="setOrder('cpf')">CPF
-                  <span style="cursor: pointer" [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
-                </th>
-                <th [class.active]="order === 'email'" (click)="setOrder('email')">Email
-                  <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
-                </th>
-                <th [class.active]="order === 'nomeCompleto'" (click)="setOrder('nomeCompleto')">Nome completo
-                  <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
-                </th>
-                <th [class.active]="order === 'motivo'" (click)="setOrder('motivo')">Motivo
-                  <span [hidden]="reverse">▼</span><span [hidden]="!reverse">▲</span>
-                </th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of listaBlock | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | orderBy: order:reverse:caseInsensitive">
-                <td>{{ this.formatCpf(item.cpf) }}</td>
-                <td>{{ item.email }}</td>
-                <td>{{ item.nomeCompleto }}</td>
-                <td>{{ item.motivo }}</td>
-                <td class="iconeList"><i  (click)="onClickDetail(item)" class="far fa-solid fa-eye" aria-hidden="true"></i></td>
-                <td class="iconeList"><i (click)="onClickEdit(item)" class="far fa-edit text-info" aria-hidden="true"></i></td>
-                <td class="iconeList"><i (click)="onClickDelete(item)" class="far fa-trash-alt text-danger" aria-hidden="true"></i></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="d-flex justify-content-between p-2">
-          <ngb-pagination [collectionSize]="listaBlock.length" [(page)]="page" [pageSize]="pageSize"
-            (pageChange)="refreshBlock()">
-          </ngb-pagination>
-
-          <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshBlock()">
-            <option *ngFor="let item of listPage" [ngValue]="item">
-              {{ item }} - itens por página
-            </option>
-          </select>
-        </div>
-      </div>
+      <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshBlock()">
+        <option *ngFor="let item of listPage" [ngValue]="item">
+          {{ item }} - itens por página
+        </option>
+      </select>
     </div>
   </div>
 

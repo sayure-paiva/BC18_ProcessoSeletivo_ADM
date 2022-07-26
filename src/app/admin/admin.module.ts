@@ -41,7 +41,6 @@ import { CloseProcessDialogComponent } from './components/processes/close-proces
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NgChartsModule } from 'ng2-charts';
 
-
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 const maskConfig: Partial<IConfig> = {
@@ -80,7 +79,7 @@ const maskConfig: Partial<IConfig> = {
     DetailCandidateComponent,
     CloseProcessDialogComponent,
     DashboardComponent,
-    CommonPieComponent
+    CommonPieComponent,
   ],
   imports: [
     OrderModule,

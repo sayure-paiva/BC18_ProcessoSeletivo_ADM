@@ -8,6 +8,8 @@ export interface Block {
     status: string;
     motivo: string;
     comentario: string;
+    contador: number;
+    bloqueado: boolean
 }
 
 export const BlockConverter: Converter<Block> = {
