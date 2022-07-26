@@ -15,6 +15,7 @@ import { TipoBootcampService } from 'src/app/shared/services/tipo-bootcamp.servi
 })
 export class EditProcessComponent implements OnInit {
 
+  @Input() processosAll: Processo[] = [];
   @Input() processo: Processo;
   inscritosProcesso: Inscricao[];
   processosAtivos: Processo[] = [];
@@ -71,6 +72,15 @@ export class EditProcessComponent implements OnInit {
       this.formatDate(this.terminoInscricoes.value).setHours(0, 0, 0, 0) > this.currentDate.setHours(0, 0, 0, 0);
   }
 
+  returnIfDateIsIncompatible(beginning: string, end: string){
+    return this.formatDate(beginning).setHours(0, 0, 0, 0) > this.formatDate(end).setHours(0, 0, 0, 0);
+  }
+
+  returnIfTurmaAlreadyExists(){
+    const turmaFound = this.processosAll.find((processo) => processo.turma == this.turma.value);
+    return turmaFound != undefined;
+  }
+
   onSubmit() {
     const tipoAntigoProcesso = this.processo.tipo;
     const inicioBootcamp = this.formatDate(this.inicioBootcamp.value);
@@ -99,6 +109,7 @@ export class EditProcessComponent implements OnInit {
           this.toast.error('Um erro ocorreu');
         },
         complete: () => {
+          //Se for modificado o tipo do processo, atualizará o id do teachable de todos os inscritos nele
           if (this.processo.tipo != tipoAntigoProcesso) {
             this.inscritosProcesso.forEach((inscrito, index) => {
               inscrito.curso = tipoBootcamp.idTeachable;
@@ -120,27 +131,27 @@ export class EditProcessComponent implements OnInit {
             this.activeModal.dismiss('Cross click')
           }
         }
-        // complete: () => this.activeModal.dismiss('Cross click')
       });
-
-
-
-
-
-
 
   }
 
 
   ngOnInit(): void {
+    let processosAtivosFiltered: Processo[] = [];
+
+    this.processosAll.forEach((processo) => {
+      processo.status == 'Ativo' ? processosAtivosFiltered.push(processo) : null;
+    })
+    this.processosAtivos = processosAtivosFiltered;
+
+    this.tipoService.getAllTiposBootcamp().subscribe((tiposBootcampFirestore) => this.tiposBootcamp = tiposBootcampFirestore);
+    this.coursesService.getInscritosOfProcess(this.processo.id).subscribe((inscritos) => this.inscritosProcesso = inscritos);
+
     this.turma.setValue(this.processo.turma);
     this.tipo.setValue(this.processo.tipo);
     this.inicioInscricoes.setValue(this.processo.inicioInscricoes.toLocaleString('sv', { timeZone: 'America/Sao_Paulo' }).slice(0, 10));
-    this.terminoInscricoes.setValue(this.processo.terminoInscricoes.toLocaleString('sv', { timeZone: 'America/Sao_Paulo' }).slice(0, 10))
-    this.inicioBootcamp.setValue(this.processo.inicioBootcamp.toLocaleString('sv', { timeZone: 'America/Sao_Paulo' }).slice(0, 10))
-    this.coursesService.getProcessesFilteredByStatus('Ativo').subscribe((processosAtivosFirestore) => this.processosAtivos = processosAtivosFirestore);
-    this.tipoService.getAllTiposBootcamp().subscribe((tiposBootcampFirestore) => this.tiposBootcamp = tiposBootcampFirestore);
-    this.coursesService.getInscritosOfProcess(this.processo.id).subscribe((inscritos) => this.inscritosProcesso = inscritos)
+    this.terminoInscricoes.setValue(this.processo.terminoInscricoes.toLocaleString('sv', { timeZone: 'America/Sao_Paulo' }).slice(0, 10));
+    this.inicioBootcamp.setValue(this.processo.inicioBootcamp.toLocaleString('sv', { timeZone: 'America/Sao_Paulo' }).slice(0, 10));
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -22,6 +22,7 @@ export class CreateProcessComponent implements OnInit {
     private toast: HotToastService
   ) { }
 
+  @Input() processosAll: Processo[] = [];
   processosAtivos: Processo[] = [];
   processo: Processo = {} as Processo;
   tiposBootcamp: TipoBootcamp[] = [];
@@ -66,6 +67,15 @@ export class CreateProcessComponent implements OnInit {
       (this.formatDate(this.terminoInscricoes.value).setHours(0, 0, 0, 0) > this.currentDate.setHours(0, 0, 0, 0))
   }
 
+  returnIfDateIsIncompatible(beginning: string, end: string){
+    return this.formatDate(beginning).setHours(0, 0, 0, 0) > this.formatDate(end).setHours(0, 0, 0, 0);
+  }
+
+  returnIfTurmaAlreadyExists(){
+    const turmaFound = this.processosAll.find((processo) => processo.turma == this.turma.value);
+    return turmaFound != undefined;
+  }
+
   onSubmit() {
     const inicioBootcamp = this.formatDate(this.inicioBootcamp.value);
     const inicioInscricoes = this.formatDate(this.inicioInscricoes.value);
@@ -101,9 +111,15 @@ export class CreateProcessComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.coursesService.getProcessesFilteredByStatus('Ativo')
-      .subscribe((processosAtivosFirestore) => this.processosAtivos = processosAtivosFirestore);
+    let processosAtivosFiltered: Processo[] = [];
 
-    this.tipoService.getAllTiposBootcamp().subscribe((tiposBootcampFirestore) => this.tiposBootcamp = tiposBootcampFirestore);
+    this.processosAll.forEach((processo) => {
+      processo.status == 'Ativo' ? processosAtivosFiltered.push(processo) : null;
+    })
+    this.processosAtivos = processosAtivosFiltered;
+
+
+    this.tipoService.getAllTiposBootcamp()
+      .subscribe((tiposBootcampFirestore) => this.tiposBootcamp = tiposBootcampFirestore);
   }
 }
