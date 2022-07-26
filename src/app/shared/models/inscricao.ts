@@ -1,3 +1,5 @@
+import { Converter } from "./converter";
+
 export interface Inscricao {
     areaDeFormacao: string;
     cidade: string;
@@ -34,4 +36,15 @@ export interface Answers {
     answerQuestion: Array<string>;
     answerCandidate: Array<string>;
     isApproved: boolean;
+}
+
+export const InscricaoConverter: Converter<Inscricao> = {
+  toFirestore: (data) => data,
+  fromFirestore: (snapshot, options) => {
+      const obj = snapshot.data(options)!;
+
+      return {
+          ...obj,
+      } as Inscricao;
+  },
 }

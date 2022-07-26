@@ -1,3 +1,4 @@
+import { NgChartsModule } from 'ng2-charts';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -68,7 +69,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     SlickCarouselModule,
     SwiperModule,
     NgxMaskModule.forRoot(options),
-    NgbModule
+    NgbModule,
+    NgChartsModule
   ],
   exports: [
     FooterComponent,

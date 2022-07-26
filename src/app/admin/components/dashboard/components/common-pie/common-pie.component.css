@@ -1,0 +1,12 @@
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas-graph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}

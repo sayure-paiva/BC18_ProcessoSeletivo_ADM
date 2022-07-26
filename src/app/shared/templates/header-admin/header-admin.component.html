@@ -27,6 +27,7 @@
                     <ul>
                       <li><a  [routerLink]="'/admin/processos'">Processos Seletivos Aguardando Início e Ativos</a></li>
                       <li><a  [routerLink]="'/admin/processos/historico'">Histórico de Processos Seletivos</a></li>
+                      <li><a  [routerLink]="'/admin/dashboard'">Dashboard de Inscritos</a></li>
                       <li><a  [routerLink]="'/admin/tipos-bootcamp'">Tipos de Bootcamp</a></li>
                     </ul>
                   </li>
@@ -45,13 +46,6 @@
                 </ul>
 
               </li>
-
-              <!-- <li>
-                <a [routerLink]="'/admin/teste-logico'"><span class="menu-text">Testes Lógicos</span></a>
-              </li>
-              <li>
-                <a [routerLink]="['#']"><span class="menu-text">Testes Técnicos</span></a>
-              </li> -->
               <li *ngIf="isRecruiter">
                 <a [routerLink]="'/admin/cpf-block'"><span class="menu-text">Candidatos Bloqueados</span></a>
               </li>

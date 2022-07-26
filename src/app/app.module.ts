@@ -22,6 +22,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideFirebaseApp } from '@angular/fire/app';
 import { initializeApp } from 'firebase/app';
 import { OrderModule } from 'ngx-order-pipe';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { OrderModule } from 'ngx-order-pipe';
     AdminModule,
     provideFirestore(() => getFirestore()),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    OrderModule
+    OrderModule,
+    NgChartsModule
   ],
   providers: [
     ScreenTrackingService,
@@ -51,6 +53,6 @@ import { OrderModule } from 'ngx-order-pipe';
     Title,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

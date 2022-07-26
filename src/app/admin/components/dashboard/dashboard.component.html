@@ -1,0 +1,59 @@
+<h1 style="text-align: center; font-size: 24px; margin-top: 7%">Dashboard de Inscritos</h1>
+<div class="graph">
+  <div class="inputWrapper">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" checked="true && this.listaTurmaSelecionada.length ==0"
+        id="defaultCheck1" (change)="selectedAllTurma($event)">
+      <label class="form-check-label" for="defaultCheck1">
+        Todas as turmas
+      </label>
+    </div>
+    <div class="form-check" *ngFor="let item of listaTurma ">
+      <input class="form-check-input" type="checkbox" value="item.id" [checked]="item.selected"
+        (change)="atualizarLista($event, item.id)">
+      <label class="form-check-label" for="defaultCheck1">
+        {{ item.turma }} - {{ item.status }}
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm">
+      <label style="text-align: center; font-size: 24px"><strong>Gênero</strong>
+        <app-common-pie [dados]="generos$" typeChart="doughnut"></app-common-pie>
+      </label>
+    </div>
+    <div class="col-sm">
+      <label style="text-align: center; font-size: 24px"><strong>Estado</strong>
+        <app-common-pie [dados]="estados$" typeChart="pie"></app-common-pie>
+      </label>
+    </div>
+    <div class="col-sm">
+      <label style="text-align: center; font-size: 24px"><strong>Etnia</strong>
+        <app-common-pie [dados]="racaOuCor$" typeChart="polarArea"></app-common-pie>
+      </label>
+    </div>
+    <div class="col-sm">
+      <label style="text-align: center; font-size: 24px"><strong>Idade</strong>
+        <app-common-pie [dados]="idades$" typeChart="pie"></app-common-pie>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <label style="text-align: center; font-size: 24px"><strong>Escolaridade</strong>
+        <app-common-pie [dados]="escolaridades$" typeChart="pie"></app-common-pie>
+      </label>
+    </div>
+    <div class="col-sm">
+      <label style="text-align: center; font-size: 24px"><strong>Envio do Pitch</strong>
+        <app-common-pie [dados]="pitchUrl$" typeChart="doughnut"></app-common-pie>
+      </label>
+    </div>
+    <div class="col-sm">
+      <label style="text-align: center; font-size: 24px"><strong>Etapas do Processo</strong>
+        <app-common-pie [dados]="statusJornada$" typeChart="pie"></app-common-pie>
+      </label>
+    </div>
+  </div>
+</div>
