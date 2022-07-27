@@ -10,7 +10,8 @@ import { Block } from 'src/app/shared/models/block';
 })
 export class UpdateCpfBlockComponent implements OnInit {
 
-  motivos: string[] = ['Abandono', 'Comportamento inadequado', 'Em regime CLT', 'Outros'];
+  motivos: string[] = ['Abandono', 'Comportamento inadequado', 'Em regime CLT', 'Outros', 'Reprovado pela 1ª vez (Pitch)', 'Reprovado pela 2ª vez (Pitch)'];
+  listaStatus: string[] = ['Bloqueado manualmente', 'Alerta', 'Bloqueado automaticamente'];
 
   @Input() public block: Block;
   constructor(private fb: FormBuilder, public activeModal: NgbActiveModal) { }
@@ -23,7 +24,7 @@ export class UpdateCpfBlockComponent implements OnInit {
     cpf: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     nomeCompleto: ['', [Validators.required, Validators.minLength(5)]],
-    status: ['Candidato (a) bloqueado (a)'],
+    status: ['', [Validators.required]],
     motivo: ['', [Validators.required]],
     comentario: ['', [Validators.required, Validators.minLength(5)]],
     id:[]

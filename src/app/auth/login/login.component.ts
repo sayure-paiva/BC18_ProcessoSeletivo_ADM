@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
         password: '',
         remember: 'true'
       }
-      console.log('caiu aqui')
       this.sigInForm.patchValue({ ...user })
     }
   }

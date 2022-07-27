@@ -46,15 +46,28 @@
             </small>
         </div>
 
-        <div class="mb-3">
-            <label class="text-white" for="comentario">Comentário</label>
-            <textarea formControlName="comentario" class="form-control" id="comentario" rows="3"
-                placeholder="Digite um comentário"></textarea>
-            <small class="text-danger" *ngIf="comentario?.touched && comentario?.invalid">
-                <span *ngIf="comentario?.hasError('required')">O comentário é obrigatório</span>
-                <span *ngIf="comentario?.hasError('minlength')">O mínimo são 5 caracteres</span>
-            </small>
-        </div>
+        <div class="inputWrapper">
+          <label class="text-white" for="status">Status</label>
+          <select id="status" class="form-select" formControlName="status">
+              <option value="" selected="true" disabled>Selecione o status</option>
+              <option *ngFor="let item of listaStatus" [ngValue]="item">
+                  {{ item }}
+              </option>
+          </select>
+          <small class="text-danger" *ngIf="status?.touched && status?.invalid">
+              <span *ngIf="status?.hasError('required')">O status é obrigatório</span>
+          </small>
+      </div>
+
+      <div class="mb-3">
+        <label class="text-white" for="comentario">Comentário</label>
+        <textarea formControlName="comentario" class="form-control" id="comentario" rows="3"
+            placeholder="Digite um comentário"></textarea>
+        <small class="text-danger" *ngIf="comentario?.touched && comentario?.invalid">
+            <span *ngIf="comentario?.hasError('required')">O comentário é obrigatório</span>
+            <span *ngIf="comentario?.hasError('minlength')">O mínimo são 5 caracteres</span>
+        </small>
+    </div>
 
         <div class="submitWrapper">
             <button type="button" class="btn btn-primary submit" (click)="onSubmit()"

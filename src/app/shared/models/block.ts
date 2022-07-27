@@ -16,7 +16,6 @@ export const BlockConverter: Converter<Block> = {
     toFirestore: (data) => data,
     fromFirestore: (snapshot, options) => {
         const obj = snapshot.data(options)!;
-
         return {
             ...obj,
         } as Block;
