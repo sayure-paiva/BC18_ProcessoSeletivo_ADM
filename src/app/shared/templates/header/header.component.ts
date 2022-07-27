@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
   isRecruiter: boolean;
 
   constructor(
-    private recruiterGuard: IsRecruiterGuard
+    private recruiterGuard: IsRecruiterGuard,
   ) { }
 
   ngOnInit(): void {

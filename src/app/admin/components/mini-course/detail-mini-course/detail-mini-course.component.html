@@ -1,0 +1,45 @@
+<ng-template #conteudo>
+  <div class="container mycontainer mt-5">
+    <div class="row p-3 mt-5 myrow shadow-lg custom-row">
+      <div class="col-md-3">
+          <h2>{{miniCurso.titulo}}</h2>
+        <hr />
+        <div id="list-example" class="list-group">
+          <button type="button" class="btn btn-outline-primary bt1 "
+            (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsedbt1" aria-controls="collapseExample">
+            {{miniCurso.titulo}}
+          </button>
+          <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedbt1">
+              <div *ngFor="let topico of miniCurso.topicos">
+                <a class="list-group-item list-group-item-action" (click)="onMostrarTopico(topico)">{{topico.subtitulo}}</a>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9 pe-0">
+        <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example"
+          tabindex="0">
+          <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedbt1">
+            <div *ngIf="topicoAtual">
+              <h3>{{topicoAtual.subtitulo}}</h3>
+              <img *ngIf="topicoAtual.imagemURL != ''" [src]=topicoAtual.imagemURL>
+              <p [innerHTML]="convertHtmlToText(topicoAtual.texto)" style="text-align: start;"></p>
+              <button class="btn w-45 done" (click)="irParaProximoTopico()">
+                Próximo
+              </button>
+            </div>
+          </div>
+          <div #collapse1="ngbCollapse" [(ngbCollapse)]="isCollapsedbt2">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Loading -->
+<div class="text-center">
+  <div class="spinner-border" *ngIf="loading; else conteudo" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>

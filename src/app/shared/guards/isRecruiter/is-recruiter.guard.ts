@@ -22,7 +22,7 @@ export class IsRecruiterGuard implements CanActivate {
     return this.isAthorized();
   }
 
-  public isAthorized() {
+  public isAthorized(bool?: boolean) {
 
     return this.afAuth.authState.pipe(
 
@@ -31,9 +31,10 @@ export class IsRecruiterGuard implements CanActivate {
 
         if (!authState) {
 
-          this.router.navigate(['/index']);
+          bool ? bool : this.router.navigate(['/index']);
 
-          this.isRecruiter = false;
+          this.isRecruiter = bool;
+
           return false
 
         }
@@ -45,6 +46,7 @@ export class IsRecruiterGuard implements CanActivate {
           this.router.navigate(['/index']);
 
           this.isRecruiter = false;
+
           return false
 
         }

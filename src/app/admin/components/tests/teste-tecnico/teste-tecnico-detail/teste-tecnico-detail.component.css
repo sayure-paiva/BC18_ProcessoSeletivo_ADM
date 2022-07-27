@@ -5,6 +5,19 @@
     border: none;
 }
 
+.section-title .sub-title{
+    text-transform: none !important;
+}
+
+.modal-title{
+    margin-top: 5%;
+    padding-left: 10px;
+}
+
+strong{
+    color: #000;
+}
+
 .btn {
     height: 3rem;
 }

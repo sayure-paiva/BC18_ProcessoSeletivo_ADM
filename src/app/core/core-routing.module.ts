@@ -31,7 +31,10 @@ import { TesteTecnicoListComponent } from "../admin/components/tests/teste-tecni
 import { DetailCandidateComponent } from "../admin/components/processes/detail-candidate/detail-candidate.component";
 import { IsAdminGuard } from "../shared/guards/isAdmin/is-admin.guard";
 import { IsRecruiterGuard } from "../shared/guards/isRecruiter/is-recruiter.guard";
-
+import { ListMiniCoursesComponent } from "../admin/components/mini-course/list-mini-courses/list-mini-courses.component";
+import { CreateMiniCourseComponent } from "../admin/components/mini-course/create-mini-course/create-mini-course.component";
+import { EditMiniCourseComponent } from "../admin/components/mini-course/edit-mini-course/edit-mini-course.component";
+import { DetailMiniCourseComponent } from "../admin/components/mini-course/detail-mini-course/detail-mini-course.component";
 
 export const coreRoutes: Routes = [
   {
@@ -186,6 +189,26 @@ export const coreRoutes: Routes = [
       {
         path: "tipos-bootcamp",
         component: ListTiposComponent,
+        canActivate: [IsRecruiterGuard]
+      },
+      {
+        path: "mini-cursos",
+        component: ListMiniCoursesComponent,
+        canActivate: [IsRecruiterGuard]
+      },
+      {
+        path: "mini-cursos/new",
+        component: CreateMiniCourseComponent,
+        canActivate: [IsAdminGuard]
+      },
+      {
+        path: "mini-cursos/edit/:id",
+        component: EditMiniCourseComponent,
+        canActivate: [IsAdminGuard]
+      },
+      {
+        path: "mini-cursos/:id",
+        component: DetailMiniCourseComponent,
         canActivate: [IsRecruiterGuard]
       },
     ],

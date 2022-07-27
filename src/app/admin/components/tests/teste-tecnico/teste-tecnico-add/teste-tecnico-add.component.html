@@ -70,6 +70,13 @@
                 </textarea>
                     </div>
                 </div>
+                <label class="text" for="tipo">Tipo de Bootcamp</label>
+                <select id="tipo" class="form-select form-select-lg mb-3" type="text-primary" formControlName="bootcamp">
+                    <option value="" disabled>Selecione um tipo</option>
+                    <option *ngFor="let tipo of tiposBootcamp" [ngValue]="tipo.tipo">
+                        {{ tipo.tipo }}
+                    </option>
+                </select>
                 <div class="submitWrapper">
                     <button type="submit" class="btn btn-primary submit" (click)="agregar()" value="Agregar"
                         [disabled]="addTesteForm.invalid || formArray.length == 0">Agregar</button>

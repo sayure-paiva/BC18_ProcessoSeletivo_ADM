@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IsRecruiterGuard } from 'src/app/shared/guards/isRecruiter/is-recruiter.guard';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
     public auth: AngularFireAuth,
     private fb: FormBuilder,
     private router: Router,
+    private authGuard: IsRecruiterGuard
   ) { }
 
   sigInForm = this.fb.group({
@@ -44,10 +46,9 @@ export class LoginComponent implements OnInit {
       }
       this.sigInForm.patchValue({ ...user })
     }
+
+    this.authGuard.isAthorized(true).subscribe(res => {
+      res ? this.router.navigate(['/admin']) : null;
+    });
   }
-
-
-
-
-
 }

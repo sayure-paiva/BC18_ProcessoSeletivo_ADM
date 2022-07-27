@@ -1,19 +1,15 @@
 .titulo {
     text-align: center;
     margin-top: 6rem;
-    margin-bottom: 3vh;
+    margin-bottom: 6rem;
     font-family: "Gilroy";
     font-weight: 700;
     line-height: 1.3;
     color: #3F3A64;
 }
 
-.subtitulo {
-    margin-left: -8px;
-    margin-top: 2rem;
-    font-weight: 500;
-    letter-spacing: 2px;
-    color: #8C89A2;
+h5{
+    height: 26px;
 }
 
 .card {

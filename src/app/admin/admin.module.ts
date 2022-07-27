@@ -14,7 +14,6 @@ import { UpdateCpfBlockComponent } from './components/cpf-block/update-cpf-block
 import { ListCpfBlockComponent } from './components/cpf-block/list-cpf-block/list-cpf-block.component';
 import { DeleteCpfBlockComponent } from './components/cpf-block/delete-cpf-block/delete-cpf-block.component';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DetailCpfBlockComponent } from './components/cpf-block/detail-cpf-block/detail-cpf-block.component';
 import { TesteLogicoAddComponent } from './components/tests/teste-logico/teste-logico-add/teste-logico-add.component';
@@ -40,6 +39,14 @@ import { DetailCandidateComponent } from './components/processes/detail-candidat
 import { CloseProcessDialogComponent } from './components/processes/close-process-dialog/close-process-dialog.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NgChartsModule } from 'ng2-charts';
+import { ListMiniCoursesComponent } from './components/mini-course/list-mini-courses/list-mini-courses.component';
+import { CreateMiniCourseComponent } from './components/mini-course/create-mini-course/create-mini-course.component';
+import { EditMiniCourseComponent } from './components/mini-course/edit-mini-course/edit-mini-course.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteMiniCourseDialogComponent } from './components/mini-course/delete-mini-course-dialog/delete-mini-course-dialog.component';
+import { DetailMiniCourseComponent } from './components/mini-course/detail-mini-course/detail-mini-course.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { PreviewTopicDialogComponent } from './components/mini-course/preview-topic-dialog/preview-topic-dialog.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -80,6 +87,12 @@ const maskConfig: Partial<IConfig> = {
     CloseProcessDialogComponent,
     DashboardComponent,
     CommonPieComponent,
+    ListMiniCoursesComponent,
+    CreateMiniCourseComponent,
+    EditMiniCourseComponent,
+    DeleteMiniCourseDialogComponent,
+    DetailMiniCourseComponent,
+    PreviewTopicDialogComponent
   ],
   imports: [
     OrderModule,
@@ -94,7 +107,8 @@ const maskConfig: Partial<IConfig> = {
     HotToastModule.forRoot({
       position: 'bottom-center',
     }),
-    NgChartsModule
+    NgChartsModule,
+    CKEditorModule
   ]
 })
 export class AdminModule { }
