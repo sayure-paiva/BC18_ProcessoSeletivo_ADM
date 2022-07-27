@@ -176,7 +176,6 @@ export class DashboardComponent implements OnInit {
   }
 
   atualizarGrafico(lista: any[]) {
-    console.log(lista)
     this.generos$ = this.getDataGenre(lista);
     this.estados$ = this.getDataStates(lista);
     this.racaOuCor$ = this.getDataEthnicity(lista);

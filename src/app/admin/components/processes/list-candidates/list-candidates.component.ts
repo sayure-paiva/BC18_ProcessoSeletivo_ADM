@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { CoursesService } from 'src/app/shared/services/courses.service';
+import { HotToastService } from '@ngneat/hot-toast';
+import { map } from 'rxjs/operators';
 import { Inscricao } from 'src/app/shared/models/inscricao';
 import { Processo } from 'src/app/shared/models/processo';
 import { CandidatesService } from 'src/app/shared/services/candidates.service';
-import { HotToastService } from '@ngneat/hot-toast';
-import { FormBuilder, Validators } from '@angular/forms';
+import { CoursesService } from 'src/app/shared/services/courses.service';
+import { CpfBlockService } from 'src/app/shared/services/cpf-block.service';
 import { DetailCandidateComponent } from '../detail-candidate/detail-candidate.component';
 
 
@@ -42,6 +44,7 @@ export class ListCandidatesComponent implements OnInit {
     private candidatesService: CandidatesService,
     private toast: HotToastService,
     private fb: FormBuilder,
+    private cpfBlockService: CpfBlockService
 
   ) {
 
@@ -50,7 +53,7 @@ export class ListCandidatesComponent implements OnInit {
   }
 
   actionsForm = this.fb.group({
-    comentario: [this.candidateModal.comentario,  [Validators.required, Validators.maxLength(150)]],
+    comentario: [this.candidateModal.comentario, [Validators.required, Validators.maxLength(150)]],
   });
 
 
@@ -86,20 +89,19 @@ export class ListCandidatesComponent implements OnInit {
     this.candidateModal.comentario = comentario
     this.candidateModal.statusFinal = status
     this.candidatesService.updateCandidate(this.candidateModal).pipe(
+      (map(() => this.bloquearCandidato(this.candidateModal))),
       this.toast.observe({
         success: 'Candidatos atualizado com sucesso',
       })
     ).subscribe({
       complete: () => this.modalService.dismissAll()
     })
-
   }
 
-  createComentario(){
+  createComentario() {
     const textArea = document.getElementById('textInho');
     textArea.removeAttribute('hidden')
   }
-
 
   refreshBlock() {
     this.inscricoes
@@ -107,14 +109,12 @@ export class ListCandidatesComponent implements OnInit {
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
-
   openActions(content, inscricao: Inscricao) {
     this.modalService.open(content, { size: 'lg', centered: true });
     this.candidateModal = inscricao
 
 
   }
-
 
   candidateSearch() {
     if (this.textSearch.length > 1) {
@@ -126,8 +126,8 @@ export class ListCandidatesComponent implements OnInit {
     } else {
       this.inscricoes = this.candidatesResponse
     }
-
   }
+
   setOrder(value: string) {
     if (this.order === value) {
       this.reverse = !this.reverse;
@@ -138,5 +138,10 @@ export class ListCandidatesComponent implements OnInit {
     return this.actionsForm.get('motivo');
   }
 
+  bloquearCandidato(inscricao: Inscricao) {
+    if (inscricao.statusFinal == "Reprovado") {
+      this.cpfBlockService.updateCandidatoReprovado(inscricao);
+    }
+  }
 }
 

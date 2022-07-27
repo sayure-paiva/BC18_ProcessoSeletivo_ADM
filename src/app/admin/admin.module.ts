@@ -48,7 +48,6 @@ import { DetailMiniCourseComponent } from './components/mini-course/detail-mini-
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { PreviewTopicDialogComponent } from './components/mini-course/preview-topic-dialog/preview-topic-dialog.component';
 
-
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 const maskConfig: Partial<IConfig> = {

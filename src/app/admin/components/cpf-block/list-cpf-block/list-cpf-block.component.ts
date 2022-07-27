@@ -1,13 +1,13 @@
-import { Block } from './../../../../shared/models/cpf-block/block';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HotToastService } from '@ngneat/hot-toast';
+import { OrderPipe } from 'ngx-order-pipe';
+import { Block } from 'src/app/shared/models/block';
 import { CpfBlockService } from 'src/app/shared/services/cpf-block.service';
 import { CreateCpfBlockComponent } from '../create-cpf-block/create-cpf-block.component';
 import { DeleteCpfBlockComponent } from '../delete-cpf-block/delete-cpf-block.component';
-import { UpdateCpfBlockComponent } from '../update-cpf-block/update-cpf-block.component';
-import { HotToastService } from '@ngneat/hot-toast';
 import { DetailCpfBlockComponent } from '../detail-cpf-block/detail-cpf-block.component';
-import { OrderPipe } from 'ngx-order-pipe';
+import { UpdateCpfBlockComponent } from '../update-cpf-block/update-cpf-block.component';
 
 @Component({
   selector: 'app-list-cpf-block',
@@ -25,7 +25,7 @@ export class ListCpfBlockComponent implements OnInit {
   order: string = 'nomeCompleto';
   reverse: boolean = false;
   caseInsensitive: boolean = false;
-  loading: boolean = true
+  loading: boolean = true;
 
   constructor(
     public cpfBlockService: CpfBlockService,

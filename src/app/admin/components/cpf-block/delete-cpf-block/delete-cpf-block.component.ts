@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Block } from 'src/app/shared/models/cpf-block/block';
+import { Block } from 'src/app/shared/models/block';
 
 @Component({
   selector: 'app-delete-cpf-block',
