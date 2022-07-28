@@ -26,9 +26,15 @@
     <input class="form-control" type="text" placeholder="{{ usuario.registeredAt | date : 'd MMMM, y, h:mm a' }}" disabled>
   </label>
 
-  <label>Último acesso::
+  <label *ngIf="usuario.lastSignIn != undefined; else semRegistro">Último acesso:
     <input class="form-control" type="text" placeholder="{{ usuario.lastSignIn | date : 'd MMMM, y, h:mm a' }}" disabled>
   </label>
+
+  <ng-template #semRegistro>
+    <label>Último acesso:
+      <input class="form-control" type="text" placeholder="Ainda sem registro" disabled>
+    </label>
+  </ng-template>
 
   <label>Tipo do Usuário:
     <input class="form-control" type="text" placeholder="{{ usuario.type }}" disabled>
