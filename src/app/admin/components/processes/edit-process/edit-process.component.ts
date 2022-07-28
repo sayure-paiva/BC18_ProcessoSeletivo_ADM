@@ -77,7 +77,7 @@ export class EditProcessComponent implements OnInit {
   }
 
   returnIfTurmaAlreadyExists(){
-    const turmaFound = this.processosAll.find((processo) => processo.turma == this.turma.value);
+    const turmaFound = this.processosAll.find((processo) => processo.turma == this.turma.value && processo.id != this.processo.id);
     return turmaFound != undefined;
   }
 
