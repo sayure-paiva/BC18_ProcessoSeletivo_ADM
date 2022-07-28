@@ -27,7 +27,7 @@ export class UserListComponent implements OnInit {
   order: string = 'type';
   reverse: boolean = true;
   caseInsensitive: boolean = false;
-  titulo = 'Funcionarios Cadastrados';
+  titulo = 'Funcionários Cadastrados';
   disabled: boolean = false;
 
   constructor(
@@ -89,7 +89,7 @@ export class UserListComponent implements OnInit {
 
   changeDisabled() {
 
-    this.disabled ? this.titulo = 'Funcionarios cadastrados' : this.titulo = 'Funcionarios desabilitados'
+    this.disabled ? this.titulo = 'Funcionários cadastrados' : this.titulo = 'Funcionarios desabilitados'
 
     this.disabled ? this.disabled = false : this.disabled = true ;
 

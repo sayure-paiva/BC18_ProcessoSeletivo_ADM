@@ -83,7 +83,7 @@
         </div>
         <form [formGroup]="actionsForm" style="background-color: #0f637a;">
             <div class="container-fluid textarea-wrapper">
-                <textarea class="textArea text-white"
+                <textarea class="textArea text-white" [(ngModel)]="candidateModal.comentario"
                     formControlName="comentario" cols="10" rows="10" placeholder="Digite seu comentário">Escreva aqui</textarea>
             </div>
         </form>

@@ -3,7 +3,7 @@
     padding: 3rem 5rem 3rem 5rem;
     border: 1px solid #FAFAFA;
     border-radius: 15px;
-    box-shadow: 0 0 0.5em #0F637A;  
+    box-shadow: 0 0 0.5em #0F637A;
 }
 
 .labelForm {
@@ -12,12 +12,9 @@
 
 .titulo {
     text-align: center;
-    margin-top: 6rem;
+    margin-top: 7rem;
     margin-bottom: 3vh;
-    font-family: "Gilroy";
-    font-weight: 700;
-    line-height: 1.3;
-    color: #3F3A64;
+    font-size: 24px;
 }
 
 .formTopico{
@@ -96,7 +93,7 @@ tr {
     .wrapperImagem{
         width: 20%;
     }
-    
+
     .wrapperSubtitulo {
         width: 80%;
     }
