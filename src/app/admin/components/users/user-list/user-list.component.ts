@@ -136,7 +136,7 @@ export class UserListComponent implements OnInit {
       ref.closed.subscribe({
         next:  (result) => {
           if (result) {
-            this.adminSerivce.updateUser(result.usuario, result.imagem).then(res => console.log(res))
+            this.adminSerivce.updateUser(result.usuario, result.imagem)
           }
         },
       });

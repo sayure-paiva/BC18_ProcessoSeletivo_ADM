@@ -44,6 +44,13 @@ export class AdminService {
       type: type,
       photoURL: this.imagemURL
     })
+    .pipe(
+      this.toast.observe({
+        loading: "Criando usuário...",
+        error: "Ocorreu um erro!",
+        success: "Usuário criado com sucesso!",
+      })
+    )
     .subscribe()
   }
 
