@@ -84,6 +84,5 @@ export class TesteLogicoAddComponent implements OnInit {
           this.addTesteForm.reset();
         }
       })
-
   }
 }

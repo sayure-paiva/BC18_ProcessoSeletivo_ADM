@@ -69,11 +69,6 @@ export class TesteLogicoEditComponent implements OnInit {
   }
 
   updateTesteFields() {
-    if (this.teste.answers.length == 1) {
-      this.teste.type = "radio"
-    } else {
-      this.teste.type = "checkbox"
-    }
     this.teste.question = this.question.value;
     this.teste.alternatives[0] = this.alternatives1.value;
     this.teste.alternatives[1] = this.alternatives2.value;
@@ -87,6 +82,11 @@ export class TesteLogicoEditComponent implements OnInit {
       }
     })
     this.teste.answers = answers;
+    if (this.teste.answers.length == 1) {
+      this.teste.type = "radio"
+    } else {
+      this.teste.type = "checkbox"
+    }
     const tipoBootcamp = this.tiposBootcamp.find((tipoBootcamp) => this.bootcamp.value == tipoBootcamp.tipo);
     this.teste.bootcamp = tipoBootcamp.tipo;
   }
