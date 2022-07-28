@@ -12,8 +12,7 @@ import { MiniCourseService } from 'src/app/shared/services/mini-course.service';
 export class DetailMiniCourseComponent implements OnInit {
 
 
-  public isCollapsedbt1 = true;
-  public isCollapsedbt2 = true;
+  public isCollapsedbt1 = false;
   topicoAtual: Topico;
   miniCurso: MiniCurso = {} as MiniCurso;
   loading: boolean = true;
@@ -48,6 +47,7 @@ export class DetailMiniCourseComponent implements OnInit {
     this.miniCourseService.getMiniCursoById(id)
       .subscribe((miniCurso) => {
         this.miniCurso = miniCurso;
+        this.topicoAtual = miniCurso.topicos[0];
         this.loading = false;
       });
   }
