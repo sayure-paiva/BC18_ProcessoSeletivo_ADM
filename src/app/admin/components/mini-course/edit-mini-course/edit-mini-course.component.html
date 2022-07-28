@@ -3,7 +3,7 @@
         <h2 class="titulo">Editar Mini-Curso</h2>
         <form class="formCreate" [formGroup]="this.createMiniCursoForm">
             <div class="inputWrapper">
-                <label class="labelForm" for="titulo" style="text-align: start;">Título do Mini Curso</label>
+                <label class="labelForm" for="titulo" style="text-align: start;">Título do Mini-Curso</label>
                 <input id="titulo" placeholder="Digite o título do Mini Curso" formControlName="titulo" type="text"
                     class="input-field col s12" />
                 <small class="text-danger" *ngIf="titulo?.touched && titulo?.invalid">
