@@ -60,7 +60,7 @@
         </div>
 
         <div class="submitWrapper">
-            <button class="btn btn-primary submit" (click)="onSubmit()" [disabled]="createProcessForm.invalid || returnIfAnotherProcessIsActive()">
+            <button class="btn btn-primary submit" (click)="onSubmit()" [disabled]="createProcessForm.invalid || returnIfAnotherProcessIsActive() || returnIfTurmaAlreadyExists() || returnIfDateIsIncompatible(inicioInscricoes.value, terminoInscricoes.value) || returnIfDateIsIncompatible(terminoInscricoes.value, inicioBootcamp.value)">
                 Criar Processo
             </button>
         </div>
