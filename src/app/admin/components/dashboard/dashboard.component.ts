@@ -18,8 +18,8 @@ export class DashboardComponent implements OnInit {
   racaOuCor$?: Observable<ChartData>;
   idades$?: Observable<ChartData>;
   escolaridades$?: Observable<ChartData>;
-  pitchUrl$?: Observable<ChartData>;
-  statusJornada$?: Observable<ChartData>;
+  comoNosConheceu$?: Observable<ChartData>;
+  statusFinal$?: Observable<ChartData>;
   turma$?: Observable<ChartData>;
   listaTurma: any[] = [];
   listaTurmaSelecionada = [];
@@ -107,8 +107,8 @@ export class DashboardComponent implements OnInit {
       )
   }
 
-  getDataPitch(lista: any[]) {
-    return this.dashboardService.getPitch(lista)
+  getDataMeet(lista: any[]) {
+    return this.dashboardService.getMeet(lista)
       .pipe(map(data => {
         return {
           labels: Object.keys(data),
@@ -181,8 +181,8 @@ export class DashboardComponent implements OnInit {
     this.racaOuCor$ = this.getDataEthnicity(lista);
     this.idades$ = this.getDataAge(lista);
     this.escolaridades$ = this.getDataSchooling(lista);
-    this.pitchUrl$ = this.getDataPitch(lista);
-    this.statusJornada$ = this.getDataStatus(lista);
+    this.comoNosConheceu$ = this.getDataMeet(lista);
+    this.statusFinal$ = this.getDataStatus(lista);
   }
 }
 
