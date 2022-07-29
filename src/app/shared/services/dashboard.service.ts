@@ -88,15 +88,15 @@ export class DashboarService {
     return obj;
   }
 
-  getPitch(processoUid: string[]) {
-    return this.getFilter(processoUid).pipe(map(this._pitch));
+  getMeet(processoUid: string[]) {
+    return this.getFilter(processoUid).pipe(map(this._redesSociais));
   }
-  private _pitch(inscricao: Inscricao[]) {
-    const todosOsVideos = inscricao.map((inscricao) => inscricao.pitchURL);
-    const videos = new Set(todosOsVideos);
+  private _redesSociais(inscricao: Inscricao[]) {
+    const todosAsRedes = inscricao.map((inscricao) => inscricao.comoNosConheceu);
+    const redes = new Set(todosAsRedes);
     const obj: { [x: string]: number } = {};
-    videos.forEach((video) => {
-      obj[video] = todosOsVideos.filter((vid) => vid === video).length;
+    redes.forEach((rede) => {
+      obj[rede] = todosAsRedes.filter((red) => red === rede).length;
     });
     return obj;
   }
@@ -105,7 +105,7 @@ export class DashboarService {
     return this.getFilter(processoUid).pipe(map(this._statusJornada));
   }
   private _statusJornada(inscricao: Inscricao[]) {
-    const todosOsStatus = inscricao.map((inscricao) => inscricao.statusJornada);
+    const todosOsStatus = inscricao.map((inscricao) => inscricao.statusFinal);
     const situacoes = new Set(todosOsStatus);
     const obj: { [x: string]: number } = {};
     situacoes.forEach((situacao) => {
