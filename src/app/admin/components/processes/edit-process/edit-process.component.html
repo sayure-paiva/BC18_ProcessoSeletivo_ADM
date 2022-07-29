@@ -66,7 +66,7 @@
 
         <div class="submitWrapper">
             <button class="btn btn-primary submit" (click)="onSubmit()"
-                [disabled]="editProcessForm.invalid || returnIfAnotherProcessIsActive()">
+                [disabled]="editProcessForm.invalid || returnIfAnotherProcessIsActive() || returnIfTurmaAlreadyExists() || returnIfDateIsIncompatible(inicioInscricoes.value, terminoInscricoes.value) || returnIfDateIsIncompatible(terminoInscricoes.value, inicioBootcamp.value)">
                 Editar Processo
             </button>
         </div>
